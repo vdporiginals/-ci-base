@@ -2,19 +2,11 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'lib-base',
-  template: `
-    <p>
-      base works!
-    </p>
-  `,
-  styles: [
-  ]
+  template: ` > `,
+  styles: [],
 })
 export class BaseComponent implements OnInit {
+  // constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }
