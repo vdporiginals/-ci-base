@@ -8,9 +8,16 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class FormCreateComponent implements OnInit {
     @Input() data: any;
     @Output() callback = new EventEmitter<any>();
+    model: any = {};
 
     constructor() { }
 
-    ngOnInit(): void { }
+    ngOnInit(): void {
+        console.log(this.data);
+    }
+
+    callBackData = () => {
+        this.callback.emit(this.model);
+    }
 
 }

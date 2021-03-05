@@ -6,8 +6,14 @@ import { FormsModule } from '@angular/forms';
 import { FormCreateComponent } from './form-create/form-create.component';
 import { FormListComponent } from './form-list/form-list.component';
 @NgModule({
-    declarations: [FormCreateComponent, FormListComponent],
-    exports: [],
+    declarations: [
+        FormCreateComponent,
+        FormListComponent
+    ],
+    exports: [
+        FormCreateComponent,
+        FormListComponent
+    ],
     imports: [
         CommonModule,
         RouterModule,
