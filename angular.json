@@ -8,28 +8,28 @@
   "projects": {
     "@ci/base": {
       "projectType": "library",
-      "root": "projects/ci/base",
-      "sourceRoot": "projects/ci/base/src",
+      "root": "projects/@ci/base",
+      "sourceRoot": "projects/@ci/base/src",
       "prefix": "ci",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "tsConfig": "projects/ci/base/tsconfig.lib.json",
-            "project": "projects/ci/base/ng-package.json"
+            "tsConfig": "projects/@ci/base/tsconfig.lib.json",
+            "project": "projects/@ci/base/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/ci/base/tsconfig.lib.prod.json"
+              "tsConfig": "projects/@ci/base/tsconfig.lib.prod.json"
             }
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/ci/base/src/test.ts",
-            "tsConfig": "projects/ci/base/tsconfig.spec.json",
-            "karmaConfig": "projects/ci/base/karma.conf.js"
+            "main": "projects/@ci/base/src/test.ts",
+            "tsConfig": "projects/@ci/base/tsconfig.spec.json",
+            "karmaConfig": "projects/@ci/base/karma.conf.js"
           }
         },
         "lint": {
