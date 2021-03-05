@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'lib-base',
+  selector: 'ci-base',
   template: ` > `,
   styles: [],
 })
