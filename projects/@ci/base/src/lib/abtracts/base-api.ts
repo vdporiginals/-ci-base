@@ -1,9 +1,4 @@
-import {
-  HttpClient,
-  HttpEvent,
-  HttpHeaders,
-  HttpParams,
-} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 interface HttpOptions {
@@ -65,7 +60,7 @@ export abstract class BaseApiService<T> {
     return this.http.put<T>(`${this.actionUrl}/${id}`, data, this.httpOptions);
   }
 
-  delete(id?: any, params?: Params, databody?: unknown): Observable<T> {
+  delete(id?: unknown, params?: Params, databody?: unknown): Observable<T> {
     this.httpOptions = {
       params,
       body: databody,
