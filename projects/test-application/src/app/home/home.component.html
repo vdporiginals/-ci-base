@@ -1,1 +1,12 @@
-<p *ngFor="let item of items">home works!</p>
+<!-- <p *ngFor="let item of items">home works!</p> -->
+<ci-search [cssClass]="'abc'" [searchParams]="'keyword'" [listItemClient]="
+[
+{keyword: 'Con cá',title: 'abc'},
+{keyword: 'lừu đạn',title: 'abc'},
+{keyword: 'vãi lúa',title: 'abc'},
+{keyword: 'ối dồi ơi',title: 'abc'},
+{keyword: 'đông ý',title: 'abc'}]" (searchItemsClient)="test($event)" [params]="{
+    keyword: 'abc',
+    title: 'abc'
+}">
+</ci-search>

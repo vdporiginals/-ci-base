@@ -14,4 +14,8 @@ export class HomeComponent
   }
 
   ngOnInit(): void {}
+
+  test(ev: any) {
+    console.log(ev);
+  }
 }

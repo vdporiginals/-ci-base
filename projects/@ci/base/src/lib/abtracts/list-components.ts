@@ -1,6 +1,6 @@
-import { Injectable, Input } from '@angular/core';
+import { Directive, Injectable, Input } from '@angular/core';
 
-@Injectable()
+@Directive()
 export abstract class ListComponent<T> {
   @Input() items: T[] | undefined;
 }

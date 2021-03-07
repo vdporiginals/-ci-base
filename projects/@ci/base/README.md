@@ -1,24 +1,43 @@
-# Base
+# Base CI Frontend Angular
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.4.
+Thư Viện gồm các Base components, Base abtracts class, Service
 
-## Code scaffolding
+## Components
+ ***Search Components:***
 
-Run `ng generate component component-name --project base` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project base`.
-> Note: Don't forget to add `--project base` or else it will be added to the default project in your `angular.json` file. 
+ `<ci-search></ci-search>`
+ 
+- Input:
+```
+ + listItemClient: Truyền vào list item cần tìm kiếm ,
+ + searchParams: truyền vào params(property) tìm kiếm,
+ + cssClass: truyền vào style custom input,
+ + debounceTime: truyền vào thời gian delay khi nhả phím (ms), 
+ + searchUrl: tìm kiếm severside url,
+ + params: params tìm kiếm serverside url,
+```
+- Output:
+```
+ + searchItemsClient: list item tim kiem dưoc ,
+ + searchItemsServer: list item tim kiem duoc serverside,
+```
 
-## Build
+ - Demo how to use
 
-Run `ng build base` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Publishing
-
-After building your library with `ng build base`, go to the dist folder `cd dist/base` and run `npm publish`.
-
-## Running unit tests
-
-Run `ng test base` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```
+<ci-search 
+[cssClass]="'abc'" 
+[searchParams]="'keyword'" 
+[listItemClient]="
+ [
+  {keyword: 'Con cá',title: 'abc'},
+  {keyword: 'lừu đạn',title: 'abc'},
+  {keyword: 'vãi lúa',title: 'abc'},
+  {keyword: 'ối dồi ơi',title: 'abc'},
+  {keyword: 'đông ý',title: 'abc'}
+ ]" 
+(searchItemsClient)="test($event)" 
+(searchItemsServer)="test($event)" '
+[params]="{keyword: 'abc',title: 'abc'}">
+</ci-search>
+```
