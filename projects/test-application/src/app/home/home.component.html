@@ -10,3 +10,15 @@
     title: 'abc'
 }">
 </ci-search>
+
+<ci-list [id]="'asf'" [items]="[1,2,3,4]" [itemPerPage]="2" [page]="1" [totalItem]="4">
+  <ng-template #item let-item="item">
+    <div>
+      <p>ad {{item}}</p>
+    </div>
+  </ng-template>
+  <ng-template #pagination let-item="pagination">
+    <ci-pagination [id]="'asf'" [itemPerPage]="2" [page]="1" [totalItem]="4"></ci-pagination>
+  </ng-template>
+
+</ci-list>

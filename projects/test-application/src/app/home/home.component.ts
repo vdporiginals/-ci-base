@@ -6,11 +6,9 @@ import { ListComponent } from '@ci/base';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent
-  extends ListComponent<{ Type: string }>
-  implements OnInit {
+export class HomeComponent implements OnInit {
   constructor() {
-    super();
+    // super();
   }
 
   ngOnInit(): void {}

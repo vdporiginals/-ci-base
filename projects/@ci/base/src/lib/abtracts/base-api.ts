@@ -12,7 +12,7 @@ interface HttpOptions {
   withCredentials?: boolean | undefined;
 }
 
-interface BaseResponse<T> {
+interface BaseResponse<T> { 
   Ok: boolean | undefined;
   Message: string | undefined;
   Payload?: T | undefined;

@@ -5,17 +5,21 @@ interface ApiDetail {
   params: Record<string, string>;
 }
 @Directive()
-export abstract class ListAbtractsComponent<T> {
-  @Input() items!: T[];
+export abstract class PaginationAbtractsComponent {
   @Input() page: number = 1;
   @Input() itemPerPage: number = 5;
   @Input() totalItem!: number;
-  @Input() apiDetail!: ApiDetail;
 
-  @Output() changePage = new EventEmitter()
-  constructor(private http: HttpClient) {}
+  @Output() changePage = new EventEmitter();
+  constructor() {}
 
-  nextPage() {
-    this.changePage.emit(this.page + 1);
+  pageChanged(ev?: unknown) {
+    console.log(ev);
+    
+    if (ev) {
+      this.changePage.emit(ev);
+    } else {
+      this.changePage.emit(this.page);
+    }
   }
 }
