@@ -6,20 +6,9 @@ interface ApiDetail {
 }
 @Directive()
 export abstract class PaginationAbtractsComponent {
-  @Input() page: number = 1;
-  @Input() itemPerPage: number = 5;
-  @Input() totalItem!: number;
-
-  @Output() changePage = new EventEmitter();
-  constructor() {}
-
-  pageChanged(ev?: unknown) {
-    console.log(ev);
-    
-    if (ev) {
-      this.changePage.emit(ev);
-    } else {
-      this.changePage.emit(this.page);
-    }
-  }
+  @Input() id!: string;
+  @Input() maxSize!: number;
+  @Output() pageChange: EventEmitter<number> = new EventEmitter();
+  @Output() pageBoundsCorrection!: EventEmitter<number>;
+  @Input() cssClass!: string;
 }

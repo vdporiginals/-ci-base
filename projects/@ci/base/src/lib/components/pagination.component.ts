@@ -1,17 +1,24 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { PaginationAbtractsComponent } from '../abtracts/pagination-component';
 
 @Component({
   selector: 'ci-pagination',
-  styles: [``],
+  styles: [
+    `
+      .pagination_list {
+        display: flex;
+        justify-content: space-between;
+      }
+    `,
+  ],
   template: `
     <pagination-template
-      class="fruit_pagination"
+      [class]="cssClass"
       #pg="paginationApi"
-      (pageChange)="pageChanged($event)"
+      (pageChange)="pageChange.emit($event)"
       [id]="id"
     >
-      <ul class="pagination_list" fxLayout="row" fxLayoutAlign="center center">
+      <ul class="pagination_list">
         <div>
           <li class="page_item page_item_previous">
             <a class="page_link" aria-label="Previous" (click)="pg.previous()">
@@ -21,17 +28,17 @@ import { PaginationAbtractsComponent } from '../abtracts/pagination-component';
         </div>
         <div
           *ngFor="let page of pg.pages"
-          [class.active]="pg.getCurrent() === page.value"
+          [class.active_page]="pg.getCurrent() == page.value"
         >
           <li class="page_item">
             <a
               class="page_link"
               (click)="pg.setCurrent(page.value)"
-              [class.disabled]="pg.getCurrent() === page.value"
+              [class.disabled_page]="pg.getCurrent() == page.value"
               *ngIf="pg.getCurrent() !== page.value"
               >{{ page.label }}</a
             >
-            <a class="page_link" *ngIf="pg.getCurrent() === page.value">{{
+            <a class="page_link" *ngIf="pg.getCurrent() == page.value">{{
               page.label
             }}</a>
           </li>
@@ -58,10 +65,6 @@ import { PaginationAbtractsComponent } from '../abtracts/pagination-component';
       </ul>
     </pagination-template>
   `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PaginationComponent extends PaginationAbtractsComponent {
-  @Input() id!: string;
-  @Input() maxSize!: number;
-  @Output() pageChange!: EventEmitter<number>;
-  @Output() pageBoundsCorrection!: EventEmitter<number>;
-}
+export class PaginationComponent extends PaginationAbtractsComponent {}

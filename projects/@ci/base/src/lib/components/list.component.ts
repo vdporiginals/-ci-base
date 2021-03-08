@@ -1,4 +1,13 @@
-import { Component, ContentChild, Input, TemplateRef } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ContentChild,
+  Input,
+  OnChanges,
+  SimpleChange,
+  SimpleChanges,
+  TemplateRef,
+} from '@angular/core';
 import { ListAbtractsComponent } from '../abtracts';
 
 @Component({
@@ -10,7 +19,7 @@ import { ListAbtractsComponent } from '../abtracts';
           | paginate
             : {
                 itemsPerPage: itemPerPage,
-                currentPage: currentPage,
+                currentPage: pageCur,
                 totalItems: totalItem,
                 id: id
               }
@@ -26,8 +35,12 @@ import { ListAbtractsComponent } from '../abtracts';
       ></ng-container>
     </div>
   `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ListComponent extends ListAbtractsComponent<any> {
+export class ListComponent
+  extends ListAbtractsComponent<any>
+  implements OnChanges {
+  pageCur = 0;
   @Input() id!: string;
   @Input() itemsPerPage = 2;
   @Input() currentPage: number = 0;
@@ -39,7 +52,9 @@ export class ListComponent extends ListAbtractsComponent<any> {
   // get start() {
   //   return this.currentPage * this.itemsPerPage;
   // }
-
+  ngOnChanges(changes: SimpleChanges): void {
+    this.pageCur = changes.page.currentValue;
+  }
   // get end() {
   //   return this.currentPage * this.itemsPerPage + this.itemsPerPage;
   // }

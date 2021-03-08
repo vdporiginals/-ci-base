@@ -7,6 +7,8 @@ import { ListComponent } from '@ci/base';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
+  currentPage = 0;
+  items = [1];
   constructor() {
     // super();
   }
@@ -15,5 +17,7 @@ export class HomeComponent implements OnInit {
 
   test(ev: any) {
     console.log(ev);
+    this.currentPage = ev;
+    this.items = [4];
   }
 }

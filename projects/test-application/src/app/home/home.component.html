@@ -1,24 +1,38 @@
 <!-- <p *ngFor="let item of items">home works!</p> -->
-<ci-search [cssClass]="'abc'" [searchParams]="'keyword'" [listItemClient]="
-[
-{keyword: 'Con cá',title: 'abc'},
-{keyword: 'lừu đạn',title: 'abc'},
-{keyword: 'vãi lúa',title: 'abc'},
-{keyword: 'ối dồi ơi',title: 'abc'},
-{keyword: 'đông ý',title: 'abc'}]" (searchItemsClient)="test($event)" [params]="{
+<ci-search
+  [cssClass]="'abc'"
+  [searchParams]="'keyword'"
+  [listItemClient]="[
+    { keyword: 'Con cá', title: 'abc' },
+    { keyword: 'lừu đạn', title: 'abc' },
+    { keyword: 'vãi lúa', title: 'abc' },
+    { keyword: 'ối dồi ơi', title: 'abc' },
+    { keyword: 'đông ý', title: 'abc' }
+  ]"
+  (searchItemsClient)="test($event)"
+  [params]="{
     keyword: 'abc',
     title: 'abc'
-}">
+  }"
+>
 </ci-search>
 
-<ci-list [id]="'asf'" [items]="[1,2,3,4]" [itemPerPage]="2" [page]="1" [totalItem]="4">
+<ci-list
+  [id]="'asf'"
+  [items]="items"
+  [itemPerPage]="1"
+  [page]="currentPage"
+  [totalItem]="3"
+>
   <ng-template #item let-item="item">
     <div>
-      <p>ad {{item}}</p>
+      <p>ad {{ item }}</p>
     </div>
   </ng-template>
   <ng-template #pagination let-item="pagination">
-    <ci-pagination [id]="'asf'" [itemPerPage]="2" [page]="1" [totalItem]="4"></ci-pagination>
+    <ci-pagination
+      [id]="'asf'"
+      (pageChange)="currentPage = $event; test($event)"
+    ></ci-pagination>
   </ng-template>
-
 </ci-list>
