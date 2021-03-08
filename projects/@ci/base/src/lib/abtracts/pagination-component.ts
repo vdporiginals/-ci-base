@@ -1,9 +1,4 @@
-import { HttpClient } from '@angular/common/http';
 import { Directive, EventEmitter, Input, Output } from '@angular/core';
-interface ApiDetail {
-  apiUrl: string;
-  params: Record<string, string>;
-}
 @Directive()
 export abstract class PaginationAbtractsComponent {
   @Input() id!: string;

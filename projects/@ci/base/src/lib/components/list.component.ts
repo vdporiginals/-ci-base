@@ -2,11 +2,11 @@ import {
   ChangeDetectionStrategy,
   Component,
   ContentChild,
-  Input,
+
   OnChanges,
-  SimpleChange,
+
   SimpleChanges,
-  TemplateRef,
+  TemplateRef
 } from '@angular/core';
 import { ListAbtractsComponent } from '../abtracts';
 

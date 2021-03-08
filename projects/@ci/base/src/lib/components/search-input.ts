@@ -1,5 +1,10 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Input, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  Output,
+} from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
@@ -18,6 +23,7 @@ interface ItemsSearchArray extends Array<ItemsSearch | any> {}
   ],
   template:
     '<input type="text" [formControl]="textSearch" [class]="cssClass"/>',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchInputComponent {
   constructor(private readonly http: HttpClient) {}
@@ -54,7 +60,7 @@ export class SearchInputComponent {
     debounceTime(this.debounceTime),
     switchMap((val) => {
       this.params[this.searchParams] = val;
-      return this.http.get<[]>(this.searchUrl, {
+      return this.http.get<ReadonlyArray<unknown>>(this.searchUrl, {
         params: this.params,
       });
     })
@@ -64,7 +70,7 @@ export class SearchInputComponent {
     return this.textSearch.valueChanges;
   }
 
-  private nonAccentVietnamese(str: string) {
+  private nonAccentVietnamese(str: string): string {
     str = str.toLowerCase();
     //     We can also use this instead of from line 11 to line 17
     str = str.replace(

@@ -1,4 +1,4 @@
-import { Directive, EventEmitter, Input, Output } from '@angular/core';
+import { Directive, Input } from '@angular/core';
 @Directive()
 export abstract class ListAbtractsComponent<T> {
   @Input() id!: string;
