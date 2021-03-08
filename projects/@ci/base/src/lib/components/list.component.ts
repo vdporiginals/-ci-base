@@ -48,7 +48,7 @@ export class ListComponent
   //   return this.currentPage * this.itemsPerPage;
   // }
   ngOnChanges(changes: SimpleChanges): void {
-    this.pageCur = changes.page.currentValue;
+    this.pageCur = changes.currentPage.currentValue;
   }
   // get end() {
   //   return this.currentPage * this.itemsPerPage + this.itemsPerPage;

@@ -21,8 +21,8 @@
   [id]="'asf'"
   [items]="items"
   [itemPerPage]="1"
-  [page]="currentPage"
-  [totalItem]="3"
+  [currentPage]="currentPage"
+  [totalItem]="items.length"
 >
   <ng-template #item let-item="item">
     <div>
@@ -32,7 +32,7 @@
   <ng-template #pagination let-item="pagination">
     <ci-pagination
       [id]="'asf'"
-      (pageChange)="currentPage = $event; callApiServerSide($event)"
+      (pageChange)="currentPage = $event; test($event)"
     ></ci-pagination>
   </ng-template>
 </ci-list>

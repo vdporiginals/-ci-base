@@ -8,7 +8,7 @@ import { ListComponent } from '@ci/base';
 })
 export class HomeComponent implements OnInit {
   currentPage = 0;
-  items = [1,2,3,4,5];
+  items = [1, 2, 3, 4, 5];
   constructor() {
     // super();
   }
@@ -18,6 +18,5 @@ export class HomeComponent implements OnInit {
   test(ev: any) {
     console.log(ev);
     this.currentPage = ev;
-    this.items = [4];
   }
 }
