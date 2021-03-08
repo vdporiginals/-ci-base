@@ -32,7 +32,7 @@
   <ng-template #pagination let-item="pagination">
     <ci-pagination
       [id]="'asf'"
-      (pageChange)="currentPage = $event; test($event)"
+      (pageChange)="currentPage = $event; callApiServerSide($event)"
     ></ci-pagination>
   </ng-template>
 </ci-list>

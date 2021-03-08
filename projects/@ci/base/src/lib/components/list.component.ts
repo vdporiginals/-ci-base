@@ -41,11 +41,6 @@ export class ListComponent
   extends ListAbtractsComponent<any>
   implements OnChanges {
   pageCur = 0;
-  @Input() id!: string;
-  @Input() itemsPerPage = 2;
-  @Input() currentPage: number = 0;
-  @Input() totalItem!: number;
-
   @ContentChild('item', { static: false }) listTemplate!: TemplateRef<any>;
   @ContentChild('pagination', { static: false }) pagination!: TemplateRef<any>;
 
