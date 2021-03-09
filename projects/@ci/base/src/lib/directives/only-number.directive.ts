@@ -1,39 +1,39 @@
-import { Directive, HostListener, Input } from "@angular/core";
+import { Directive, HostListener, Input } from '@angular/core';
 
 @Directive({
-  selector: "[OnlyNumber]",
+  selector: '[OnlyNumber]',
 })
 export class OnlyNumberDirective {
-  regexStr = "^[0-9]*$";
+  regexStr = '^[0-9]*$';
   constructor() {}
 
-  @Input() OnlyNumber!: boolean;
+  @Input() OnlyNumber!: boolean | string;
 
-  @HostListener("keydown", ["$event"]) onKeyDown(event: KeyboardEvent) {
+  @HostListener('keydown', ['$event']) onKeyDown(event: KeyboardEvent) {
     const e = event as KeyboardEvent;
 
     if (this.OnlyNumber) {
       if (
         [
-          "Delete",
-          "Backspace",
-          "Tab",
-          "Control",
-          "Shift",
-          " ",
-          "ArrowRight",
-          "ArrowDown",
-          "ArrowLeft",
-          "ArrowUp",
+          'Delete',
+          'Backspace',
+          'Tab',
+          'Control',
+          'Shift',
+          ' ',
+          'ArrowRight',
+          'ArrowDown',
+          'ArrowLeft',
+          'ArrowUp',
         ].indexOf(e.key) !== -1 ||
         // Allow: Ctrl+A
-        ((e.key === "A" || e.key === "a") && e.ctrlKey === true) ||
+        ((e.key === 'A' || e.key === 'a') && e.ctrlKey === true) ||
         // Allow: Ctrl+C
-        ((e.key === "C" || e.key === "c") && e.ctrlKey === true) ||
+        ((e.key === 'C' || e.key === 'c') && e.ctrlKey === true) ||
         // Allow: Ctrl+V
-        ((e.key === "V" || e.key === "v") && e.ctrlKey === true) ||
+        ((e.key === 'V' || e.key === 'v') && e.ctrlKey === true) ||
         // Allow: Ctrl+X
-        ((e.key === "X" || e.key === "x") && e.ctrlKey === true)
+        ((e.key === 'X' || e.key === 'x') && e.ctrlKey === true)
         // Allow: home, end, left, right
         // (e.key >= 35 && e.key <= 39)
       ) {

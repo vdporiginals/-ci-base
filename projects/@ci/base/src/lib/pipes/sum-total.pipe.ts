@@ -8,6 +8,9 @@ export class sumTotalPipe implements PipeTransform {
   constructor(private currencyPipe: CurrencyPipe) {}
   transform(list: any[], args?: any): any {
     // console.log(list);
+    if (Number(+list[0])) {
+      return list.reduce((a, b) => a + b);
+    }
 
     const total = list
       .map((a) => {
@@ -16,11 +19,11 @@ export class sumTotalPipe implements PipeTransform {
         } else if (a.Value) {
           return a.Value;
         } else {
-          return a.value;
+          return a[args];
         }
       })
       .reduce((a, b) => a + b);
 
-    return this.currencyPipe.transform(total, 'VND', 'symbol');
+    return total;
   }
 }

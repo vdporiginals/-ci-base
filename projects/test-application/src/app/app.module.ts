@@ -9,9 +9,19 @@ import { HomeComponent } from './home/home.component';
 import { InputComponent } from './home/input/input.component';
 import { DynamicFormsComponent } from './dynamic-forms/dynamic-forms.component';
 import { DynamicFormsQuestionComponent } from './dynamic-forms-question/dynamic-forms-question.component';
+import {
+  CiDirectiveModule,
+  CiPipeModule,
+} from 'projects/@ci/base/src/public-api';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, InputComponent, DynamicFormsComponent, DynamicFormsQuestionComponent],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    InputComponent,
+    DynamicFormsComponent,
+    DynamicFormsQuestionComponent,
+  ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
@@ -19,6 +29,8 @@ import { DynamicFormsQuestionComponent } from './dynamic-forms-question/dynamic-
     HttpClientModule,
     AppRoutingModule,
     CiBaseModule,
+    CiPipeModule,
+    CiDirectiveModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
