@@ -1,6 +1,6 @@
 {
   "name": "ci-base",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Base abstract and components for CI",
   "repository": {
     "type": "git",
