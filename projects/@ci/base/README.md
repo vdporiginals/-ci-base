@@ -17,4 +17,4 @@ Thư Viện gồm các Base components, Base abtracts class, Service
 
 ## Dynamic Forms
 
-- [Docs Pipes](https://github.com/vdporiginals/-ci-base/tree/master/projects/%40ci/base/src/lib/forms)
+- [Docs Dynamic Forms](https://github.com/vdporiginals/-ci-base/tree/master/projects/%40ci/base/src/lib/forms)
