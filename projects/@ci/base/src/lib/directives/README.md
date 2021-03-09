@@ -11,3 +11,20 @@ Thư Viện gồm các Base components, Base abtracts class, Service
 ```
 <input type="text" [OnlyNumber]="true">
 ```
+
+Module:
+
+```
+@NgModule({
+  declarations: [
+    AppComponent,
+  ],
+  imports: [
+    CiDirectiveModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent],
+})
+export class AppModule {}
+
+```

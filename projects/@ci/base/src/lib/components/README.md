@@ -4,8 +4,24 @@ Thư Viện gồm các Base components, Base abtracts class, Service
 
 ## Components
 
-**_Search Components:_**
+**_Module_**
 
+```
+@NgModule({
+  declarations: [
+    AppComponent,
+  ],
+  imports: [
+    CiBaseModule,
+  ],
+  providers: [],
+  bootstrap: [AppComponent],
+})
+export class AppModule {}
+
+```
+
+**_Search Components:_**
 `<ci-search></ci-search>`
 
 - Input:
@@ -109,7 +125,8 @@ currentPage
 ```
 
 - Demo how to use
-Link
+  Link
+
 ```
 <ci-pagination
       [cssClass]="'adoaiopsfj'"
@@ -118,5 +135,6 @@ Link
     >
 </ci-pagination>
 // (Dùng với list xem bên trên)
-``` 
+```
+
 - [Ngx-Pagination demo](http://michaelbromley.github.io/ngx-pagination/#/server-paging)
