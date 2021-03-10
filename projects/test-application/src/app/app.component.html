@@ -1,3 +1,5 @@
 <app-home></app-home>
-<p>{{'dynamic-forms-question works!' | textOverflow:[4,'...Vãi']}}</p>
-<input type="text" [OnlyNumber]="true">
+<p>{{ "dynamic-forms-question works!" | textOverflow: [4, "...Vãi"] }}</p>
+<input type="text" [OnlyNumber]="true" />
+
+<ci-base-forms [formProps]="questions$ | async "> </ci-base-forms>
