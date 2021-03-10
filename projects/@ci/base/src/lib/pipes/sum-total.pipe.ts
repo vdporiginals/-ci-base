@@ -1,11 +1,10 @@
-import { CurrencyPipe } from '@angular/common';
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
   name: 'sumTotal',
 })
 export class sumTotalPipe implements PipeTransform {
-  constructor(private currencyPipe: CurrencyPipe) {}
+  constructor() {}
   transform(list: any[], args?: any): any {
     // console.log(list);
     if (Number(+list[0])) {
