@@ -1,17 +1,16 @@
-import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { LocalStorageService } from '@ci/base';
 import {
   EMPTY,
-  forkJoin,
+
   Observable,
   of,
   pipe,
   Subscription,
   throwError,
-  timer,
+  timer
 } from 'rxjs';
-import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { catchError, switchMap, tap } from 'rxjs/operators';
 import { AuthConfig } from '../../config/auth-config.interface';
 import { AUTH_CONFIG } from '../../config/auth.config';
 import { AuthResponse, LoginData } from '../models/auth-response.interface';
@@ -62,12 +61,12 @@ export class CiAuthService {
     );
 
   constructor(
-    @Inject(AUTH_CONFIG) private authConfig: AuthConfig,
-    private http: HttpClient,
-    private authStateService: AuthStateService,
-    private localStorageService: LocalStorageService,
-    private redirectService: RedirectService,
-    private securityService: CiSecurityService
+    @Inject(AUTH_CONFIG) private readonly authConfig: AuthConfig,
+    // private http: HttpClient,
+    private readonly authStateService: AuthStateService,
+    private readonly localStorageService: LocalStorageService,
+    private readonly redirectService: RedirectService,
+    private readonly securityService: CiSecurityService
   ) {
     this.API_URL = `${this.authConfig.AUTH_URL}`;
   }
