@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { PaginationAbtractsComponent } from '../abtracts/pagination-component';
 
@@ -70,11 +69,11 @@ import { PaginationAbtractsComponent } from '../abtracts/pagination-component';
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PaginationComponent extends PaginationAbtractsComponent {}
+export class CiPaginationComponent extends PaginationAbtractsComponent {}
 
 @NgModule({
-  declarations: [PaginationComponent],
+  declarations: [CiPaginationComponent],
   imports: [CommonModule, NgxPaginationModule],
-  exports: [PaginationComponent],
+  exports: [CiPaginationComponent],
 })
-export class PaginationComponentModule {}
+export class CiPaginationComponentModule {}

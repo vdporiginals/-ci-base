@@ -31,7 +31,7 @@ Module:
     AppComponent,
   ],
   imports: [
-    CiPipeModule
+    CurrencyShortPipeModule
   ],
   providers: [],
   bootstrap: [AppComponent],
@@ -62,7 +62,7 @@ Module:
     AppComponent,
   ],
   imports: [
-    CiPipeModule
+    SumTotalPipeModule
   ],
   providers: [],
   bootstrap: [AppComponent],
@@ -91,7 +91,7 @@ Module:
     AppComponent,
   ],
   imports: [
-    CiPipeModule
+    TextOverflowPipeModule
   ],
   providers: [],
   bootstrap: [AppComponent],
@@ -111,7 +111,7 @@ export class AppModule {}
   </div>
 ```
 
-- Trong component tạo vạo observable nhận vào timer 
+- Trong component tạo vạo observable nhận vào timer
 
 ```
  counterMinute: Observable<number> = timer(0, 1000).pipe(
@@ -135,7 +135,7 @@ Module:
     AppComponent,
   ],
   imports: [
-    CiPipeModule
+    TimePipeModule
   ],
   providers: [],
   bootstrap: [AppComponent],

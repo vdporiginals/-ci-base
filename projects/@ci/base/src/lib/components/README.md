@@ -4,23 +4,6 @@ Thư Viện gồm các Base components, Base abtracts class, Service
 
 ## Components
 
-**_Module_**
-
-```
-@NgModule({
-  declarations: [
-    AppComponent,
-  ],
-  imports: [
-    CiBaseModule,
-  ],
-  providers: [],
-  bootstrap: [AppComponent],
-})
-export class AppModule {}
-
-```
-
 **_Search Components:_**
 `<ci-search></ci-search>`
 
@@ -43,6 +26,21 @@ export class AppModule {}
 ```
 
 - Demo how to use
+
+```
+@NgModule({
+  declarations: [
+    AppComponent,
+  ],
+  imports: [
+    SearchInputComponentModule,
+  ],
+  providers: [],
+  bootstrap: [AppComponent],
+})
+export class AppModule {}
+
+```
 
 ```
 <ci-search
@@ -79,6 +77,21 @@ currentPage
 - Output: Tạm thời chưa có
 
 - Demo how to use
+
+```
+@NgModule({
+  declarations: [
+    AppComponent,
+  ],
+  imports: [
+    CiListComponentModule,
+  ],
+  providers: [],
+  bootstrap: [AppComponent],
+})
+export class AppModule {}
+
+```
 
 ```
 <ci-list
@@ -126,6 +139,21 @@ currentPage
 
 - Demo how to use
   Link
+
+```
+@NgModule({
+  declarations: [
+    AppComponent,
+  ],
+  imports: [
+    CiPaginationComponentModule,
+  ],
+  providers: [],
+  bootstrap: [AppComponent],
+})
+export class AppModule {}
+
+```
 
 ```
 <ci-pagination

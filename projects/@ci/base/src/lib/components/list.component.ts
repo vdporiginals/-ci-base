@@ -38,7 +38,7 @@ import { ListAbtractsComponent } from '../abtracts';
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ListComponent
+export class CiListComponent
   extends ListAbtractsComponent<any>
   implements OnChanges {
   pageCur = 0;
@@ -57,8 +57,8 @@ export class ListComponent
 }
 
 @NgModule({
-  declarations: [ListComponent],
+  declarations: [CiListComponent],
   imports: [CommonModule, NgxPaginationModule],
-  exports: [ListComponent],
+  exports: [CiListComponent],
 })
-export class ListComponentModule {}
+export class CiListComponentModule {}
