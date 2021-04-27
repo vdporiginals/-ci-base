@@ -143,3 +143,99 @@ Module:
 export class AppModule {}
 
 ```
+
+**Sum total Pipe**
+
+- Dùng để chuyển đổi số lớn thành các prefix M,Tỷ,...
+- Sử dụng trong template
+
+```
+    Input vào 1 list object có chứa value number:
+     <span>{{ item.LoanList | sumTotal:'Value' }} </span>
+     ('Value' = Property của object cần tính)
+
+    Hoặc input vào 1 list number:
+     <span>{{ item.LoanList | sumTotal }} </span>
+```
+
+Module:
+
+```
+@NgModule({
+  declarations: [
+    AppComponent,
+  ],
+  imports: [
+    SumTotalPipeModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent],
+})
+export class AppModule {}
+
+```
+
+**Text Overflow Pipe**
+
+- Dùng để chuyển đổi các chuỗi dài.
+- Sử dụng trong template
+
+```
+     {{ item.CustomerName | textOverflow: [15, "..."] }}
+     Trong đó [15, "..."]:
+      - 15 là số ký tự chuỗi được hiển thị.
+      - "..." : prefix của chuỗi
+```
+
+Module:
+
+```
+@NgModule({
+  declarations: [
+    AppComponent,
+  ],
+  imports: [
+    TextOverflowPipeModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent],
+})
+export class AppModule {}
+
+```
+
+**Function Call Pipe**
+
+- Dùng để call 1 function trên component
+- Sử dụng trong template
+
+```
+  <div class="name">
+     {{ name | callFunctionPipe: compile : this }}
+  </div>
+```
+
+- Trong component gọi function transform value
+
+```
+ compile(val){
+   return val.toString();
+ }
+```
+
+Module:
+
+```
+@NgModule({
+  declarations: [
+    AppComponent,
+  ],
+  imports: [
+    CallFunctionPipeModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent],
+})
+export class AppModule {}
+
+```
