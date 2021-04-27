@@ -1,11 +1,13 @@
+import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import {
   ChangeDetectionStrategy,
   Component,
   Input,
+  NgModule,
   Output,
 } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 
@@ -105,3 +107,10 @@ export class SearchInputComponent {
     return str;
   }
 }
+
+@NgModule({
+  declarations: [SearchInputComponent],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  exports: [SearchInputComponent],
+})
+export class SearchInputComponentModule {}

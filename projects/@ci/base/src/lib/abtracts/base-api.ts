@@ -12,10 +12,10 @@ interface HttpOptions {
   withCredentials?: boolean | undefined;
 }
 
-interface BaseResponse<T> { 
+interface BaseResponse<T> {
   Ok: boolean | undefined;
-  Message: string | undefined;
-  Payload?: T | undefined;
+  Message?: string | undefined;
+  Payload: T;
   Count?: number | undefined;
 }
 
@@ -34,12 +34,10 @@ export abstract class BaseApiService<T> {
       params,
       headers,
     };
-    return this.http
-      .get<Record<string, BaseResponse<T[]>>>(
-        `${this.actionUrl}`,
-        this.httpOptions
-      )
-      .pipe(map((res: Record<string, BaseResponse<T[]>>) => res.Payload));
+    return this.http.get<BaseResponse<T[]>>(
+      `${this.actionUrl}`,
+      this.httpOptions
+    );
   }
 
   detail(
@@ -51,12 +49,10 @@ export abstract class BaseApiService<T> {
       params,
       headers,
     };
-    return this.http
-      .get<Record<string, BaseResponse<T>>>(
-        `${this.actionUrl}/${id}`,
-        this.httpOptions
-      )
-      .pipe(map((res: Record<string, BaseResponse<T>>) => res.Payload));
+    return this.http.get<BaseResponse<T>>(
+      `${this.actionUrl}/${id}`,
+      this.httpOptions
+    );
   }
 
   create(

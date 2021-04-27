@@ -1,13 +1,14 @@
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
   ContentChild,
-
+  NgModule,
   OnChanges,
-
   SimpleChanges,
-  TemplateRef
+  TemplateRef,
 } from '@angular/core';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { ListAbtractsComponent } from '../abtracts';
 
 @Component({
@@ -54,3 +55,10 @@ export class ListComponent
   //   return this.currentPage * this.itemsPerPage + this.itemsPerPage;
   // }
 }
+
+@NgModule({
+  declarations: [ListComponent],
+  imports: [CommonModule, NgxPaginationModule],
+  exports: [ListComponent],
+})
+export class ListComponentModule {}

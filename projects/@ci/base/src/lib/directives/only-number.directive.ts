@@ -1,4 +1,5 @@
-import { Directive, HostListener, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Directive, HostListener, Input, NgModule } from '@angular/core';
 
 @Directive({
   selector: '[OnlyNumber]',
@@ -50,3 +51,10 @@ export class OnlyNumberDirective {
     }
   }
 }
+
+@NgModule({
+  declarations: [OnlyNumberDirective],
+  imports: [CommonModule],
+  exports: [OnlyNumberDirective],
+})
+export class OnlyNumberDirectiveModule {}

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ListComponent } from '@ci/base';
+import { TestService } from '../services/test.service';
 
 @Component({
   selector: 'app-home',
@@ -9,11 +10,15 @@ import { ListComponent } from '@ci/base';
 export class HomeComponent implements OnInit {
   currentPage = 0;
   items = [1, 2, 3, 4, 5];
-  constructor() {
+  constructor(private testService: TestService) {
     // super();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.testService.list().subscribe((res) => {
+      res.Payload;
+    });
+  }
 
   test(ev: any) {
     console.log(ev);

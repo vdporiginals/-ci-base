@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { NgModule, Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
   name: 'textOverflow',
@@ -10,3 +10,9 @@ export class TextOverflowPipe implements PipeTransform {
     return value?.length > limit ? value?.substring(0, limit) + trail : value;
   }
 }
+
+@NgModule({
+  declarations: [TextOverflowPipe],
+  exports: [TextOverflowPipe],
+})
+export class TextOverflowPipeModule {}

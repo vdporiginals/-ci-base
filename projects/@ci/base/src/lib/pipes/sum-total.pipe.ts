@@ -1,9 +1,9 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { NgModule, Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
   name: 'sumTotal',
 })
-export class sumTotalPipe implements PipeTransform {
+export class SumTotalPipe implements PipeTransform {
   constructor() {}
   transform(list: any[], args?: any): any {
     // console.log(list);
@@ -26,3 +26,9 @@ export class sumTotalPipe implements PipeTransform {
     return total;
   }
 }
+
+@NgModule({
+  declarations: [SumTotalPipe],
+  exports: [SumTotalPipe],
+})
+export class SumTotalPipeModule {}

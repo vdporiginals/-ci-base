@@ -11,7 +11,4 @@ export * from './lib/directives/index';
 export * from './lib/forms/index';
 export * from './lib/pipes/index';
 
-export * from './lib/base.module';
 export * from './lib/forms/forms.module';
-export * from './lib/pipes/pipe.module';
-export * from './lib/directives/directives.module';
