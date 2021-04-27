@@ -33,7 +33,7 @@ Thư Viện gồm các Base components, Base abtracts class, Service
     AppComponent,
   ],
   imports: [
-    SearchInputComponentModule,
+    CiSearchInputComponentModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

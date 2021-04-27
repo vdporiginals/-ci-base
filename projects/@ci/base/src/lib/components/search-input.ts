@@ -27,7 +27,7 @@ interface ItemsSearchArray extends Array<ItemsSearch | any> {}
     '<input type="text" [formControl]="textSearch" [class]="cssClass"/>',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SearchInputComponent {
+export class CiSearchInputComponent {
   constructor(private readonly http: HttpClient) {}
 
   public readonly textSearch: FormControl = new FormControl();
@@ -109,8 +109,8 @@ export class SearchInputComponent {
 }
 
 @NgModule({
-  declarations: [SearchInputComponent],
+  declarations: [CiSearchInputComponent],
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
-  exports: [SearchInputComponent],
+  exports: [CiSearchInputComponent],
 })
-export class SearchInputComponentModule {}
+export class CiSearchInputComponentModule {}
