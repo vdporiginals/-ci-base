@@ -1,5 +1,4 @@
 import { Inject, Injectable } from '@angular/core';
-import { LocalStorageService } from '@ci/base';
 import {
   EMPTY,
   Observable,
@@ -10,6 +9,7 @@ import {
   timer,
 } from 'rxjs';
 import { catchError, switchMap, tap } from 'rxjs/operators';
+import { LocalStorageService } from '../../../services/local-storage.service';
 import { AuthConfig } from '../../config/auth-config.interface';
 import { AUTH_CONFIG } from '../../config/auth.config';
 import { AuthState, LoginData } from '../models/auth-response.interface';
