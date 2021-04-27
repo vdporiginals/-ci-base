@@ -1,6 +1,6 @@
 export interface AuthResponse {
   AccessToken: string;
-  ExpiresIn: string;
+  ExpiresIn: number;
   IdToken: string;
   NewDeviceMetadata: string;
   RefreshToken: string;

@@ -23,4 +23,4 @@ export * from './lib/auth/config/auth-config.interface';
 export * from './lib/auth/config/auth.config';
 export * from './lib/auth/data-access/api/auth.service';
 export * from './lib/auth/data-access/models/auth-response.interface';
-export * from './lib/auth/data-access/store/auth.store';
+export * from './lib/auth/data-access/store/auth-state.service';
