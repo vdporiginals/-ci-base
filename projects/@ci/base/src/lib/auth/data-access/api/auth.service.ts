@@ -2,18 +2,17 @@ import { Inject, Injectable } from '@angular/core';
 import { LocalStorageService } from '@ci/base';
 import {
   EMPTY,
-
   Observable,
   of,
   pipe,
   Subscription,
   throwError,
-  timer
+  timer,
 } from 'rxjs';
 import { catchError, switchMap, tap } from 'rxjs/operators';
 import { AuthConfig } from '../../config/auth-config.interface';
 import { AUTH_CONFIG } from '../../config/auth.config';
-import { AuthResponse, LoginData } from '../models/auth-response.interface';
+import { AuthState, LoginData } from '../models/auth-response.interface';
 import { AuthStateService } from '../store/auth-state.service';
 import { RedirectService } from './redirect.service';
 import { CiSecurityService } from './security.service';
@@ -27,11 +26,11 @@ export class CiAuthService {
 
   private afterRequestToken = () =>
     pipe(
-      tap<AuthResponse>(({ RefreshToken, ExpiresIn }) => {
+      tap<AuthState>(({ RefreshToken, ExpiresIn }) => {
         this.localStorageService.set('rtok', RefreshToken);
         this.setupRefreshTimer(ExpiresIn);
       }),
-      switchMap((tokenRequest: AuthResponse) => {
+      switchMap((tokenRequest: AuthState) => {
         const {
           AccessToken,
           RefreshToken,
@@ -71,7 +70,7 @@ export class CiAuthService {
     this.API_URL = `${this.authConfig.AUTH_URL}`;
   }
 
-  login(data: LoginData): Observable<AuthResponse> {
+  login(data: LoginData): Observable<AuthState> {
     return this.securityService
       .requestAccessToken(data)
       .pipe(this.afterRequestToken());
@@ -88,7 +87,7 @@ export class CiAuthService {
     this.refreshToken().subscribe();
   }
 
-  refreshToken() {
+  refreshToken(): Observable<never> | Observable<AuthState> {
     const token = this.localStorageService.get('rtok');
     if (!token) {
       this.authStateService.reset();

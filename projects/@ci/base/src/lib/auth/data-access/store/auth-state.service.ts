@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { RxState } from '@rx-angular/state';
 import { map } from 'rxjs/operators';
-import { AuthResponse } from '../models/auth-response.interface';
+import { AuthState } from '../models/auth-response.interface';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthStateService extends RxState<AuthResponse> {
+export class AuthStateService extends RxState<AuthState> {
   token$ = this.select('AccessToken');
   tokenExpiry$ = this.select('ExpiresIn');
   refreshToken$ = this.select('RefreshToken');

@@ -1,4 +1,4 @@
-export interface AuthResponse {
+export interface AuthState {
   AccessToken: string;
   ExpiresIn: number;
   IdToken: string;
