@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { AuthConfig } from '../../config/auth-config.interface';
 import { AUTH_CONFIG } from '../../config/auth.config';
 import { AuthState, LoginData } from '../models/auth-response.interface';
@@ -18,7 +19,9 @@ export class CiSecurityService {
   }
 
   requestAccessToken(data: LoginData): Observable<AuthState> {
-    return this.http.post<AuthState>(this.API_URL, data);
+    return this.http
+      .post<AuthState>(this.API_URL, data)
+      .pipe(map((res: any) => res.payload as AuthState));
   }
 
   refresh(token: any) {
