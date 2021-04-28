@@ -16,6 +16,7 @@ export class CiPolicyUserService {
   ) {
     this.API_URL = `${this.authConfig.AUTH_URL}`;
   }
+  
 
   retrievePermissionsForUser(): Observable<any> {
     return this.http
