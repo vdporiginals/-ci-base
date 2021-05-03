@@ -53,6 +53,7 @@ export class CiAuthService {
         // ]);
         return of(tokenRequest);
       })
+      //Send req privli
       // map(([tokenRequest]) => {
       //   this.authStateService.set({ checkAccountHideTransaction });
       //   return tokenRequest;
@@ -95,7 +96,7 @@ export class CiAuthService {
       return EMPTY;
     }
 
-    return this.securityService.refresh({ token }).pipe(
+    return this.securityService.refresh(token).pipe(
       catchError((err: any) => {
         if (err.status === 401) {
           // do something if refreshToken is unauthorized.
@@ -110,7 +111,7 @@ export class CiAuthService {
     );
   }
 
-  private setupRefreshTimer(expiresIn: number) {
+  private setupRefreshTimer(expiresIn: number): void {
     const diffInMilli = expiresIn - 1000 * 60;
     // Reset the timer if there's already one running
     this.jwtSubscription?.unsubscribe();

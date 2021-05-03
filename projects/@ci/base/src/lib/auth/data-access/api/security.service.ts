@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { AuthConfig } from '../../config/auth-config.interface';
 import { AUTH_CONFIG } from '../../config/auth.config';
 import { AuthState, LoginData } from '../models/auth-response.interface';
+import { RegisterUser } from '../models/register.model';
 
 @Injectable({
   providedIn: 'root',
@@ -24,11 +25,39 @@ export class CiSecurityService {
       .pipe(map((res: any) => res.payload as AuthState));
   }
 
-  refresh(token: any) {
-    return token;
+  refresh(token: string) {
+    return this.http.post<AuthState>(`${this.API_URL}/cognito/refresh-token`, {
+      RefreshToken: token,
+    });
   }
 
-  register() {}
+  register(body: RegisterUser) {
+    return this.http.post(`${this.API_URL}/cognito/register`, body);
+  }
+
+  confirmSignUp(body: { Username: string; ConfirmationCode: string | number }) {
+    return this.http.post(`${this.API_URL}/cognito/confirm-signup`, body);
+  }
+
+  resendConfirmCode(username: string) {
+    return this.http.put(`${this.API_URL}/cognito/confirm-signup`, {
+      Username: username,
+    });
+  }
+
+  forgotPassword(username: string) {
+    return this.http.post(`${this.API_URL}/cognito/forgot-password`, {
+      Username: username,
+    });
+  }
+
+  confirmForgotPassword(body: {
+    Username: string;
+    ProposedPassword: string;
+    ConfirmationCode: string | number;
+  }) {
+    return this.http.put(`${this.API_URL}/cognito/forgot-password`, body);
+  }
 
   getMe() {}
 }

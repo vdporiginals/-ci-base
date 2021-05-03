@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, CanActivateChild, CanLoad } from '@angular/router';
-import { AuthStateService } from '@ci/base';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
+import { AuthStateService } from '../data-access/store/auth-state.service';
 
 @Injectable({
   providedIn: 'root',
