@@ -14,7 +14,7 @@ import { AuthConfig } from '../../config/auth-config.interface';
 import { AUTH_CONFIG } from '../../config/auth.config';
 import { AuthState, LoginData } from '../models/auth-response.interface';
 import { AuthStateService } from '../store/auth-state.service';
-import { RedirectService } from './redirect.service';
+import { RedirectService } from '../../services/redirect.service';
 import { CiSecurityService } from './security.service';
 
 @Injectable({

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { getDeepestChildSnapshot } from '../../utils/get-deepest';
+import { getDeepestChildSnapshot } from '../utils/get-deepest';
 
 @Injectable({
   providedIn: 'root',
@@ -24,5 +24,9 @@ export class RedirectService {
     this.router.navigate(['/login'], {
       queryParams: { returnUrl },
     });
+  }
+
+  redirectToNotAuthorized(): void {
+    this.router.navigate(['/not-authorized']);
   }
 }
