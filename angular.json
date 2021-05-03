@@ -9,6 +9,11 @@
     "@ci/base": {
       "projectType": "library",
       "root": "projects/@ci/base",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
       "sourceRoot": "projects/@ci/base/src",
       "prefix": "ci",
       "architect": {

@@ -21,7 +21,7 @@ export enum Privilege {
 }
 
 @Injectable({ providedIn: 'root' })
-export abstract class BasePolicyStateService<
+export abstract class CiBasePolicyStateService<
   TypePermissionNames
 > extends RxState<PermissionState> {
   currentPermissions$ = this.select('permissions');
