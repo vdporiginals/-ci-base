@@ -19,13 +19,16 @@ export * from './lib/forms/index';
 export * from './lib/forms/forms.module';
 
 //auth
+export * from './lib/auth/services/redirect.service';
 export * from './lib/auth/config/auth-config.interface';
 export * from './lib/auth/config/auth.config';
 export * from './lib/auth/data-access/api/auth.service';
-export * from './lib/auth/services/redirect.service';
 export * from './lib/auth/data-access/api/security.service';
 export * from './lib/auth/data-access/api/policy-user.service';
+export * from './lib/auth/data-access/api/account.service';
 export * from './lib/auth/data-access/models/auth-response.interface';
 export * from './lib/auth/data-access/store/auth-state.service';
 export * from './lib/auth/data-access/store/policy-state.service';
 export * from './lib/auth/guards/base-auth.guard';
+export * from './lib/auth/utils/auth.interceptor';
+export * from './lib/auth/utils/get-deepest';
