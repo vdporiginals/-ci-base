@@ -3,7 +3,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { getAuthConfigProvider } from 'projects/@ci/base/src/public-api';
+import {
+  CiPaginationComponentModule,
+  CiListComponentModule,
+  CiSearchInputComponentModule,
+  getAuthConfigProvider,
+} from '@ci/base';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DynamicFormsComponent } from './dynamic-forms/dynamic-forms.component';
@@ -20,6 +25,9 @@ import { InputComponent } from './home/input/input.component';
   imports: [
     CommonModule,
     FormsModule,
+    CiPaginationComponentModule,
+    CiListComponentModule,
+    CiSearchInputComponentModule,
     BrowserModule,
     ReactiveFormsModule,
     FormsModule,

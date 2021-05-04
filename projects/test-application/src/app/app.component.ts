@@ -67,12 +67,12 @@ export class AppComponent implements OnInit {
         })
       )
       .subscribe({
-        next: ([response, returnUrl, ready]) => {
-          this.loginResponse = response;
-          // if (response.status === ApiResponseStatus.Success && ready) {
+        next: (res) => {
+          this.loginResponse = res;
+          // if (res.status === ApiResponseStatus.Success && ready) {
           //   this.router.navigate(['/dashboard']);
           // }
-          console.log(response);
+          console.log(res);
         },
         error: (err) => {
           console.log(err);

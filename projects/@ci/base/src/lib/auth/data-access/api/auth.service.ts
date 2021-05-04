@@ -90,9 +90,11 @@ export class CiAuthService {
 
   refreshToken(): Observable<never> | Observable<AuthState> {
     const token = this.localStorageService.get('rtok');
+
     if (!token) {
-      this.authStateService.reset();
-      this.redirectService.redirectToLogin();
+      console.log(token);
+      // this.authStateService.reset();
+      // this.redirectService.redirectToLogin();
       return EMPTY;
     }
 

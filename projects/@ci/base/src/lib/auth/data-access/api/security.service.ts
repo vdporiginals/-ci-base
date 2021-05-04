@@ -21,7 +21,7 @@ export class CiSecurityService {
 
   requestAccessToken(data: LoginData): Observable<AuthState> {
     return this.http
-      .post<AuthState>(this.API_URL, data)
+      .post<AuthState>(this.API_URL + '/cognito/login', data)
       .pipe(map((res: any) => res.payload as AuthState));
   }
 
