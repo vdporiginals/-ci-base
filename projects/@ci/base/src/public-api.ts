@@ -32,3 +32,5 @@ export * from './lib/auth/data-access/store/policy-state.service';
 export * from './lib/auth/guards/base-auth.guard';
 export * from './lib/auth/utils/auth.interceptor';
 export * from './lib/auth/utils/get-deepest';
+export * from './lib/auth/utils/log-and-return';
+// export * from './lib/auth/utils/root-injector';

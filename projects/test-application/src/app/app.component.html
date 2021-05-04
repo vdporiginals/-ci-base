@@ -1,5 +1,13 @@
 <app-home></app-home>
-<p>{{ "dynamic-forms-question works!" | textOverflow: [4, "...Vãi"] }}</p>
-<input type="text" [OnlyNumber]="true" />
+<!-- <p>{{ "dynamic-forms-question works!" | textOverflow: [4, "...Vãi"] }}</p>
+<input type="text" [OnlyNumber]="true" /> -->
 
-<ci-base-forms [formProps]="questions$ | async "> </ci-base-forms>
+<!-- <ci-base-forms [formProps]="questions$ | async "> </ci-base-forms> -->
+
+
+<div class="login">
+    
+    <input [(ngModel)]="user" type="text">
+    <input [(ngModel)]="password" type="text">
+    <button (click)="login()">Login</button>
+</div>

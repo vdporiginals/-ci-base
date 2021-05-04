@@ -4,4 +4,4 @@ import { CiBasePolicyStateService } from '../data-access/store/policy-state.serv
 @Injectable({
   providedIn: 'root',
 })
-export class PermissionStateService extends CiBasePolicyStateService<any> {}
+export class CiPolicyStateService extends CiBasePolicyStateService<any> {}

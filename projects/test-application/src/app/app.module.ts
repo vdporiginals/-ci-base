@@ -1,19 +1,14 @@
+import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import {
-  CiBaseModule,
-  CiDirectiveModule,
-  CiFormsModule,
-  CiPipeModule,
-} from '@ci/base';
+import { getAuthConfigProvider } from 'projects/@ci/base/src/public-api';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { DynamicFormsComponent } from './dynamic-forms/dynamic-forms.component';
 import { HomeComponent } from './home/home.component';
 import { InputComponent } from './home/input/input.component';
-import { DynamicFormsComponent } from './dynamic-forms/dynamic-forms.component';
-import { DynamicFormsQuestionComponent } from './dynamic-forms-question/dynamic-forms-question.component';
 
 @NgModule({
   declarations: [
@@ -21,20 +16,22 @@ import { DynamicFormsQuestionComponent } from './dynamic-forms-question/dynamic-
     HomeComponent,
     InputComponent,
     DynamicFormsComponent,
-    DynamicFormsQuestionComponent,
   ],
   imports: [
+    CommonModule,
+    FormsModule,
     BrowserModule,
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
-    CiBaseModule,
-    CiPipeModule,
-    CiDirectiveModule,
-    CiFormsModule,
   ],
-  providers: [],
+  providers: [
+    getAuthConfigProvider({
+      AUTH_URL:
+        'https://t39b2wqe1h.execute-api.ap-southeast-1.amazonaws.com/prod',
+    }),
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
