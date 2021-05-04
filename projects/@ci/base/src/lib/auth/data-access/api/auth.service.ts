@@ -1,6 +1,7 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
   EMPTY,
+  forkJoin,
   Observable,
   of,
   pipe,
@@ -8,13 +9,11 @@ import {
   throwError,
   timer,
 } from 'rxjs';
-import { catchError, switchMap, tap } from 'rxjs/operators';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { LocalStorageService } from '../../../services/local-storage.service';
-import { AuthConfig } from '../../config/auth-config.interface';
-import { AUTH_CONFIG } from '../../config/auth.config';
+import { RedirectService } from '../../services/redirect.service';
 import { AuthState, LoginData } from '../models/auth-response.interface';
 import { AuthStateService } from '../store/auth-state.service';
-import { RedirectService } from '../../services/redirect.service';
 import { CiSecurityService } from './security.service';
 
 @Injectable({
@@ -22,57 +21,56 @@ import { CiSecurityService } from './security.service';
 })
 export class CiAuthService {
   private jwtSubscription: Subscription | undefined;
-  API_URL: string;
-
   private afterRequestToken = () =>
     pipe(
       tap<AuthState>(({ RefreshToken, ExpiresIn }) => {
-        this.localStorageService.set('rtok', RefreshToken);
-        this.setupRefreshTimer(ExpiresIn);
+        console.log(RefreshToken, ExpiresIn);
+
+        if (RefreshToken) {
+          this.localStorageService.set('rtok', RefreshToken);
+        }
+        if (ExpiresIn) {
+          this.setupRefreshTimer(ExpiresIn);
+        }
       }),
-      switchMap((tokenRequest: AuthState) => {
+      switchMap((tokenRequest) => {
+        console.log(tokenRequest);
         const {
           AccessToken,
           RefreshToken,
           ExpiresIn,
-          // refreshExpiresAt,
+          refreshTokenExpiresIn,
           // user,
         } = tokenRequest;
         this.authStateService.set({
           AccessToken,
           RefreshToken: RefreshToken!,
-          ExpiresIn: ExpiresIn,
-          // refreshTokenExpiry: refreshExpiresAt,
+          ExpiresIn,
+          refreshTokenExpiresIn,
           // user,
         });
-        // return forkJoin([
-        //   of(tokenRequest),
-        // this.accountsClient.checkAccountHideTransaction(
-        //   tokenRequest.user?.accountId
-        // ),
-        // ]);
-        return of(tokenRequest);
+        return forkJoin([
+          of(tokenRequest),
+          // this.accountsClient.checkAccountHideTransaction(
+          //   tokenRequest.user?.accountId
+          // ),
+        ]);
+      }),
+      map(([tokenRequest]) => {
+        // this.authStateService.set({ checkAccountHideTransaction });
+        return tokenRequest;
       })
-      //Send req privli
-      // map(([tokenRequest]) => {
-      //   this.authStateService.set({ checkAccountHideTransaction });
-      //   return tokenRequest;
-      // })
     );
 
   constructor(
-    @Inject(AUTH_CONFIG) private readonly authConfig: AuthConfig,
-    // private http: HttpClient,
     private readonly authStateService: AuthStateService,
     private readonly localStorageService: LocalStorageService,
     private readonly redirectService: RedirectService,
-    private readonly securityService: CiSecurityService
-  ) {
-    this.API_URL = `${this.authConfig.AUTH_URL}`;
-  }
+    private readonly securityClient: CiSecurityService // private readonly accountsClient: AccountsClient
+  ) {}
 
   login(data: LoginData): Observable<AuthState> {
-    return this.securityService
+    return this.securityClient
       .requestAccessToken(data)
       .pipe(this.afterRequestToken());
   }
@@ -90,15 +88,15 @@ export class CiAuthService {
 
   refreshToken(): Observable<never> | Observable<AuthState> {
     const token = this.localStorageService.get('rtok');
+    console.log(token);
 
-    if (!token) {
-      console.log(token);
-      // this.authStateService.reset();
+    if (!token || token == 'undefined' || token == 'null') {
+      this.authStateService.reset();
       // this.redirectService.redirectToLogin();
       return EMPTY;
     }
 
-    return this.securityService.refresh(token).pipe(
+    return this.securityClient.refresh(token).pipe(
       catchError((err: any) => {
         if (err.status === 401) {
           // do something if refreshToken is unauthorized.
@@ -113,20 +111,14 @@ export class CiAuthService {
     );
   }
 
-  private setupRefreshTimer(expiresIn: number): void {
-    const diffInMilli = expiresIn - 1000 * 60;
+  private setupRefreshTimer(expiresIn: number) {
+    const diffInMilli = expiresIn - 60;
     // Reset the timer if there's already one running
     this.jwtSubscription?.unsubscribe();
 
     // Setup timer
-    this.jwtSubscription = timer(diffInMilli)
+    this.jwtSubscription = timer(diffInMilli * 1000)
       .pipe(switchMap(this.refreshToken.bind(this)))
       .subscribe();
-  }
-
-  register() {}
-
-  getMe() {
-    return this.securityService.getMe();
   }
 }

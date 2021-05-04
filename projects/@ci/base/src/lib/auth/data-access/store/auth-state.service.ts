@@ -10,7 +10,7 @@ export class AuthStateService extends RxState<AuthState> {
   token$ = this.select('AccessToken');
   tokenExpiry$ = this.select('ExpiresIn');
   refreshToken$ = this.select('RefreshToken');
-  //   currentUser$ = this.select('user');
+  // currentUser$ = this.select('user');
   isAuthorized$ = this.token$.pipe(map(Boolean));
   //   sideNavAuthInfo$ = this.currentUser$;
 
@@ -21,10 +21,10 @@ export class AuthStateService extends RxState<AuthState> {
   reset(): void {
     this.set({
       RefreshToken: '',
-      //   refreshTokenExpiry: null,
+      refreshTokenExpiresIn: undefined,
       AccessToken: '',
       ExpiresIn: undefined,
-      //   user: null,
+      // user: null,
       //   checkAccountHideTransaction: false,
     });
   }

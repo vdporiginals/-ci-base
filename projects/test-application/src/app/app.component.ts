@@ -33,7 +33,7 @@ export class AppComponent implements OnInit {
     this.setupRouteTitleListener();
     this.authService.retrieveTokenOnPageLoad(); // setup authState
     this.authStateService.isAuthorized$.subscribe(() => {
-      this.policyService.loadPermissions(); // setup permissionState
+      // this.policyService.loadPermissions(); // setup permissionState
       // this.featureFlagService.loadFeatures();
     });
   }
@@ -51,6 +51,7 @@ export class AppComponent implements OnInit {
   }
 
   login() {
+    console.log(this.user);
     this.authService
       .login({
         Username: this.user,

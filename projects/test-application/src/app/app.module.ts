@@ -4,16 +4,19 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import {
-  CiPaginationComponentModule,
   CiListComponentModule,
+  CiPaginationComponentModule,
   CiSearchInputComponentModule,
-  getAuthConfigProvider,
+  getAuthConfigProvider
 } from '@ci/base';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DynamicFormsComponent } from './dynamic-forms/dynamic-forms.component';
 import { HomeComponent } from './home/home.component';
 import { InputComponent } from './home/input/input.component';
+import {
+  authInterceptorProvider
+} from './services/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -36,9 +39,10 @@ import { InputComponent } from './home/input/input.component';
   ],
   providers: [
     getAuthConfigProvider({
-      AUTH_URL:
+      API_URL:
         'https://t39b2wqe1h.execute-api.ap-southeast-1.amazonaws.com/prod',
     }),
+    authInterceptorProvider,
   ],
   bootstrap: [AppComponent],
 })

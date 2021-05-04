@@ -7,11 +7,9 @@ import {
   HttpErrorResponse,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AuthStateService, CiAuthService, RedirectService } from '@ci/base';
 import { combineLatest, concat, defer, Observable, throwError } from 'rxjs';
 import { catchError, mergeMap, retryWhen, take } from 'rxjs/operators';
-import { CiAuthService } from '../data-access/api/auth.service';
-import { AuthStateService } from '../data-access/store/auth-state.service';
-import { RedirectService } from '../services/redirect.service';
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   private allowed = [

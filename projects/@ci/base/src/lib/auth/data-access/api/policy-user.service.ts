@@ -14,9 +14,8 @@ export class CiPolicyUserService {
     @Inject(AUTH_CONFIG) private authConfig: AuthConfig,
     private http: HttpClient
   ) {
-    this.API_URL = `${this.authConfig.AUTH_URL}`;
+    this.API_URL = `${this.authConfig.API_URL}`;
   }
-  
 
   retrievePermissionsForUser(): Observable<any> {
     return this.http

@@ -1,3 +1,3 @@
 export interface AuthConfig {
-  AUTH_URL: string;
+  API_URL: string;
 }

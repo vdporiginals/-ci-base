@@ -37,6 +37,8 @@ export class CiPolicyService {
         .retrievePermissionsForUser()
         .pipe(logErrorAndReturn(() => of([])))
         .subscribe((permissions) => {
+          console.log(permissions);
+
           this.permissionStateService.set({
             permissions,
             permissionsReady: true,
