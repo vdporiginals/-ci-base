@@ -6,7 +6,6 @@ import { AuthConfig } from '../../config/auth-config.interface';
 import { AUTH_CONFIG } from '../../config/auth.config';
 import { AuthState, LoginData } from '../models/auth-response.interface';
 import { RegisterUser } from '../models/register.model';
-import { UserInterface } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -18,14 +17,14 @@ export class CiSecurityService {
     @Inject(AUTH_CONFIG) private authConfig: AuthConfig,
     public httpBack: HttpBackend
   ) {
-    console.log(this.authConfig.API_URL);
+    // console.log(this.authConfig.API_URL);
 
     this.API_URL = `${this.authConfig.API_URL}`;
     this.http = new HttpClient(httpBack);
   }
 
   requestAccessToken(data: LoginData): Observable<AuthState> {
-    console.log(data);
+    // console.log(data);
 
     return this.http
       .post<AuthState>(this.API_URL + '/cognito/login', data)

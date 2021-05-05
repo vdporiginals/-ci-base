@@ -10,7 +10,7 @@ import { Injectable } from '@angular/core';
 import { combineLatest, concat, defer, Observable, throwError } from 'rxjs';
 import { catchError, mergeMap, retryWhen, take } from 'rxjs/operators';
 import { CiAuthService } from '../data-access/api/auth.service';
-import { AuthStateService } from '../data-access/store/auth-state.service';
+import { CiAuthStateService } from '../data-access/store/auth-state.service';
 import { RedirectService } from '../services/redirect.service';
 @Injectable()
 export class CiAuthInterceptor implements HttpInterceptor {
@@ -23,7 +23,7 @@ export class CiAuthInterceptor implements HttpInterceptor {
   ];
 
   constructor(
-    private readonly authStateService: AuthStateService,
+    private readonly ciAuthStateService: CiAuthStateService,
     private readonly authService: CiAuthService,
     private readonly redirectService: RedirectService
   ) {}
@@ -36,7 +36,6 @@ export class CiAuthInterceptor implements HttpInterceptor {
       },
       // headers: req.headers.set('Authorization', `${token}`),
     });
-    console.log(clone);
 
     return clone;
   }
@@ -52,7 +51,7 @@ export class CiAuthInterceptor implements HttpInterceptor {
     req: HttpRequest<unknown>,
     next: HttpHandler
   ) {
-    return this.authStateService.token$.pipe(
+    return this.ciAuthStateService.token$.pipe(
       mergeMap((newToken) =>
         next.handle(CiAuthInterceptor.addToken(req, newToken))
       )
@@ -70,8 +69,8 @@ export class CiAuthInterceptor implements HttpInterceptor {
 
     let hasRetried = false;
     return combineLatest([
-      this.authStateService.token$,
-      this.authStateService.tokenExpiry$,
+      this.ciAuthStateService.token$,
+      this.ciAuthStateService.tokenExpiryDate$,
     ]).pipe(
       take(1),
       mergeMap(([token, expiry]) => {
@@ -83,7 +82,9 @@ export class CiAuthInterceptor implements HttpInterceptor {
 
         const cloned = CiAuthInterceptor.addToken(request, token);
         return defer(() => {
-          if (expiry && expiry - curDate <= 0) {
+          console.log(new Date(expiry).getTime() - curDate);
+
+          if (expiry && new Date(expiry).getTime() - curDate <= 0) {
             return this.refreshToClonedRequest(request, next) as Observable<
               HttpEvent<unknown>
             >;

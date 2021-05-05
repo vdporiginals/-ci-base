@@ -2,9 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthStateService, CiAuthService } from '@ci/base';
-import { Observable, of } from 'rxjs';
-import { withLatestFrom, pluck, take, finalize } from 'rxjs/operators';
+import { CiAuthStateService, CiAuthService } from '@ci/base';
+import { CiAccountService } from 'projects/@ci/base/src/public-api';
+import { finalize, pluck, take, withLatestFrom } from 'rxjs/operators';
 import { PermissionStateService } from './services/permission-state.service';
 import { CiPolicyService } from './services/permission.service';
 
@@ -24,24 +24,19 @@ export class AppComponent implements OnInit {
     private http: HttpClient,
     private readonly route: ActivatedRoute,
     private readonly router: Router,
-    private readonly authStateService: AuthStateService,
+    // private ciAccountService: CiAccountService,
+    private readonly CiAuthStateService: CiAuthStateService,
     private readonly authService: CiAuthService,
     private readonly permissionStateService: PermissionStateService,
     private readonly policyService: CiPolicyService // private readonly featureFlagService: FeatureFlagService, // private readonly pageTitleService: PageTitleService
   ) {}
 
   ngOnInit() {
-    this.http
-      .get(
-        'https://t39b2wqe1h.execute-api.ap-southeast-1.amazonaws.com/prod/catalog/profile'
-      )
-      .subscribe((res) => {
-        console.log(res);
-      });
+    // this.ciAccountService.getUserInfo();
     // this.questions$ = this.setUpForms();
     this.setupRouteTitleListener();
     this.authService.retrieveTokenOnPageLoad(); // setup authState
-    this.authStateService.isAuthorized$.subscribe(() => {
+    this.CiAuthStateService.isAuthorized$.subscribe(() => {
       // this.policyService.loadPermissions(); // setup permissionState
       // this.featureFlagService.loadFeatures();
     });

@@ -7,7 +7,7 @@ import {
   HttpErrorResponse,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AuthStateService, CiAuthService, RedirectService } from '@ci/base';
+import { CiAuthStateService, CiAuthService, RedirectService } from '@ci/base';
 import { combineLatest, concat, defer, Observable, throwError } from 'rxjs';
 import { catchError, mergeMap, retryWhen, take } from 'rxjs/operators';
 @Injectable()
@@ -21,7 +21,7 @@ export class AuthInterceptor implements HttpInterceptor {
   ];
 
   constructor(
-    private readonly authStateService: AuthStateService,
+    private readonly CiAuthStateService: CiAuthStateService,
     private readonly authService: CiAuthService,
     private readonly redirectService: RedirectService
   ) {}
@@ -43,7 +43,7 @@ export class AuthInterceptor implements HttpInterceptor {
     req: HttpRequest<unknown>,
     next: HttpHandler
   ) {
-    return this.authStateService.token$.pipe(
+    return this.CiAuthStateService.token$.pipe(
       mergeMap((newToken) =>
         next.handle(AuthInterceptor.addToken(req, newToken))
       )
@@ -61,8 +61,8 @@ export class AuthInterceptor implements HttpInterceptor {
 
     let hasRetried = false;
     return combineLatest([
-      this.authStateService.token$,
-      this.authStateService.tokenExpiry$,
+      this.CiAuthStateService.token$,
+      this.CiAuthStateService.tokenExpiry$,
     ]).pipe(
       take(1),
       mergeMap(([token, expiry]) => {

@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { CanActivate, CanActivateChild, CanLoad } from '@angular/router';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { AuthStateService } from '../data-access/store/auth-state.service';
+import { CiAuthStateService } from '../data-access/store/auth-state.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CiAuthGuard implements CanActivate, CanActivateChild, CanLoad {
-  constructor(private readonly authStateService: AuthStateService) {}
+  constructor(private readonly CiAuthStateService: CiAuthStateService) {}
 
   canActivate(): Observable<boolean> {
     return this.isAuthenticated();
@@ -23,6 +23,6 @@ export class CiAuthGuard implements CanActivate, CanActivateChild, CanLoad {
   }
 
   private isAuthenticated() {
-    return this.authStateService.isAuthorized$.pipe(take(1));
+    return this.CiAuthStateService.isAuthorized$.pipe(take(1));
   }
 }

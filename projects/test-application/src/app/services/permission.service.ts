@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
-  AuthStateService,
+  CiAuthStateService,
   CiPolicyUserService,
   logErrorAndReturn,
 } from '@ci/base';
@@ -15,7 +15,7 @@ export class CiPolicyService {
   constructor(
     private readonly policyUserService: CiPolicyUserService,
     private readonly permissionStateService: PermissionStateService,
-    private readonly authStateService: AuthStateService
+    private readonly CiAuthStateService: CiAuthStateService
   ) {}
 
   /**
@@ -32,7 +32,7 @@ export class CiPolicyService {
    */
 
   loadPermissions(): void {
-    if (this.authStateService.isAuthorized) {
+    if (this.CiAuthStateService.isAuthorized) {
       this.policyUserService
         .retrievePermissionsForUser()
         .pipe(logErrorAndReturn(() => of([])))

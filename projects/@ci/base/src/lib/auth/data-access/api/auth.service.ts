@@ -13,7 +13,8 @@ import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { LocalStorageService } from '../../../services/local-storage.service';
 import { RedirectService } from '../../services/redirect.service';
 import { AuthState, LoginData } from '../models/auth-response.interface';
-import { AuthStateService } from '../store/auth-state.service';
+import { CiAuthStateService } from '../store/auth-state.service';
+import { CiAccountService } from './account.service';
 import { CiSecurityService } from './security.service';
 
 @Injectable({
@@ -24,6 +25,7 @@ export class CiAuthService {
   private afterRequestToken = () =>
     pipe(
       tap<AuthState>(({ RefreshToken, ExpiresIn }) => {
+        // console.log(RefreshToken, ExpiresIn);
         console.log(RefreshToken, ExpiresIn);
 
         if (RefreshToken) {
@@ -32,9 +34,9 @@ export class CiAuthService {
         if (ExpiresIn) {
           this.setupRefreshTimer(ExpiresIn);
         }
+        return;
       }),
       switchMap((tokenRequest) => {
-        console.log(tokenRequest);
         const {
           AccessToken,
           RefreshToken,
@@ -42,28 +44,38 @@ export class CiAuthService {
           refreshTokenExpiresIn,
           // user,
         } = tokenRequest;
-        this.authStateService.set({
+
+        let date = new Date().getTime() + ExpiresIn * 1000;
+
+        this.ciAuthStateService.set({
           AccessToken,
           RefreshToken: RefreshToken!,
           ExpiresIn,
+          ExpireDate: new Date(date).toISOString(),
           refreshTokenExpiresIn,
           // user,
         });
+
+        // this.ciAccountService.getUserInfo().subscribe();
         return forkJoin([
           of(tokenRequest),
+          this.ciAccountService.getUserInfo(),
           // this.accountsClient.checkAccountHideTransaction(
           //   tokenRequest.user?.accountId
           // ),
         ]);
       }),
-      map(([tokenRequest]) => {
-        // this.authStateService.set({ checkAccountHideTransaction });
+      map(([tokenRequest, user]) => {
+        if (user) {
+          this.ciAuthStateService.set({ user });
+        }
         return tokenRequest;
       })
     );
 
   constructor(
-    private readonly authStateService: AuthStateService,
+    private readonly ciAccountService: CiAccountService,
+    private readonly ciAuthStateService: CiAuthStateService,
     private readonly localStorageService: LocalStorageService,
     private readonly redirectService: RedirectService,
     private readonly securityClient: CiSecurityService // private readonly accountsClient: AccountsClient
@@ -77,7 +89,7 @@ export class CiAuthService {
 
   logout(): Observable<never> {
     this.localStorageService.remove('rtok');
-    this.authStateService.reset();
+    this.ciAuthStateService.reset();
     this.jwtSubscription?.unsubscribe();
     return EMPTY;
   }
@@ -88,10 +100,9 @@ export class CiAuthService {
 
   refreshToken(): Observable<never> | Observable<AuthState> {
     const token = this.localStorageService.get('rtok');
-    console.log(token);
 
     if (!token || token == 'undefined' || token == 'null') {
-      this.authStateService.reset();
+      this.ciAuthStateService.reset();
       // this.redirectService.redirectToLogin();
       return EMPTY;
     }
@@ -104,7 +115,7 @@ export class CiAuthService {
           this.redirectService.redirectToLogin();
         }
         // do more
-        this.authStateService.reset();
+        this.ciAuthStateService.reset();
         return throwError(err);
       }),
       this.afterRequestToken()
