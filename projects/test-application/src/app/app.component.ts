@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -20,6 +21,7 @@ export class AppComponent implements OnInit {
   password = '';
   loginResponse: any;
   constructor(
+    private http: HttpClient,
     private readonly route: ActivatedRoute,
     private readonly router: Router,
     private readonly authStateService: AuthStateService,
@@ -29,6 +31,13 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.http
+      .get(
+        'https://t39b2wqe1h.execute-api.ap-southeast-1.amazonaws.com/prod/catalog/profile'
+      )
+      .subscribe((res) => {
+        console.log(res);
+      });
     // this.questions$ = this.setUpForms();
     this.setupRouteTitleListener();
     this.authService.retrieveTokenOnPageLoad(); // setup authState

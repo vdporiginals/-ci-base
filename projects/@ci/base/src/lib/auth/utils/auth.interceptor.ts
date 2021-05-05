@@ -13,7 +13,7 @@ import { CiAuthService } from '../data-access/api/auth.service';
 import { AuthStateService } from '../data-access/store/auth-state.service';
 import { RedirectService } from '../services/redirect.service';
 @Injectable()
-export class AuthInterceptor implements HttpInterceptor {
+export class CiAuthInterceptor implements HttpInterceptor {
   private allowed = [
     '/cognito/register',
     '/cognito/confirm-signup',
@@ -29,9 +29,16 @@ export class AuthInterceptor implements HttpInterceptor {
   ) {}
 
   private static addToken(req: HttpRequest<unknown>, token: unknown) {
-    return req.clone({
-      headers: req.headers.set('Authorization', `Bearer ${token}`),
+    const clone = req.clone({
+      setHeaders: {
+        'Content-Type': 'application/json',
+        Authorization: `${token}`,
+      },
+      // headers: req.headers.set('Authorization', `${token}`),
     });
+    console.log(clone);
+
+    return clone;
   }
 
   private refreshToClonedRequest(req: HttpRequest<unknown>, next: HttpHandler) {
@@ -47,7 +54,7 @@ export class AuthInterceptor implements HttpInterceptor {
   ) {
     return this.authStateService.token$.pipe(
       mergeMap((newToken) =>
-        next.handle(AuthInterceptor.addToken(req, newToken))
+        next.handle(CiAuthInterceptor.addToken(req, newToken))
       )
     );
   }
@@ -74,7 +81,7 @@ export class AuthInterceptor implements HttpInterceptor {
           return next.handle(request);
         }
 
-        const cloned = AuthInterceptor.addToken(request, token);
+        const cloned = CiAuthInterceptor.addToken(request, token);
         return defer(() => {
           if (expiry && expiry - curDate <= 0) {
             return this.refreshToClonedRequest(request, next) as Observable<
@@ -118,8 +125,8 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 }
 
-export const authInterceptorProvider = {
+export const ciAuthInterceptorProvider = {
   provide: HTTP_INTERCEPTORS,
-  useClass: AuthInterceptor,
+  useClass: CiAuthInterceptor,
   multi: true,
 };
