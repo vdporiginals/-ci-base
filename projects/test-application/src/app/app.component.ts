@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CiAuthStateService, CiAuthService } from '@ci/base';
+import { CiAuthStateService, CiAuthService, CiSecurityService } from '@ci/base';
 import { CiAccountService } from 'projects/@ci/base/src/public-api';
 import { finalize, pluck, take, withLatestFrom } from 'rxjs/operators';
 import { PermissionStateService } from './services/permission-state.service';
@@ -25,18 +25,47 @@ export class AppComponent implements OnInit {
     private readonly route: ActivatedRoute,
     private readonly router: Router,
     // private ciAccountService: CiAccountService,
-    private readonly CiAuthStateService: CiAuthStateService,
+    private readonly ciAuthStateService: CiAuthStateService,
     private readonly authService: CiAuthService,
+    private readonly secs: CiSecurityService,
     private readonly permissionStateService: PermissionStateService,
     private readonly policyService: CiPolicyService // private readonly featureFlagService: FeatureFlagService, // private readonly pageTitleService: PageTitleService
   ) {}
 
   ngOnInit() {
+    // this.secs
+    //   .register({
+    //     Email: 'vdp.originals@gmail.com',
+    //     Password: '123456Abc',
+    //     PhoneNumber: '',
+    //     Type: 1,
+    //     Status: 1,
+    //     DateOfBirth: '',
+    //     Username: 'abc',
+    //   })
+    //   .subscribe((res) => {
+    //     console.log(res);
+    //   });
+    this.secs.resendConfirmCode('abc').subscribe((res) => {
+      console.log(res);
+    });
+    // this.secs.
+    // this.secs
+    //   .confirmSignUp({
+    //     Username: 'abc',
+    //     ConfirmationCode: '281034',
+    //   })
+    //   .subscribe((res) => {
+    //     console.log(res);
+    //   });
     // this.ciAccountService.getUserInfo();
     // this.questions$ = this.setUpForms();
     this.setupRouteTitleListener();
+    this.ciAuthStateService.currentUser$.subscribe((res) => {
+      console.log(res);
+    });
     this.authService.retrieveTokenOnPageLoad(); // setup authState
-    this.CiAuthStateService.isAuthorized$.subscribe(() => {
+    this.ciAuthStateService.isAuthorized$.subscribe(() => {
       // this.policyService.loadPermissions(); // setup permissionState
       // this.featureFlagService.loadFeatures();
     });

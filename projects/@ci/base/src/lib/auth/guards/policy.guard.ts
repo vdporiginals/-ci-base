@@ -10,7 +10,7 @@ import {
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Privilege } from '../data-access/store/policy-state.service';
-import { PermissionStateService } from '../services/permission.service';
+import { CiPolicyStateService } from '../services/permission.service';
 import { RedirectService } from '../services/redirect.service';
 
 @Injectable({
@@ -19,7 +19,7 @@ import { RedirectService } from '../services/redirect.service';
 export class PermissionGuard implements CanActivate, CanActivateChild, CanLoad {
   constructor(
     private readonly redirectService: RedirectService,
-    private readonly permissionStateService: PermissionStateService
+    private readonly permissionStateService: CiPolicyStateService
   ) {}
 
   canActivate(next: ActivatedRouteSnapshot): Observable<boolean> {

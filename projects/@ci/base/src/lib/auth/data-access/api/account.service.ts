@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { AuthConfig } from '../../config/auth-config.interface';
 import { AUTH_CONFIG } from '../../config/auth.config';
 import { UserInterface } from '../models/user.model';
@@ -19,6 +20,8 @@ export class CiAccountService {
   }
 
   getUserInfo(): Observable<UserInterface> {
-    return this.http.get<UserInterface>(this.API_URL + '/catalog/profile');
+    return this.http
+      .get<UserInterface>(this.API_URL + '/catalog/profile')
+      .pipe(map((res: any) => res.payload));
   }
 }
