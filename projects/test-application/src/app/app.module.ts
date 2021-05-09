@@ -1,14 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import {
-  ciAuthInterceptorProvider,
+  CiAuthInterceptor,
+  CiAuthModule,
   CiListComponentModule,
   CiPaginationComponentModule,
   CiSearchInputComponentModule,
-  getAuthConfigProvider,
 } from '@ci/base';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -34,13 +34,17 @@ import { InputComponent } from './home/input/input.component';
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
-  ],
-  providers: [
-    getAuthConfigProvider({
+    CiAuthModule.forRoot({
       API_URL:
         'https://t39b2wqe1h.execute-api.ap-southeast-1.amazonaws.com/prod',
     }),
-    ciAuthInterceptorProvider,
+  ],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: CiAuthInterceptor,
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent],
 })

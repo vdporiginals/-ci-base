@@ -19,6 +19,7 @@ export * from './lib/forms/index';
 export * from './lib/forms/forms.module';
 
 //auth
+export * from './lib/auth/ci-auth.module';
 export * from './lib/auth/services/redirect.service';
 export * from './lib/auth/config/auth-config.interface';
 export * from './lib/auth/config/auth.config';

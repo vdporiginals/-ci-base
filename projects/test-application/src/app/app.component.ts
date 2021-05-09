@@ -1,12 +1,9 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { CiAuthStateService, CiAuthService, CiSecurityService } from '@ci/base';
-import { CiAccountService } from 'projects/@ci/base/src/public-api';
+import { ActivatedRoute } from '@angular/router';
+import { CiAuthService, CiAuthStateService, CiSecurityService } from '@ci/base';
 import { finalize, pluck, take, withLatestFrom } from 'rxjs/operators';
 import { PermissionStateService } from './services/permission-state.service';
-import { CiPolicyService } from './services/permission.service';
 
 @Component({
   selector: 'app-root',
@@ -21,15 +18,15 @@ export class AppComponent implements OnInit {
   password = '';
   loginResponse: any;
   constructor(
-    private http: HttpClient,
+    // private http: HttpClient,
     private readonly route: ActivatedRoute,
-    private readonly router: Router,
+    // private readonly router: Router,
     // private ciAccountService: CiAccountService,
     private readonly ciAuthStateService: CiAuthStateService,
     private readonly authService: CiAuthService,
     private readonly secs: CiSecurityService,
     private readonly permissionStateService: PermissionStateService,
-    private readonly policyService: CiPolicyService // private readonly featureFlagService: FeatureFlagService, // private readonly pageTitleService: PageTitleService
+    // private readonly policyService: CiPolicyService // private readonly featureFlagService: FeatureFlagService, // private readonly pageTitleService: PageTitleService
   ) {}
 
   ngOnInit() {

@@ -9,12 +9,13 @@ import {
 } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { CiAuthModule } from '../ci-auth.module';
 import { Privilege } from '../data-access/store/policy-state.service';
 import { CiPolicyStateService } from '../services/permission.service';
 import { RedirectService } from '../services/redirect.service';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: CiAuthModule,
 })
 export class PermissionGuard implements CanActivate, CanActivateChild, CanLoad {
   constructor(

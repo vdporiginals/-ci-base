@@ -2,13 +2,15 @@ import { HttpBackend, HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { CiAuthModule } from '../../ci-auth.module';
 import { AuthConfig } from '../../config/auth-config.interface';
 import { AUTH_CONFIG } from '../../config/auth.config';
 import { AuthState, LoginData } from '../models/auth-response.interface';
 import { RegisterUser } from '../models/register.model';
 
 @Injectable({
-  providedIn: 'root',
+ 
+  providedIn: CiAuthModule,
 })
 export class CiSecurityService {
   API_URL: string;

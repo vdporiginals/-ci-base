@@ -20,7 +20,7 @@ export enum Privilege {
   All = 15,
 }
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export abstract class CiBasePolicyStateService<
   TypePermissionNames
 > extends RxState<PermissionState> {
