@@ -76,11 +76,11 @@ export class CiSocketService {
   }
 
   close() {
+    this.closeByDestroy = true;
     if (this.socket$) {
       this.socket$.complete();
     }
     this.socket$ = undefined;
-    this.closeByDestroy = true;
     this.messagesSubject$.next([]);
   }
 
@@ -108,6 +108,7 @@ export class CiSocketService {
           return msg.data;
         }
       },
+      serializer: (msg) => JSON.stringify(msg),
       // url: `wss://hbd51up8a8.execute-api.us-east-2.amazonaws.com/production?Authorization=5uJXjVH3BrOMxZGp_F4XrUj3Xg-8xhkYA8JA95HrdAO3Miy15IrWvFBA2Ui9x5HR2GuimTF4JuOE3-Lt93VqSdVgMog-hMBX9-PjD3vjg8oS7eTj10eEXY36lTX6dZkEAUUivyvfjxuydXIcRCuOaSqvQTZprrussdHkIVLnMQCnOZ5o5PkvmwOCT4GL6oXZF4mgIZNoV3XQxhHz4KfROOuSJmVSz9CXMlYnNoDSZFOvrRO1VwapSndAMSwD1l2bUB0pk3EpNLTCU380xdHmpUrf3nHvTYlVYdZbyAtNPEtknNWSkkXkL36HJ0P9pjLs77GXUGOpenhNSgAGpWU3HRGfOS7oIqzgBVvDc98T-dm_P7TeIzkxiPQd3i8btaFxXa3rXXaKikPo8Wuin9usi28qFl2EEe6fNNzA1qDEBFgd3f-Us32qJw59lqQRrTfSkT6QskNBDdzzUIUBaJGgP2dEIlXxvCKIu00rsNKDEdeAn0ZiWPTRFBzm-8zIC8AsFIrFmvBB8b5VHBU9ya1RpQrZCTc6jMfVHfqY6KVVoHjVeUF4GcxZF1cS6R_tiyK0FwBUS8jPPFPE4xmwyKyvvjCtpdO6QT-DLPDwSmAQPKEjBViDQVy-Dmz-fuwnuLHT`,
       openObserver: {
         next: () => {
