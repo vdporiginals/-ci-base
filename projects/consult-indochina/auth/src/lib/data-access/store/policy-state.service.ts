@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { RxState } from '@rx-angular/state';
-import { CiAuthModule } from 'dist/consult-indochina/auth/public-api';
 import { PermissionNames } from '../../directives/base-permission.directive';
 import { Observable, of } from 'rxjs';
 import { map, take } from 'rxjs/operators';
+import { CiAuthModule } from '../../ci-auth.module';
 
 export interface PermissionState {
   permissions: PolicyModel[];
