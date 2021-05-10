@@ -162,6 +162,82 @@
           }
         }
       }
+    },
+    "@ci/webrtc": {
+      "projectType": "library",
+      "root": "projects/@ci/webrtc",
+      "sourceRoot": "projects/@ci/webrtc/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/@ci/webrtc/tsconfig.lib.json",
+            "project": "projects/@ci/webrtc/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/@ci/webrtc/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/@ci/webrtc/src/test.ts",
+            "tsConfig": "projects/@ci/webrtc/tsconfig.spec.json",
+            "karmaConfig": "projects/@ci/webrtc/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/@ci/webrtc/tsconfig.lib.json",
+              "projects/@ci/webrtc/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        }
+      }
+    },
+    "@ci/websocket": {
+      "projectType": "library",
+      "root": "projects/@ci/websocket",
+      "sourceRoot": "projects/@ci/websocket/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/@ci/websocket/tsconfig.lib.json",
+            "project": "projects/@ci/websocket/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/@ci/websocket/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/@ci/websocket/src/test.ts",
+            "tsConfig": "projects/@ci/websocket/tsconfig.spec.json",
+            "karmaConfig": "projects/@ci/websocket/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ci/websocket/tsconfig.lib.json",
+              "projects/ci/websocket/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        }
+      }
     }
   },
   "defaultProject": "@ci/base"

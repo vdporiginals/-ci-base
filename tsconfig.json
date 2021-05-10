@@ -6,6 +6,24 @@
       "@ci/base": [
         "dist/ci/base/ci-base",
         "dist/ci/base"
+      ],
+      "@ci/webrtc": [
+        "dist/ci/webrtc/ci-webrtc",
+        "dist/ci/webrtc",
+        "dist/ci/webrtc/ci-webrtc",
+        "dist/ci/webrtc"
+      ],
+      "@ci/websocket": [
+        "dist/ci/websocket/ci-websocket",
+        "dist/ci/websocket",
+        "dist/ci/websocket/ci-websocket",
+        "dist/ci/websocket"
+      ],
+      "webrtc": [
+        "dist/webrtc/webrtc",
+        "dist/webrtc",
+        "dist/webrtc/webrtc",
+        "dist/webrtc"
       ]
     },
     "baseUrl": "./",
