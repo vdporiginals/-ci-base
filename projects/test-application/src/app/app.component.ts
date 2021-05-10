@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { CiAuthService, CiAuthStateService, CiSecurityService } from '@ci/base';
+import {
+  CiAuthService,
+  CiAuthStateService,
+  CiSecurityService,
+} from 'dist/consult-indochina/auth/public-api';
 import { finalize, pluck, take, withLatestFrom } from 'rxjs/operators';
 import { PermissionStateService } from './services/permission-state.service';
 
@@ -25,9 +29,9 @@ export class AppComponent implements OnInit {
     private readonly ciAuthStateService: CiAuthStateService,
     private readonly authService: CiAuthService,
     private readonly secs: CiSecurityService,
-    private readonly permissionStateService: PermissionStateService,
-    // private readonly policyService: CiPolicyService // private readonly featureFlagService: FeatureFlagService, // private readonly pageTitleService: PageTitleService
-  ) {}
+    private readonly permissionStateService: PermissionStateService
+  ) // private readonly policyService: CiPolicyService // private readonly featureFlagService: FeatureFlagService, // private readonly pageTitleService: PageTitleService
+  {}
 
   ngOnInit() {
     // this.secs
