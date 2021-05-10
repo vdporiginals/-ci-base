@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgModule, OnInit } from '@angular/core';
+import { CiAuthModule } from '../../ci-auth.module';
 
 @Component({
   selector: 'ci-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
 
@@ -13,3 +14,9 @@ export class RegisterComponent implements OnInit {
   }
 
 }
+
+@NgModule({
+  declarations: [RegisterComponent],
+  imports: [CiAuthModule]
+ })
+ export class RegisterComponentModule {}
