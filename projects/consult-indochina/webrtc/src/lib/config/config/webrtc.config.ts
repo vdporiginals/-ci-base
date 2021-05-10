@@ -5,7 +5,9 @@ export const WEBRTC_CONFIG = new InjectionToken<WebRTCConfig>(
   'ci-webrtc.config'
 );
 
-export const getAuthConfigProvider = (value: WebRTCConfig): ValueProvider => ({
+export const getWebRTCConfigProvider = (
+  value: WebRTCConfig
+): ValueProvider => ({
   provide: WEBRTC_CONFIG,
   useValue: value,
 });

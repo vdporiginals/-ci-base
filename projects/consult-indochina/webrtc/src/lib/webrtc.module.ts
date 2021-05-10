@@ -1,16 +1,17 @@
-import { NgModule } from '@angular/core';
-import { WebrtcComponent } from './webrtc.component';
-
-
+import { ModuleWithProviders, NgModule } from '@angular/core';
+import { getWebRTCConfigProvider } from './config/config/webrtc.config';
+import { WebRTCConfig } from './config/config/webrtc.interface';
 
 @NgModule({
-  declarations: [
-    WebrtcComponent
-  ],
-  imports: [
-  ],
-  exports: [
-    WebrtcComponent
-  ]
+  declarations: [],
+  imports: [],
+  exports: [],
 })
-export class WebrtcModule { }
+export class CiWebrtcModule {
+  static forRoot(conf: WebRTCConfig): ModuleWithProviders<CiWebrtcModule> {
+    return {
+      ngModule: CiWebrtcModule,
+      providers: [getWebRTCConfigProvider(conf)],
+    };
+  }
+}
