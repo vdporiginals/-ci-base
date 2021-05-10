@@ -3,14 +3,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import {
-  CiAuthInterceptor,
-  CiAuthModule,
-  CiListComponentModule,
-  CiPaginationComponentModule,
-  CiSearchInputComponentModule,
-} from '@ci/base';
-import { AppRoutingModule } from './app-routing.module';
+import { CiAuthModule } from 'dist/consult-indochina/auth/lib/ci-auth.module';
 import { AppComponent } from './app.component';
 import { DynamicFormsComponent } from './dynamic-forms/dynamic-forms.component';
 import { HomeComponent } from './home/home.component';
@@ -26,9 +19,9 @@ import { InputComponent } from './home/input/input.component';
   imports: [
     CommonModule,
     FormsModule,
-    CiPaginationComponentModule,
-    CiListComponentModule,
-    CiSearchInputComponentModule,
+    // CiPaginationComponentModule,
+    // CiListComponentModule,
+    // CiSearchInputComponentModule,
     BrowserModule,
     ReactiveFormsModule,
     FormsModule,
