@@ -3,6 +3,10 @@
   "compileOnSave": false,
   "compilerOptions": {
     "paths": {
+      "@ci/auth": [
+        "dist/ci/auth/ci-auth",
+        "dist/ci/auth"
+      ],
       "@ci/base": [
         "dist/ci/base/ci-base",
         "dist/ci/base"

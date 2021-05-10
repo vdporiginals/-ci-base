@@ -1,25 +1,22 @@
 import { Component, NgModule, OnInit } from '@angular/core';
-import { Login } from '../../../abtracts/base-login';
+import { Login } from '../../base/base-login';
 import { CiAuthModule } from '../../ci-auth.module';
 import { CiAuthService } from '../../data-access/api/auth.service';
 
 @Component({
   selector: 'ci-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent extends Login implements OnInit {
-
-  constructor(public authService: CiAuthService) { 
-    super(authService)
+  constructor(public authService: CiAuthService) {
+    super(authService);
   }
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }
- @NgModule({
+@NgModule({
   declarations: [LoginComponent],
-  imports: [CiAuthModule]
- })
- export class LoginComponentModule {}
+  imports: [CiAuthModule],
+})
+export class LoginComponentModule {}

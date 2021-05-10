@@ -10,8 +10,8 @@ import {
   timer,
 } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
-import { LocalStorageService } from '../../../services/local-storage.service';
 import { CiAuthModule } from '../../ci-auth.module';
+import { LocalStorageService } from '../../services/local-storage.service';
 import { RedirectService } from '../../services/redirect.service';
 import { AuthState, LoginData } from '../models/auth-response.interface';
 import { CiAuthStateService } from '../store/auth-state.service';
@@ -19,7 +19,6 @@ import { CiAccountService } from './account.service';
 import { CiSecurityService } from './security.service';
 
 @Injectable({
-  
   providedIn: CiAuthModule,
 })
 export class CiAuthService {

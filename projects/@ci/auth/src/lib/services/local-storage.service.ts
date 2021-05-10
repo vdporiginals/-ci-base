@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
+import { CiAuthModule } from '../ci-auth.module';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({ providedIn: CiAuthModule })
 export class LocalStorageService {
   localStorage!: Storage;
   isEnabled = false;
