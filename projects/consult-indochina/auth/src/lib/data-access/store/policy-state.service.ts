@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { RxState } from '@rx-angular/state';
+import { CiAuthModule } from 'dist/consult-indochina/auth/public-api';
+import { PermissionNames } from '../../directives/base-permission.directive';
 import { Observable, of } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 
@@ -20,10 +22,10 @@ export enum Privilege {
   All = 15,
 }
 
-@Injectable()
-export abstract class CiBasePolicyStateService<
-  TypePermissionNames
-> extends RxState<PermissionState> {
+@Injectable({
+  providedIn: CiAuthModule,
+})
+export class CiBasePolicyStateService extends RxState<PermissionState> {
   currentPermissions$ = this.select('permissions');
   permissionReady$ = this.select('permissionsReady');
 
@@ -46,7 +48,7 @@ export abstract class CiBasePolicyStateService<
   // 3rd party: KeyCloak, Auth0, etc...
   // privilege: 1 (READ, 1), 2 (CREATE, 10), 4 (UPDATE, 100), 8 (DELETE, 1000)
   hasPermission$(
-    permissionToCheck: TypePermissionNames | string, // accounts.manage
+    permissionToCheck: typeof PermissionNames, // accounts.manage
     privilege: Privilege // 2
   ): Observable<boolean> {
     if (permissionToCheck == null || privilege == null) {
@@ -66,7 +68,7 @@ export abstract class CiBasePolicyStateService<
   }
 
   hasPermission(
-    permissionToCheck: TypePermissionNames,
+    permissionToCheck: typeof PermissionNames,
     privilege: Privilege
   ): boolean {
     let hasPermission = false;
@@ -76,42 +78,42 @@ export abstract class CiBasePolicyStateService<
     return hasPermission;
   }
 
-  hasPermissionForLocation$(
-    permissionToCheck: TypePermissionNames | string,
-    privilege: Privilege,
-    locationId: number
-  ): Observable<boolean> {
-    if (permissionToCheck == null || privilege == null || locationId == null) {
-      return of(true);
-    }
+  // hasPermissionForLocation$(
+  //   permissionToCheck: typeof PermissionNames,
+  //   privilege: Privilege,
+  //   locationId: number
+  // ): Observable<boolean> {
+  //   if (permissionToCheck == null || privilege == null || locationId == null) {
+  //     return of(true);
+  //   }
 
-    return this.currentPermissions$.pipe(
-      map((permissions) => {
-        return permissions.some(
-          (permission) =>
-            (permission.locationId === null ||
-              permission.locationId === locationId) &&
-            permission.permissionId === permissionToCheck &&
-            (permission.activity & privilege) === privilege
-        );
-      }),
-      take(1)
-    );
-  }
+  //   return this.currentPermissions$.pipe(
+  //     map((permissions) => {
+  //       return permissions.some(
+  //         (permission) =>
+  // (permission.locationId === null ||
+  //   permission.locationId === locationId) &&
+  //           permission.permissionId === permissionToCheck &&
+  //           (permission.activity & privilege) === privilege
+  //       );
+  //     }),
+  //     take(1)
+  //   );
+  // }
 
-  hasPermissionForLocation(
-    permissionToCheck: TypePermissionNames,
-    privilege: Privilege,
-    locationId: number
-  ): boolean {
-    let permission = false;
-    this.hasPermissionForLocation$(
-      permissionToCheck,
-      privilege,
-      locationId
-    ).subscribe((value) => {
-      permission = value;
-    });
-    return permission;
-  }
+  // hasPermissionForLocation(
+  //   permissionToCheck: typeof PermissionNames,
+  //   privilege: Privilege,
+  //   locationId: number
+  // ): boolean {
+  //   let permission = false;
+  //   this.hasPermissionForLocation$(
+  //     permissionToCheck,
+  //     privilege,
+  //     locationId
+  //   ).subscribe((value) => {
+  //     permission = value;
+  //   });
+  //   return permission;
+  // }
 }

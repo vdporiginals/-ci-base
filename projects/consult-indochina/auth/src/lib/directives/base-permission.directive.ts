@@ -1,25 +1,54 @@
 import {
   Directive,
   EmbeddedViewRef,
+  Inject,
   Input,
   TemplateRef,
   ViewContainerRef,
 } from '@angular/core';
-
+import { AuthConfig } from '../config/auth-config.interface';
+import { AUTH_CONFIG } from '../config/auth.config';
+import {
+  CiBasePolicyStateService,
+  Privilege,
+} from '../data-access/store/policy-state.service';
+export let PermissionNames: any;
 @Directive()
-export abstract class CiBasePermissionDirective {
+export class CiBasePermissionDirective {
   private readonly _thenTemplateRef: TemplateRef<unknown> | null = null;
   private _thenViewRef: EmbeddedViewRef<unknown> | null = null;
   private _elseTemplateRef: TemplateRef<unknown> | null = null;
   private _elseViewRef: EmbeddedViewRef<unknown> | null = null;
   private _hasPermission = false;
   private _isConditionPassed = false;
-
   constructor(
+    @Inject(AUTH_CONFIG) private authConfig: AuthConfig,
+    private readonly permissionStateService: CiBasePolicyStateService,
     private readonly viewRef: ViewContainerRef,
     private readonly templateRef: TemplateRef<unknown>
   ) {
+    PermissionNames = this.authConfig.PermissionNames;
     this._thenTemplateRef = this.templateRef;
+  }
+
+  @Input() set permission(
+    value: [keyof typeof PermissionNames, keyof typeof Privilege, boolean?]
+  ) {
+    if (value == null || !value.length) {
+      this._hasPermission = true;
+      this._isConditionPassed = true;
+    } else {
+      // *permissions=['accounts.manage.apikey', 4];else noPermission
+      // <ng-template #noPermission></ng-template>
+      const [permission, privilege, condition = true] = value;
+      this._hasPermission = this.permissionStateService.hasPermission(
+        PermissionNames[permission],
+        Privilege[privilege]
+      );
+      this._isConditionPassed = condition;
+    }
+
+    this._updateView();
   }
 
   @Input() set permissionElse(templateRef: TemplateRef<unknown>) {
