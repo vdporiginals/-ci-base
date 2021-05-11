@@ -1,6 +1,6 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { getWSConfigProvider } from './config/config/websocket.config';
-import { WebSocketConfig } from './config/config/websocket.interface';
+import { getWSConfigProvider } from './config/websocket.config';
+import { WebSocketConfig } from './config/websocket.interface';
 
 @NgModule({
   declarations: [],

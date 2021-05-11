@@ -1,9 +1,11 @@
+import { CommonModule } from '@angular/common';
 import {
   OnDestroy,
   OnInit,
   Input,
   ChangeDetectionStrategy,
   Component,
+  NgModule,
 } from '@angular/core';
 import { Observable } from 'rxjs';
 export interface MessageType {
@@ -14,9 +16,9 @@ export interface MessageType {
 @Component({
   selector: 'ci-message-text',
   template: `
-    <div class="message_wrap" [class]="messageWrapCss">
-      <div class="create_time">{{ item.createdAt }}</div>
-      <div class="message_box">
+    <div class="ci_message_wrap" [class]="messageWrapCss">
+      <div class="ci_create_time">{{ item.createdAt }}</div>
+      <div class="ci_message_box">
         <p>{{ item.content }}</p>
       </div>
     </div>
@@ -37,3 +39,10 @@ export class MessageTextComponent implements OnDestroy, OnInit {
   ngOnInit() {}
   ngOnDestroy() {}
 }
+
+@NgModule({
+  declarations: [MessageTextComponent],
+  imports: [CommonModule],
+  exports: [MessageTextComponent],
+})
+export class CiMessageTextModule {}

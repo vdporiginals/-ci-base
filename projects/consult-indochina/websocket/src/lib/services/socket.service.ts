@@ -10,8 +10,8 @@ import {
   tap,
 } from 'rxjs/operators';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
-import { WEBSOCKET_CONFIG } from '../config/config/websocket.config';
-import { WebSocketConfig } from '../config/config/websocket.interface';
+import { WEBSOCKET_CONFIG } from '../config/websocket.config';
+import { WebSocketConfig } from '../config/websocket.interface';
 import { CiWebsocketModule } from '../websocket.module';
 
 // create a WS instance, listening on port 1234 on localhost
@@ -20,8 +20,8 @@ import { CiWebsocketModule } from '../websocket.module';
   providedIn: CiWebsocketModule,
 })
 export class CiSocketService {
-  RECONNECT_INTERVAL!: number;
-  WS_ENDPOINT!: string;
+  private RECONNECT_INTERVAL!: number;
+  private WS_ENDPOINT!: string;
   private socket$: WebSocketSubject<any> | undefined;
   private accessToken: string;
   private messagesSubject$: BehaviorSubject<any[]> = new BehaviorSubject<any[]>(
