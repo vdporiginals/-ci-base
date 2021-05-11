@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CiBasePolicyStateService } from 'dist/consult-indochina/auth/public-api';
+import { CiBasePolicyStateService } from '@consult-indochina/auth';
 import { PermissionNames } from './pername';
 
 @Injectable({ providedIn: 'root' })

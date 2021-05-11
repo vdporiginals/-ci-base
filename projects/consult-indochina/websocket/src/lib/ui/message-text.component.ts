@@ -8,6 +8,7 @@ import {
   NgModule,
 } from '@angular/core';
 import { Observable } from 'rxjs';
+import { MessageInterface } from '../config/websocket.interface';
 export interface MessageType {
   sendedClass: string;
   receiveClass: string;
@@ -17,9 +18,9 @@ export interface MessageType {
   selector: 'ci-message-text',
   template: `
     <div class="ci_message_wrap" [class]="messageWrapCss">
-      <div class="ci_create_time">{{ item.createdAt }}</div>
+      <div class="ci_create_time">{{ item.CreatedOn }}</div>
       <div class="ci_message_box">
-        <p>{{ item.content }}</p>
+        <p>{{ item.Content }}</p>
       </div>
     </div>
   `,
@@ -37,7 +38,7 @@ export interface MessageType {
 export class MessageTextComponent implements OnDestroy, OnInit {
   @Input()
   index!: number;
-  @Input() item: any;
+  @Input() item!: MessageInterface;
   @Input()
   searchTextString!: string;
   @Input() messageWrapCss!: MessageType;

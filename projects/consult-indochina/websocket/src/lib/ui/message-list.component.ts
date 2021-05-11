@@ -5,19 +5,17 @@ import {
   ContentChild,
   Input,
   NgModule,
+  OnInit,
   TemplateRef,
 } from '@angular/core';
 import { Observable } from 'rxjs';
+import { MessageInterface } from '../config/websocket.interface';
 import { CiMessageTextModule } from './message-text.component';
 @Component({
   selector: 'ci-message-list',
   template: `
     <div
-      *ngFor="
-        let item of messageList$ | async;
-        let i = index;
-        trackBy: trackFunc
-      "
+      *ngFor="let item of messageList$; let i = index; trackBy: trackFunc"
       class="ci_mes_list"
     >
       <ng-container
@@ -37,18 +35,25 @@ import { CiMessageTextModule } from './message-text.component';
   // encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MessageListComponent {
-  @Input() messageList$!: Observable<any[]>;
+export class CiMessageListComponent implements OnInit {
+  @Input() messageList$!: MessageInterface[];
   @ContentChild('item', { static: false }) messageText!: TemplateRef<any>;
 
+  ngOnInit() {
+    // if (this.messageList$) {
+    //   this.messageList$.subscribe((res) => {
+    //     console.log(res);
+    //   });
+    // }
+  }
   trackFunc(index: number, item: any) {
     return item;
   }
 }
 
 @NgModule({
-  declarations: [MessageListComponent],
+  declarations: [CiMessageListComponent],
   imports: [CommonModule, CiMessageTextModule],
-  exports: [MessageListComponent],
+  exports: [CiMessageListComponent],
 })
-export class CiMessageListComponent {}
+export class CiMessageListModule {}

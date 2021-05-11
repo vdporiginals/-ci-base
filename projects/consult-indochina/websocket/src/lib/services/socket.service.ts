@@ -23,7 +23,7 @@ export class CiSocketService {
   private RECONNECT_INTERVAL!: number;
   private WS_ENDPOINT!: string;
   private socket$: WebSocketSubject<any> | undefined;
-  private accessToken: string;
+  private accessToken!: string;
   private messagesSubject$: BehaviorSubject<any[]> = new BehaviorSubject<any[]>(
     []
   );
@@ -36,8 +36,18 @@ export class CiSocketService {
   );
   private closeByDestroy = false;
   constructor(@Inject(WEBSOCKET_CONFIG) private wsConfig: WebSocketConfig) {
+    console.log(this.wsConfig);
+
     this.RECONNECT_INTERVAL = this.wsConfig.RECONNECT_INTERVAL;
-    this.accessToken = this.wsConfig.ACCESS_TOKEN;
+    
+    if (this.wsConfig.ACCESS_TOKEN$) {
+      this.wsConfig.ACCESS_TOKEN$.subscribe((res) => {
+        this.accessToken = res;
+      });
+    } else {
+      this.accessToken = this.wsConfig.ACCESS_TOKEN;
+    }
+
     this.WS_ENDPOINT = this.wsConfig.WS_ENDPOINT;
   }
   /**
