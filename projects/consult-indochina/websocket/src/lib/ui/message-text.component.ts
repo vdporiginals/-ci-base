@@ -23,6 +23,14 @@ export interface MessageType {
       </div>
     </div>
   `,
+  styles: [
+    `
+      .ci_message_wrap {
+        display: block;
+        height: auto;
+      }
+    `,
+  ],
   // encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
