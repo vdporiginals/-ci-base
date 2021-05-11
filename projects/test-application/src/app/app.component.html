@@ -64,6 +64,7 @@
     <ng-template #item let-item="item">
       <ci-message-text
         [item]="item"
+        [currentUserId]="currentUserId"
         [messageWrapCss]="{
           sendedClass: 'test_sended',
           receiveClass: 'test_receive'

@@ -89,7 +89,7 @@ export class AppComponent extends BaseConnectorComponent implements OnInit {
         .access_token,
     });
   }
-
+  currentUserId = 1;
   // constructor(
   //   private messageService: MessageService,
   //   // private http: HttpClient,
