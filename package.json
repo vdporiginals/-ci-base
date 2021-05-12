@@ -19,8 +19,6 @@
     "@angular/platform-browser": "~11.2.11",
     "@angular/platform-browser-dynamic": "~11.2.11",
     "@angular/router": "~11.2.11",
-    "@consult-indochina/auth": "^1.0.0",
-    "@consult-indochina/websocket": "0.0.6",
     "@rx-angular/state": "^1.4.3",
     "jsqr": "^1.4.0",
     "ngx-pagination": "^5.0.0",
