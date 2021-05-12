@@ -3,31 +3,15 @@
   "compileOnSave": false,
   "compilerOptions": {
     "paths": {
-      "@ci/auth": [
-        "dist/ci/auth/ci-auth",
-        "dist/ci/auth"
-      ],
-      "@ci/base": [
-        "dist/ci/base/ci-base",
-        "dist/ci/base"
-      ],
+      "@ci/auth": ["dist/consult-indochina/auth/ci-auth", "dist/consult-indochina/auth"],
+      "@ci/base": ["dist/consult-indochina/base/ci-base", "dist/consult-indochina/base"],
       "@ci/webrtc": [
-        "dist/ci/webrtc/ci-webrtc",
-        "dist/ci/webrtc",
-        "dist/ci/webrtc/ci-webrtc",
-        "dist/ci/webrtc"
+        "dist/consult-indochina/webrtc/ci-webrtc",
+        "dist/consult-indochina/webrtc",
       ],
       "@ci/websocket": [
-        "dist/ci/websocket/ci-websocket",
-        "dist/ci/websocket",
-        "dist/ci/websocket/ci-websocket",
-        "dist/ci/websocket"
-      ],
-      "webrtc": [
-        "dist/webrtc/webrtc",
-        "dist/webrtc",
-        "dist/webrtc/webrtc",
-        "dist/webrtc"
+        "dist/consult-indochina/websocket/ci-websocket",
+        "dist/consult-indochina/websocket",
       ]
     },
     "baseUrl": "./",
@@ -44,10 +28,7 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "es2020",
-    "lib": [
-      "es2018",
-      "dom"
-    ]
+    "lib": ["es2018", "dom"]
   },
   "angularCompilerOptions": {
     "strictInjectionParameters": true,

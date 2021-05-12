@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/member-ordering */
 import { Inject, Injectable } from '@angular/core';
-import * as Peer from 'peerjs';
+import Peer from 'peerjs';
 import { WEBRTC_CONFIG } from '../config/webrtc.config';
 import { WebRTCConfig } from '../config/webrtc.interface';
 import { CiWebrtcModule } from '../webrtc.module';
