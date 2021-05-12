@@ -2,7 +2,8 @@
 {
   "extends": "./tsconfig.lib.json",
   "compilerOptions": {
-    "declarationMap": false
+    "declarationMap": false,
+    "esModuleInterop": true
   },
   "angularCompilerOptions": {
     "enableIvy": false

@@ -1,6 +1,6 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { getWebRTCConfigProvider } from './config/config/webrtc.config';
-import { WebRTCConfig } from './config/config/webrtc.interface';
+import { getWebRTCConfigProvider } from './config/webrtc.config';
+import { WebRTCConfig } from './config/webrtc.interface';
 
 @NgModule({
   declarations: [],
