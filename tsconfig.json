@@ -3,15 +3,21 @@
   "compileOnSave": false,
   "compilerOptions": {
     "paths": {
-      "@ci/auth": ["dist/consult-indochina/auth/ci-auth", "dist/consult-indochina/auth"],
-      "@ci/base": ["dist/consult-indochina/base/ci-base", "dist/consult-indochina/base"],
-      "@ci/webrtc": [
-        "dist/consult-indochina/webrtc/ci-webrtc",
-        "dist/consult-indochina/webrtc",
+      "@consult-indochina/auth": [
+        "dist/consult-indochina/auth/consult-indochina-auth",
+        "dist/consult-indochina/auth"
       ],
-      "@ci/websocket": [
-        "dist/consult-indochina/websocket/ci-websocket",
-        "dist/consult-indochina/websocket",
+      "@consult-indochina/base": [
+        "dist/consult-indochina/base/consult-indochina-base",
+        "dist/consult-indochina/base"
+      ],
+      "@consult-indochina/webrtc": [
+        "dist/consult-indochina/webrtc/consult-indochina-webrtc",
+        "dist/consult-indochina/webrtc"
+      ],
+      "@consult-indochina/websocket": [
+        "dist/consult-indochina/websocket/consult-indochina-websocket",
+        "dist/consult-indochina/websocket"
       ]
     },
     "baseUrl": "./",
