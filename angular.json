@@ -168,6 +168,11 @@
       "root": "projects/consult-indochina/webrtc",
       "sourceRoot": "projects/consult-indochina/webrtc/src",
       "prefix": "ci",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
@@ -206,6 +211,11 @@
       "root": "projects/consult-indochina/websocket",
       "sourceRoot": "projects/consult-indochina/websocket/src",
       "prefix": "ci",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
@@ -244,6 +254,11 @@
       "root": "projects/consult-indochina/auth",
       "sourceRoot": "projects/consult-indochina/auth/src",
       "prefix": "ci",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
