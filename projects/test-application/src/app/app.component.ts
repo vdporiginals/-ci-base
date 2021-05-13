@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DataTable } from 'projects/consult-indochina/common/src/lib/ui/ci-table/ci-table.model';
+import { DataTable, KeyDataTable } from 'projects/consult-indochina/common/src/lib/ui/ci-table/ci-table.model';
 // import { BaseConnectorComponent } from 'dist/consult-indochina/websocket/public-api';
 import {
   BehaviorSubject,
@@ -66,39 +66,42 @@ export class AppComponent implements OnInit {
 
   listLable = [
     {
-      label: "Stt",
-      type: "index"
+      'id': "",
+      'label': "Stt",
+      'type': "index"
     },
     {
-      id: "fname" as keyof DataTable,
-      label: "Họ",
-      type: "text"
+      'id': "fname",
+      'label': "Họ",
+      'type': "text"
     },
     {
-      id: "fname" as keyof DataTable,
-      label: "Tên",
-      type: "text"
+      'id': "lname",
+      'label': "Tên",
+      'type': "text"
     },
     {
-      id: "fname" as keyof DataTable,
-      label: "Số điện thoại",
-      type: "number"
+      'id': "phone",
+      'label': "Số điện thoại",
+      'type': "number"
     }, {
-      id: "fname" as keyof DataTable,
-      label: "Email",
-      type: "text"
+      'id': "email",
+      'label': "Email",
+      'type': "text"
     }
     , {
-      id: "fname" as keyof DataTable,
-      label: "Địa chỉ",
-      type: "text"
+      'id': "address",
+      'label': "Địa chỉ",
+      'type': "text"
     }
     , {
-      type: "action-icon",
-      image:
+      'id': "",
+      'label': "",
+      'type': "action-icon",
+      'image':
       {
-        edit: "../assets/svg/icon-edit.svg",
-        delete: "../assets/svg/icon-delete.svg"
+        'edit': "../assets/svg/icon-edit.svg",
+        'delete': "../assets/svg/icon-delete.svg"
       }
     }
     // , {
@@ -116,29 +119,29 @@ export class AppComponent implements OnInit {
     // }
 
   ]
-  dataTable = [
+  dataTable: DataTable[] = [
     {
-      fname: " Bùi",
-      lname: "Hari",
-      phone: "0968744932",
-      email: "nambui377@gmail.com",
-      address: "phú diễn"
+      'fname': "fname",
+      'lname': "Hari",
+      'phone': "0968744932",
+      'email': "nambui377@gmail.com",
+      'address': "phú diễn"
 
     }
     , {
-      fname: " Bùi",
-      lname: "Nam",
-      phone: "0968744932",
-      email: "nambui377@gmail.com",
-      address: "phú diễn"
+      'fname': " Bùi",
+      'lname': "Nam",
+      'phone': "0968744932",
+      'email': "nambui377@gmail.com",
+      'address': "phú diễn"
 
     },
     {
-      fname: " Bùi",
-      lname: "Nam",
-      phone: "0968744932",
-      email: "nambui377@gmail.com",
-      address: "phú diễn"
+      'fname': " Bùi",
+      'lname': "Nam",
+      'phone': "0968744932",
+      'email': "nambui377@gmail.com",
+      'address': "phú diễn"
 
     }
   ]
