@@ -3,7 +3,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { CiAuthModule, CiAuthStateService } from '@consult-indochina/auth';
+import { CiAuthModule, CiAuthStateService, CiLoginComponentModule } from '@consult-indochina/auth';
 import {
   CiMessageListModule,
   CiMessageTextModule,
@@ -16,6 +16,7 @@ import { DynamicFormsComponent } from './dynamic-forms/dynamic-forms.component';
 // import { HomeComponent } from './home/home.component';
 import { InputComponent } from './home/input/input.component';
 import { LoginComponent } from './login/login.component';
+import { PermissionNames } from './services/pername';
 let getToken2;
 // new CiAuthStateService().select('AccessToken').subscribe((res) => {
 //   console.log(res);
@@ -40,19 +41,14 @@ let getToken2;
     CiMessageTextModule,
     CiMessageListModule,
     HttpClientModule,
-    CiWebsocketModule.forRoot({
-      ACCESS_TOKEN: JSON.parse(localStorage.getItem('access_token') as any)
-        .access_token,
-      ACCESS_TOKEN$: getToken2,
-      RECONNECT_INTERVAL: 5000,
-      WS_ENDPOINT:
-        'wss://7o5p7mfv40.execute-api.ap-southeast-1.amazonaws.com/production',
-    }),
-    AppRoutingModule,
+    CiLoginComponentModule,
     CiAuthModule.forRoot({
       API_URL:
         'https://t39b2wqe1h.execute-api.ap-southeast-1.amazonaws.com/prod',
+      PermissionNames: [],
+      uiOption: 'custom'
     }),
+    AppRoutingModule,
   ],
   providers: [
     // {

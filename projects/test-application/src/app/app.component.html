@@ -4,26 +4,15 @@
 
 <!-- <ci-base-forms [formProps]="questions$ | async "> </ci-base-forms> -->
 
-<div class="login">
-  <input [(ngModel)]="user" type="text" />
-  <input [(ngModel)]="password" type="text" />
-  <button (click)="login()">Login</button>
-</div>
+<ci-login [title]="'Đăng nhập'" [classCustom]="'login'"></ci-login>
 
 <div class="login-container">
-  <div class="login-body">
-    <h4 class="title">ĐĂNG NHẬP</h4>
-    <form [formGroup]="loginForm" (ngSubmit)="login2()">
-      <div class="form-group">
-        <input
-          required
-          formControlName="username"
-          OnlyNumber="true"
-          class="form-control"
-          type="text"
-          placeholder="Số điện thoại"
-        />
-        <!-- <span
+    <div class="login-body">
+        <h4 class="title">ĐĂNG NHẬP</h4>
+        <form [formGroup]="loginForm" (ngSubmit)="login2()">
+            <div class="form-group">
+                <input required formControlName="username" OnlyNumber="true" class="form-control" type="text" placeholder="Số điện thoại" />
+                <!-- <span
                 class="text-danger"
                 *ngIf="
                   loginForm.get('username').touched &&
@@ -32,17 +21,10 @@
               >
                 Cần nhập Số điện thoại
               </span> -->
-      </div>
-      <div class="form-group">
-        <input
-          autocomplete="on"
-          required
-          formControlName="password"
-          class="form-control"
-          [type]="'password'"
-          placeholder="Mật khẩu"
-        />
-        <!-- <span
+            </div>
+            <div class="form-group">
+                <input autocomplete="on" required formControlName="password" class="form-control" [type]="'password'" placeholder="Mật khẩu" />
+                <!-- <span
                 class="text-danger"
                 *ngIf="
                   loginForm.get('password').touched &&
@@ -51,26 +33,22 @@
               >
                 Cần nhập mật khẩu
               </span> -->
-      </div>
+            </div>
 
-      <div class="submit">
-        <button class="button-primary">Đăng nhập</button>
-      </div>
-    </form>
-  </div>
+            <div class="submit">
+                <button class="button-primary">Đăng nhập</button>
+            </div>
+        </form>
+    </div>
 </div>
 <div>
-  <ci-message-list [messageList$]="his | async">
-    <ng-template #item let-item="item">
-      <ci-message-text
-        [item]="item"
-        [currentUserId]="currentUserId"
-        [messageWrapCss]="{
+    <ci-message-list [messageList$]="his | async">
+        <ng-template #item let-item="item">
+            <ci-message-text [item]="item" [currentUserId]="currentUserId" [messageWrapCss]="{
           sendedClass: 'test_sended',
           receiveClass: 'test_receive'
-        }"
-      ></ci-message-text>
-      <button (click)="delRandom(item)"></button>
-    </ng-template>
-  </ci-message-list>
+        }"></ci-message-text>
+            <button (click)="delRandom(item)"></button>
+        </ng-template>
+    </ci-message-list>
 </div>

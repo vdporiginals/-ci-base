@@ -33,7 +33,7 @@ import { MessageService } from './services/message.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent extends BaseConnectorComponent implements OnInit {
+export class AppComponent  implements OnInit {
   title = 'test-application';
   textSearch: FormControl = new FormControl();
   // questions$!: Observable<CiBaseFormsModel<any>[]>;
@@ -76,18 +76,18 @@ export class AppComponent extends BaseConnectorComponent implements OnInit {
     private router: Router,
     private messageService: MessageService,
     private ciAuthState: CiAuthStateService,
-    socketService: CiSocketService
+    // socketService: CiSocketService
   ) {
-    super(socketService);
+    // super(socketService);
     this.loginForm = this.fb.group({
       grant_type: ['password'],
       username: ['', Validators.required],
       password: ['', Validators.required],
     });
-    this.ciAuthState.set({
-      AccessToken: JSON.parse(localStorage.getItem('access_token') as any)
-        .access_token,
-    });
+    // this.ciAuthState.set({
+    //   AccessToken: JSON.parse(localStorage.getItem('access_token') as any)
+    //     .access_token,
+    // });
   }
   currentUserId = 1;
   // constructor(
@@ -98,9 +98,9 @@ export class AppComponent extends BaseConnectorComponent implements OnInit {
 
   ngOnInit() {
     // this.getHistory();
-    this.connectSocket$().subscribe((res) => {
-      console.log(res);
-    });
+    // this.connectSocket$().subscribe((res) => {
+    //   console.log(res);
+    // });
     let receive: string;
     if (
       JSON.parse(localStorage.getItem('access_token') as any).UserProfileId ==
