@@ -11,6 +11,10 @@
         "dist/consult-indochina/base/consult-indochina-base",
         "dist/consult-indochina/base"
       ],
+      "@consult-indochina/common": [
+        "dist/consult-indochina/common/consult-indochina-common",
+        "dist/consult-indochina/common"
+      ],
       "@consult-indochina/webrtc": [
         "dist/consult-indochina/webrtc/consult-indochina-webrtc",
         "dist/consult-indochina/webrtc"
