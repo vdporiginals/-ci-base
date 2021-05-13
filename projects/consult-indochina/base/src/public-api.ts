@@ -14,7 +14,7 @@ export * from './lib/directives/index';
 export * from './lib/pipes/index';
 
 //form
-export * from './lib/forms/index';
-export * from './lib/forms/forms.module';
+// export * from './lib/forms/index';
+// export * from './lib/forms/forms.module';
 
 // export * from './lib/auth/utils/root-injector';

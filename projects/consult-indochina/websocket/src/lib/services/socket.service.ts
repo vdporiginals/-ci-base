@@ -14,10 +14,7 @@ import {
   ACCESS_TOKEN_PROVIDER,
   WEBSOCKET_CONFIG,
 } from '../config/websocket.config';
-import {
-  AccessTokenProvider,
-  WebSocketConfig,
-} from '../config/websocket.interface';
+import { WebSocketConfig } from '../config/websocket.interface';
 import { CiWebsocketModule } from '../websocket.module';
 
 // create a WS instance, listening on port 1234 on localhost
@@ -46,8 +43,6 @@ export class CiSocketService {
     @Inject(ACCESS_TOKEN_PROVIDER)
     private accessTokenProvider: Observable<string>
   ) {
-    console.log(this.wsConfig, this.accessTokenProvider);
-
     this.RECONNECT_INTERVAL = this.wsConfig.RECONNECT_INTERVAL;
 
     if (this.accessTokenProvider) {
