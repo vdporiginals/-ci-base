@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CiAuthStateService } from '@consult-indochina/auth';
 import {
-  CiSocketService,
   BaseConnectorComponent,
+  CiSocketService,
 } from '@consult-indochina/websocket';
+import { WEBSOCKET_CONFIG } from 'projects/consult-indochina/websocket/src/public-api';
 // import { BaseConnectorComponent } from 'dist/consult-indochina/websocket/public-api';
 import {
   BehaviorSubject,
@@ -76,7 +77,7 @@ export class AppComponent extends BaseConnectorComponent implements OnInit {
     private router: Router,
     private messageService: MessageService,
     private ciAuthState: CiAuthStateService,
-    socketService: CiSocketService
+    @Inject(CiSocketService) socketService: CiSocketService
   ) {
     super(socketService);
     this.loginForm = this.fb.group({

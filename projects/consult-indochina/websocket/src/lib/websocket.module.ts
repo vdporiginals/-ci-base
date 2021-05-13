@@ -1,6 +1,9 @@
-import { ModuleWithProviders, NgModule } from '@angular/core';
+import { ModuleWithProviders, NgModule, Provider } from '@angular/core';
 import { getWSConfigProvider } from './config/websocket.config';
-import { WebSocketConfig } from './config/websocket.interface';
+import {
+  AccessTokenProvider,
+  WebSocketConfig,
+} from './config/websocket.interface';
 
 @NgModule({
   declarations: [],
@@ -9,11 +12,12 @@ import { WebSocketConfig } from './config/websocket.interface';
 })
 export class CiWebsocketModule {
   static forRoot(
-    conf: WebSocketConfig
+    conf: WebSocketConfig,
+    conf2: Provider
   ): ModuleWithProviders<CiWebsocketModule> {
     return {
       ngModule: CiWebsocketModule,
-      providers: [getWSConfigProvider(conf)],
+      providers: [getWSConfigProvider(conf, conf2)],
     };
   }
 }

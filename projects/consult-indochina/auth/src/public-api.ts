@@ -20,3 +20,4 @@ export * from './lib/guards/base-auth.guard';
 export * from './lib/utils/auth.interceptor';
 export * from './lib/utils/get-deepest';
 export * from './lib/utils/log-and-return';
+export * from './lib/utils/auth-factory';

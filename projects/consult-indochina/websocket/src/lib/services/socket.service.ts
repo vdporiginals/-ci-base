@@ -10,8 +10,14 @@ import {
   tap,
 } from 'rxjs/operators';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
-import { WEBSOCKET_CONFIG } from '../config/websocket.config';
-import { WebSocketConfig } from '../config/websocket.interface';
+import {
+  ACCESS_TOKEN_PROVIDER,
+  WEBSOCKET_CONFIG,
+} from '../config/websocket.config';
+import {
+  AccessTokenProvider,
+  WebSocketConfig,
+} from '../config/websocket.interface';
 import { CiWebsocketModule } from '../websocket.module';
 
 // create a WS instance, listening on port 1234 on localhost
@@ -35,17 +41,21 @@ export class CiSocketService {
     })
   );
   private closeByDestroy = false;
-  constructor(@Inject(WEBSOCKET_CONFIG) private wsConfig: WebSocketConfig) {
-    console.log(this.wsConfig);
+  constructor(
+    @Inject(WEBSOCKET_CONFIG) private wsConfig: WebSocketConfig,
+    @Inject(ACCESS_TOKEN_PROVIDER)
+    private accessTokenProvider: Observable<string>
+  ) {
+    console.log(this.wsConfig, this.accessTokenProvider);
 
     this.RECONNECT_INTERVAL = this.wsConfig.RECONNECT_INTERVAL;
-    
-    if (this.wsConfig.ACCESS_TOKEN$) {
-      this.wsConfig.ACCESS_TOKEN$.subscribe((res) => {
+
+    if (this.accessTokenProvider) {
+      this.accessTokenProvider.subscribe((res) => {
         this.accessToken = res;
       });
     } else {
-      this.accessToken = this.wsConfig.ACCESS_TOKEN;
+      this.accessToken = this.wsConfig.ACCESS_TOKEN || '';
     }
 
     this.WS_ENDPOINT = this.wsConfig.WS_ENDPOINT;
