@@ -44,7 +44,9 @@
               "projects/ci/base/tsconfig.lib.json",
               "projects/ci/base/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }
@@ -73,7 +75,9 @@
               "projects/test-application/src/favicon.ico",
               "projects/test-application/src/assets"
             ],
-            "styles": ["projects/test-application/src/styles.scss"],
+            "styles": [
+              "projects/test-application/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -134,7 +138,9 @@
               "projects/test-application/src/favicon.ico",
               "projects/test-application/src/assets"
             ],
-            "styles": ["projects/test-application/src/styles.scss"],
+            "styles": [
+              "projects/test-application/src/styles.scss"
+            ],
             "scripts": []
           }
         },
@@ -146,7 +152,9 @@
               "projects/test-application/tsconfig.spec.json",
               "projects/test-application/e2e/tsconfig.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "e2e": {
@@ -201,7 +209,9 @@
               "projects/consult-indochina/webrtc/tsconfig.lib.json",
               "projects/consult-indochina/webrtc/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }
@@ -244,7 +254,9 @@
               "projects/consult-indochina/websocket/tsconfig.lib.json",
               "projects/consult-indochina/websocket/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }
@@ -287,7 +299,9 @@
               "projects/consult-indochina/auth/tsconfig.lib.json",
               "projects/consult-indochina/auth/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }
@@ -295,8 +309,13 @@
     "@consult-indochina/common": {
       "projectType": "library",
       "root": "projects/consult-indochina/common",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
       "sourceRoot": "projects/consult-indochina/common/src",
-      "prefix": "lib",
+      "prefix": "ci",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",

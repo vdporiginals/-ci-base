@@ -1,0 +1,36 @@
+.ci-table {
+    width: 100%;
+    background: #fff;
+
+    tbody tr:nth-child(odd) {
+        background: #eee;
+    }
+    thead {
+        background-color: #00a050;
+    }
+    thead tr th:first-child {
+        border-bottom-left-radius: 10px;
+        border-top-left-radius: 10px;
+    }
+    thead tr th:last-child {
+        border-bottom-right-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+    thead tr th {
+        padding: 20px;
+        color: #fff;
+    }
+
+    tr td {
+        padding: 15px 40px;
+        text-align: center;
+    }
+    tr td:first-child {
+        border-bottom-left-radius: 10px;
+        border-top-left-radius: 10px;
+    }
+    tr td:last-child {
+        border-bottom-right-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+}
