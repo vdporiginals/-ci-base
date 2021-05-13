@@ -10,6 +10,7 @@ import {
   CiWebsocketModule,
 } from '@consult-indochina/websocket';
 import { LocalStorageService } from 'dist/consult-indochina/auth/lib/services/local-storage.service';
+import { FbChatDesignModule } from 'projects/consult-indochina/websocket/src/public-api';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DynamicFormsComponent } from './dynamic-forms/dynamic-forms.component';
@@ -40,6 +41,7 @@ let getToken2;
     CiMessageTextModule,
     CiMessageListModule,
     HttpClientModule,
+    FbChatDesignModule,
     CiWebsocketModule.forRoot({
       ACCESS_TOKEN: JSON.parse(localStorage.getItem('access_token') as any)
         .access_token,
@@ -50,6 +52,7 @@ let getToken2;
     }),
     AppRoutingModule,
     CiAuthModule.forRoot({
+      PermissionNames: [],
       API_URL:
         'https://t39b2wqe1h.execute-api.ap-southeast-1.amazonaws.com/prod',
     }),

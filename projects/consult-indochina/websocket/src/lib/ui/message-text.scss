@@ -1,0 +1,22 @@
+.ci_message_wrap {
+    display: block;
+    // height: auto;
+    .ci_create_time {
+    }
+}
+.haveDate {
+}
+.test_sended-fb {
+    float: right;
+    max-width: 50%;
+    .ci_message_box {
+        float: right;
+        p {
+            background-color: aqua;
+            padding: 10px 20px;
+            border-radius: 20px;
+            word-break: break-all;
+
+        }
+    }
+}

@@ -1,9 +1,11 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { getWSConfigProvider } from './config/websocket.config';
 import { WebSocketConfig } from './config/websocket.interface';
+import { FbChatDesignComponent } from './ui/fb-chat-design/fb-chat-design.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+  ],
   imports: [],
   exports: [],
 })

@@ -51,22 +51,22 @@ export class AppComponent extends BaseConnectorComponent implements OnInit {
     //     this.notiStateService.messageCount.getValue() - +this.unread
     //   );
     // }
-    let receive;
-    if (
-      JSON.parse(localStorage.getItem('access_token') as any).UserProfileId ==
-      '2323'
-    ) {
-      receive = '2053';
-    } else {
-      receive = '2323';
-    }
-    this.messageService.getListMessage(receive).subscribe((res: any) => {
-      console.log(res);
+    // let receive;
+    // if (
+    //   JSON.parse(localStorage.getItem('access_token') as any).UserProfileId ==
+    //   '2323'
+    // ) {
+    //   receive = '2053';
+    // } else {
+    //   receive = '2323';
+    // }
+    // this.messageService.getListMessage(receive).subscribe((res: any) => {
+    //   console.log(res);
 
-      this.listHistory.next(res.body.Payload.reverse());
-      // this.loading.closeLoading();
-      // console.log(this.listHistory.getValue());
-    });
+    //   this.listHistory.next(res.body.Payload.reverse());
+    //   // this.loading.closeLoading();
+    //   // console.log(this.listHistory.getValue());
+    // });
     return true;
   }
 
@@ -84,12 +84,14 @@ export class AppComponent extends BaseConnectorComponent implements OnInit {
       username: ['', Validators.required],
       password: ['', Validators.required],
     });
-    this.ciAuthState.set({
-      AccessToken: JSON.parse(localStorage.getItem('access_token') as any)
-        .access_token,
-    });
+    if (localStorage.getItem('access_token')) {
+      this.ciAuthState.set({
+        AccessToken: JSON.parse(localStorage.getItem('access_token') as any)
+          .access_token,
+      });
+    }
   }
-  currentUserId = 1;
+  currentUserId = 2053;
   // constructor(
   //   private messageService: MessageService,
   //   // private http: HttpClient,
@@ -97,19 +99,22 @@ export class AppComponent extends BaseConnectorComponent implements OnInit {
   // ) {}
 
   ngOnInit() {
+    let receive: string  = '2053';
     // this.getHistory();
     this.connectSocket$().subscribe((res) => {
       console.log(res);
     });
-    let receive: string;
-    if (
-      JSON.parse(localStorage.getItem('access_token') as any).UserProfileId ==
-      '2323'
-    ) {
-      receive = '2053';
-    } else {
-      receive = '2323';
+    if (localStorage.getItem('access_token')) {
+      if (
+        JSON.parse(localStorage.getItem('access_token') as any).UserProfileId ==
+        '2323'
+      ) {
+        receive = '2053';
+      } else {
+        receive = '2323';
+      }
     }
+
     // this.deleteSubject.asObservable().pipe(
     //   mergeMap((d1) =>
     //     this.messageService.getListMessage(receive).pipe(

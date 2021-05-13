@@ -9,3 +9,4 @@ export * from './lib/config/websocket.interface';
 export * from './lib/services/socket.service';
 export * from './lib/ui/message-text.component';
 export * from './lib/ui/message-list.component';
+export * from './lib/ui/fb-chat-design/fb-chat-design.component';

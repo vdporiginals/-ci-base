@@ -1,4 +1,5 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
+import { stringify } from '@angular/compiler/src/util';
 import {
   OnDestroy,
   OnInit,
@@ -20,26 +21,17 @@ export interface MessageType {
     <div
       class="ci_message_wrap"
       [class]="
-        item.Action === actionEnum.sended ||
         item.SenderUserProfileId == currentUserId
           ? messageWrapCss.sendedClass
           : messageWrapCss.receiveClass
       "
     >
-      <div class="ci_create_time">{{ item.CreatedOn }}</div>
       <div class="ci_message_box">
-        <p>{{ item.Content }}</p>
+        <p [class]="">{{ item.Content }}</p>
       </div>
     </div>
   `,
-  styles: [
-    `
-      .ci_message_wrap {
-        display: block;
-        height: auto;
-      }
-    `,
-  ],
+  styleUrls: ['./message-text.scss'],
   // encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -53,8 +45,9 @@ export class MessageTextComponent implements OnDestroy, OnInit {
   @Input() currentUserId: any;
   curUser!: Observable<any>;
   actionEnum = ActionMessage;
-  constructor() {}
-  ngOnInit() {}
+  constructor(private datePipe: DatePipe) {}
+  ngOnInit() {
+  }
   ngOnDestroy() {}
 }
 
@@ -62,5 +55,6 @@ export class MessageTextComponent implements OnDestroy, OnInit {
   declarations: [MessageTextComponent],
   imports: [CommonModule],
   exports: [MessageTextComponent],
+  providers: [DatePipe],
 })
 export class CiMessageTextModule {}

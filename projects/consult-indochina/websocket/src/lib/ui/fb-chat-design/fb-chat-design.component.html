@@ -1,0 +1,15 @@
+<ng-container *ngIf="his">
+  <ci-message-list [messageList$]="his | async">
+    <ng-template #item let-item="item">
+      <ci-message-text
+        [item]="item"
+        [currentUserId]="currentUserId"
+        [messageWrapCss]="{
+          sendedClass: 'test_sended-fb',
+          receiveClass: 'test_receive-fb'
+        }"
+      ></ci-message-text>
+      <button (click)="callback.emit(item)" *ngIf="item.SenderUserProfileId==currentUserId" class="chat-fb-button"></button>
+    </ng-template>
+  </ci-message-list>
+</ng-container>
