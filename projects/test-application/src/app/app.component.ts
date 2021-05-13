@@ -1,22 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DataTable, KeyDataTable } from 'projects/consult-indochina/common/src/lib/ui/ci-table/ci-table.model';
+import { CiAuthStateService } from '@consult-indochina/auth';
+import { ActionTableEnum } from '@consult-indochina/common';
+import {
+  DataTable,
+  KeyDataTable,
+  ListLabel,
+} from 'projects/consult-indochina/common/src/lib/ui/ci-table/ci-table.model';
 // import { BaseConnectorComponent } from 'dist/consult-indochina/websocket/public-api';
-import {
-  BehaviorSubject,
-
-  merge,
-  Observable,
-
-  Subject
-} from 'rxjs';
-import {
-  map,
-
-  scan,
-  shareReplay
-} from 'rxjs/operators';
+import { BehaviorSubject, merge, Observable, Subject } from 'rxjs';
+import { map, scan, shareReplay } from 'rxjs/operators';
 import { LoginService } from './services/login.service';
 // import { LocalStorageService } from '@consult-indochina/auth';
 import { MessageService } from './services/message.service';
@@ -33,7 +27,7 @@ export class AppComponent implements OnInit {
   user = '';
   password = '';
   loginResponse: any;
-  // loginForm;
+  loginForm;
   listHistory: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   his!: Observable<any>;
 
@@ -64,46 +58,46 @@ export class AppComponent implements OnInit {
     return true;
   }
 
-  listLable = [
+  listLable: ListLabel[] = [
     {
-      'id': "",
-      'label': "Stt",
-      'type': "index"
+      id: '',
+      label: 'Stt',
+      type: ActionTableEnum.index,
     },
     {
-      'id': "fname",
-      'label': "Họ",
-      'type': "text"
+      id: 'fname',
+      label: 'Họ',
+      type: ActionTableEnum.text,
     },
     {
-      'id': "lname",
-      'label': "Tên",
-      'type': "text"
+      id: 'lname',
+      label: 'Tên',
+      type: ActionTableEnum.text,
     },
     {
-      'id': "phone",
-      'label': "Số điện thoại",
-      'type': "number"
-    }, {
-      'id': "email",
-      'label': "Email",
-      'type': "text"
-    }
-    , {
-      'id': "address",
-      'label': "Địa chỉ",
-      'type': "text"
-    }
-    , {
-      'id': "",
-      'label': "",
-      'type': "action-icon",
-      'image':
-      {
-        'edit': "../assets/svg/icon-edit.svg",
-        'delete': "../assets/svg/icon-delete.svg"
-      }
-    }
+      id: 'phone',
+      label: 'Số điện thoại',
+      type: ActionTableEnum.number,
+    },
+    {
+      id: 'email',
+      label: 'Email',
+      type: ActionTableEnum.text,
+    },
+    {
+      id: 'address',
+      label: 'Địa chỉ',
+      type: ActionTableEnum.text,
+    },
+    {
+      id: '',
+      label: '',
+      type: ActionTableEnum.icon,
+      image: {
+        edit: '../assets/svg/icon-edit.svg',
+        delete: '../assets/svg/icon-delete.svg',
+      },
+    },
     // , {
     //   id: "",
     //   label: "",
@@ -117,49 +111,44 @@ export class AppComponent implements OnInit {
     //     }
     //   ]
     // }
-
-  ]
+  ];
   dataTable: DataTable[] = [
     {
-      'fname': "fname",
-      'lname': "Hari",
-      'phone': "0968744932",
-      'email': "nambui377@gmail.com",
-      'address': "phú diễn"
-
-    }
-    , {
-      'fname': " Bùi",
-      'lname': "Nam",
-      'phone': "0968744932",
-      'email': "nambui377@gmail.com",
-      'address': "phú diễn"
-
+      fname: 'fname',
+      lname: 'Hari',
+      phone: '0968744932',
+      email: 'nambui377@gmail.com',
+      address: 'phú diễn',
     },
     {
-      'fname': " Bùi",
-      'lname': "Nam",
-      'phone': "0968744932",
-      'email': "nambui377@gmail.com",
-      'address': "phú diễn"
-
-    }
-  ]
+      fname: ' Bùi',
+      lname: 'Nam',
+      phone: '0968744932',
+      email: 'nambui377@gmail.com',
+      address: 'phú diễn',
+    },
+    {
+      fname: ' Bùi',
+      lname: 'Nam',
+      phone: '0968744932',
+      email: 'nambui377@gmail.com',
+      address: 'phú diễn',
+    },
+  ];
 
   constructor(
     private fb: FormBuilder,
     private loginService: LoginService,
     private router: Router,
     private messageService: MessageService,
-    // private ciAuthState: CiAuthStateService,
-    // @Inject(CiSocketService) socketService: CiSocketService
+    private ciAuthState: CiAuthStateService // socketService: CiSocketService
   ) {
     // super(socketService);
-    // this.loginForm = this.fb.group({
-    //   grant_type: ['password'],
-    //   username: ['', Validators.required],
-    //   password: ['', Validators.required],
-    // });
+    this.loginForm = this.fb.group({
+      grant_type: ['password'],
+      username: ['', Validators.required],
+      password: ['', Validators.required],
+    });
     // this.ciAuthState.set({
     //   AccessToken: JSON.parse(localStorage.getItem('access_token') as any)
     //     .access_token,
@@ -268,14 +257,10 @@ export class AppComponent implements OnInit {
   }
   handleCallbackEventEdit = (ev: any) => {
     console.log(ev);
-
-
-  }
+  };
   handleCallbackEventDelete = (ev: any) => {
     console.log(ev);
-
-
-  }
+  };
   private setupRouteTitleListener() {
     // this.router.events
     //   .pipe(filter((ev) => ev instanceof ResolveEnd))

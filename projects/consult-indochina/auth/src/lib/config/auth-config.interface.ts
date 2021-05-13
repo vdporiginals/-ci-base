@@ -1,4 +1,5 @@
 export interface AuthConfig {
   API_URL: string;
-  PermissionNames?: any;
+  PermissionNames: any[];
+  uiOption: string;
 }

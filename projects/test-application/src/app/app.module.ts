@@ -3,6 +3,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { CiAuthModule, CiLoginComponentModule } from '@consult-indochina/auth';
 import { CiTableModule } from 'projects/consult-indochina/common/src/public-api';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -52,6 +53,13 @@ let getToken2;
     //   API_URL:
     //     'https://t39b2wqe1h.execute-api.ap-southeast-1.amazonaws.com/prod',
     // }),
+    CiLoginComponentModule,
+    CiAuthModule.forRoot({
+      API_URL:
+        'https://t39b2wqe1h.execute-api.ap-southeast-1.amazonaws.com/prod',
+      PermissionNames: [],
+      uiOption: 'custom'
+    }),
   ],
   providers: [
     // {

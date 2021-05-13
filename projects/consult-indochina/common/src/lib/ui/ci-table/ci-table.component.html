@@ -1,27 +1,27 @@
 <table [class]="classCiTable">
-    <thead>
-        <tr>
-            <th scope="col" *ngFor="let item of listLable">{{ item.label }}</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let item of dataTable ; let index = index">
-            <td *ngFor="let i of listLable">
-                <span *ngIf="i.type === 'index'">{{ index+1}}</span>
-                <span *ngIf="i.type === 'number'">{{ item[i.id] }}</span>
-                <span *ngIf="i.type === 'text'">{{ item[i.id] }}</span>
-                <span *ngIf="i.type === 'date'">{{ item[i.id]}}</span>
-                <span *ngIf="i.type === 'action-icon'">
-                    <img src="{{i.image?.edit}}" (click)="onClickSetting(item, typeEventTable.edit)" />
-                    <img src="{{i.image?.delete}}" (click)="onClickSetting(item, typeEventTable.delete)" />
-                </span>
-                <span *ngIf="i.type === 'action-button'">
-                    <button (click)="onClickSetting(item, typeEventTable.edit)">{{i.text?.edit}}</button>
-                    <button (click)="onClickSetting(item, typeEventTable.delete)">{{i.text?.delete}}</button>
-                </span>
+  <thead>
+    <tr>
+      <th scope="col" *ngFor="let item of listLable">{{ item.label }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of dataTable; let index = index">
+      <td *ngFor="let i of listLable">
+        <span *ngIf="i.type === 'index'">{{ index+1}}</span>
+        <span *ngIf="i.type === 'number'">{{ item[i.id] }}</span>
+        <span *ngIf="i.type === 'text'">{{ item[i.id] }}</span>
+        <span *ngIf="i.type === 'date'">{{ item[i.id]}}</span>
+        <span *ngIf="i.type === 'action-icon'">
+          <img src="{{i.image?.edit}}" (click)="onClickSetting(item, typeEventTable.edit)" />
+          <img src="{{i.image?.delete}}" (click)="onClickSetting(item, typeEventTable.delete)" />
+        </span>
+        <span *ngIf="i.type === 'action-button'">
+          <button (click)="onClickSetting(item, typeEventTable.edit)">{{i.text?.edit}}</button>
+          <button (click)="onClickSetting(item, typeEventTable.delete)">{{i.text?.delete}}</button>
+        </span>
 
 
-            </td>
-        </tr>
-    </tbody>
+      </td>
+    </tr>
+  </tbody>
 </table>
