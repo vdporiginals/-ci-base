@@ -1,5 +1,4 @@
-export interface DataTable {
-  [key: string]: string;
+export interface DataTable extends KeyDataTable {
   fname: string;
   lname: string;
   phone: string;
@@ -8,7 +7,7 @@ export interface DataTable {
 }
 
 export interface KeyDataTable {
-  [id: string]: DataTable;
+  [key: string]: string;
 }
 
 export type ListLabel = {
