@@ -1,1 +1,31 @@
-<p>register works!</p>
+<div *ngIf="uiOption==='custom'">
+    <div [class]="classCustom">
+        <div class="title">{{title}}</div>
+        <form [formGroup]="registerForm" class="form">
+            <label>
+                <input type="email" formControlName="Email">
+            </label>
+            <label>
+                <input type="text" formControlName="Username">
+            </label>
+            <label>
+                <input type="password" formControlName="Password">
+            </label>
+            <label>
+                <input type="text" formControlName="FirstName">
+            </label>
+            <label>
+                <input type="text" formControlName="LastName">
+            </label>
+            <label>
+                <input type="text" formControlName="PhoneNumber">
+            </label>
+            <label>
+                <input type="date" formControlName="DateOfBirth">
+            </label>
+            <label>
+                <input type="text" formControlName="MediaURL">
+            </label>
+        </form>
+    </div>
+</div>
