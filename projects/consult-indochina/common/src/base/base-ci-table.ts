@@ -1,4 +1,4 @@
-import { Directive, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Directive, EventEmitter, Input, Output } from '@angular/core';
 
 export enum TypeEventTable {
   edit = 'edit',
