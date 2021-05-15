@@ -4,8 +4,6 @@ Thư Viện gồm các Base Api DataAcces, Interceptor,Directives,Guard,Base Aut
 
 ## Components
 
-**_Search Components:_**
-
 
 **_Login Components:_**
 	+ Config: uiOption
