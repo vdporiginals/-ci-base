@@ -1,4 +1,4 @@
-# Base CI Auth Module for Angular
+<!-- # Base CI Auth Module for Angular
 
 Thư Viện gồm các Base Api DataAcces, Interceptor,Directives,Guard,Base Auth UI component and Some logic Utils
 
@@ -15,31 +15,31 @@ Thư Viện gồm các Base Api DataAcces, Interceptor,Directives,Guard,Base Aut
 
 - **Input:**
 
----
 
-- **classCustom:** truyền vào class để css cho component
-- **title:** Title component
-- **cấu trúc class:**
+    - **classCustom:** truyền vào class để css cho component
+    - **title:** Title component
+    - **cấu trúc class:**
 
-  ```
-    .classCustom{
-     .title
-     .form{
-      .user-name (input tài khoản){
-       input
-      }
-      .password (input password){
-       input
-      }
-      .action (các button tương tác form){
-       .btn-login (button login)
-       .btn-signup (button signup)
-      }
-     }
+        ```
+            .classCustom{
+                 .title
+                      .form{
+                        .user-name (input tài khoản){
+                                   input
+                         }
+                         .password (input password){
+                              input
+         }
+    .action (các button tương tác form){
+     .btn-login (button login)
+     .btn-signup (button signup)
     }
-  ```
+   }
+  }
+        ```
 
-  - **ngContent:** truyền vào thẻ label để custom thêm giao diện đăng nhập
+1. **ngContent:** truyền vào thẻ label để custom thêm giao diện đăng nhập
+
 
     ```
        <ci-login>
@@ -47,7 +47,8 @@ Thư Viện gồm các Base Api DataAcces, Interceptor,Directives,Guard,Base Aut
        </ci-login>
     ```
 
-  - **Demo:**
+2. **Demo:**
+
 
     ```
      <ci-login [title]="'Đăng nhập'" [classCustom]="'login'">
@@ -57,4 +58,4 @@ Thư Viện gồm các Base Api DataAcces, Interceptor,Directives,Guard,Base Aut
       </label>
      </ci-login>
 
-    ```
+    ``` -->

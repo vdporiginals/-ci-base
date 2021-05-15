@@ -1,24 +1,58 @@
-# Auth
+# Base CI Auth Module for Angular
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.11.
+Thư Viện gồm các Base Api DataAcces, Interceptor,Directives,Guard,Base Auth UI component and Some logic Utils
 
-## Code scaffolding
+## Components
 
-Run `ng generate component component-name --project auth` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project auth`.
-> Note: Don't forget to add `--project auth` or else it will be added to the default project in your `angular.json` file. 
+### Login Components
 
-## Build
+- Config: uiOption
 
-Run `ng build auth` to build the project. The build artifacts will be stored in the `dist/` directory.
+     - **custom:** là giao diên có thể custom
+     - **material:** giao diện login material
 
-## Publishing
 
-After building your library with `ng build auth`, go to the dist folder `cd dist/auth` and run `npm publish`.
+---
+- **Input:**
 
-## Running unit tests
+  - **classCustom:** truyền vào class để css cho component
+  - **title:** Title component
+  - **cấu trúc class:**
 
-Run `ng test auth` to execute the unit tests via [Karma](https://karma-runner.github.io).
+    ```
+        .classCustom{
+             .title
+                  .form{
+                    .user-name (input tài khoản){
+                               input
+                     }
+                     .password (input password){
+                          input
+                     }
+             .action (các button tương tác form){
+          .btn-login (button login)
+          .btn-signup (button signup)
+             }
+        }
+    }
+    ```
 
-## Further help
+- **ngContent:** truyền vào thẻ label để custom thêm giao diện đăng nhập
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+   ```
+      <ci-login>
+       <label>giao diện custom</label>
+      </ci-login>
+   ```
+
+- **Demo:**
+
+   ```
+    <ci-login [title]="'Đăng nhập'" [classCustom]="'login'">
+     <label>
+      Lưu thông tin đăng nhập
+      <input type="checkbox" />
+     </label>
+    </ci-login>
+
+   ```
