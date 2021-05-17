@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, NgModule, OnInit, Output } from '@angular/core';
+import { Component, Input, NgModule } from '@angular/core';
 import { Observable } from 'rxjs';
+import { BaseChatComponent } from '../../base/base-chat-components';
 import { MessageInterface } from '../../config/websocket.interface';
 import { CiMessageListModule } from '../message-list.component';
 import { CiMessageTextModule } from '../message-text.component';
@@ -10,15 +11,10 @@ import { CiMessageTextModule } from '../message-text.component';
   templateUrl: './fb-chat-design.component.html',
   styleUrls: ['./fb-chat-design.component.scss']
 })
-export class FbChatDesignComponent implements OnInit {
+export class FbChatDesignComponent extends BaseChatComponent {
   @Input() currentUserId!: number;
   @Input() his!: Observable<MessageInterface[]>;
-  @Output() fbChatCallBack = new EventEmitter();
-  constructor() { }
 
-  ngOnInit(): void {
-
-  }
 
 }
 @NgModule({

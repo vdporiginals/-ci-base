@@ -5,14 +5,12 @@ import {
   CanActivateChild,
   CanLoad,
   Route,
-  UrlSegment
+  UrlSegment,
 } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { CiAuthModule } from '../ci-auth.module';
-import {
-  CiBasePolicyStateService
-} from '../data-access/store/policy-state.service';
+import { CiBasePolicyStateService } from '../data-access/store/policy-state.service';
 import { RedirectService } from '../services/redirect.service';
 
 @Injectable({
