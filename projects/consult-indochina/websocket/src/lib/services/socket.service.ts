@@ -10,7 +10,10 @@ import {
   tap,
 } from 'rxjs/operators';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
-import { WEBSOCKET_CONFIG } from '../config/websocket.config';
+import {
+  ACCESS_TOKEN_PROVIDER,
+  WEBSOCKET_CONFIG,
+} from '../config/websocket.config';
 import { WebSocketConfig } from '../config/websocket.interface';
 import { CiWebsocketModule } from '../websocket.module';
 
@@ -35,17 +38,19 @@ export class CiSocketService {
     })
   );
   private closeByDestroy = false;
-  constructor(@Inject(WEBSOCKET_CONFIG) private wsConfig: WebSocketConfig) {
-    console.log(this.wsConfig);
-
+  constructor(
+    @Inject(WEBSOCKET_CONFIG) private wsConfig: WebSocketConfig,
+    @Inject(ACCESS_TOKEN_PROVIDER)
+    private accessTokenProvider: Observable<string>
+  ) {
     this.RECONNECT_INTERVAL = this.wsConfig.RECONNECT_INTERVAL;
-    
-    if (this.wsConfig.ACCESS_TOKEN$) {
-      this.wsConfig.ACCESS_TOKEN$.subscribe((res) => {
+
+    if (this.accessTokenProvider) {
+      this.accessTokenProvider.subscribe((res) => {
         this.accessToken = res;
       });
     } else {
-      this.accessToken = this.wsConfig.ACCESS_TOKEN;
+      this.accessToken = this.wsConfig.ACCESS_TOKEN || '';
     }
 
     this.WS_ENDPOINT = this.wsConfig.WS_ENDPOINT;

@@ -3,13 +3,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { CiAuthModule, CiAuthStateService } from '@consult-indochina/auth';
-import {
-  CiMessageListModule,
-  CiMessageTextModule,
-  CiWebsocketModule,
-} from '@consult-indochina/websocket';
-import { LocalStorageService } from 'dist/consult-indochina/auth/lib/services/local-storage.service';
+import { CiAuthModule } from '@consult-indochina/auth';
+import { CiLoginComponentModule } from 'projects/consult-indochina/auth/src/public-api';
+import { CiTableModule } from 'projects/consult-indochina/common/src/public-api';
 import { FbChatDesignModule } from 'projects/consult-indochina/websocket/src/public-api';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -32,25 +28,36 @@ let getToken2;
   imports: [
     CommonModule,
     FormsModule,
+    CiTableModule,
+    FbChatDesignModule,
     // CiPaginationComponentModule,
     // CiListComponentModule,
     // CiSearchInputComponentModule,
     BrowserModule,
     ReactiveFormsModule,
     FormsModule,
-    CiMessageTextModule,
-    CiMessageListModule,
+    // CiMessageTextModule,
+    // CiMessageListModule,
     HttpClientModule,
-    FbChatDesignModule,
-    CiWebsocketModule.forRoot({
-      ACCESS_TOKEN: JSON.parse(localStorage.getItem('access_token') as any)
-        .access_token,
-      ACCESS_TOKEN$: getToken2,
-      RECONNECT_INTERVAL: 5000,
-      WS_ENDPOINT:
-        'wss://7o5p7mfv40.execute-api.ap-southeast-1.amazonaws.com/production',
-    }),
     AppRoutingModule,
+
+    // CiWebsocketModule.forRoot(
+    //   {
+    //     RECONNECT_INTERVAL: 5000,
+    //     WS_ENDPOINT:
+    //       'wss://7o5p7mfv40.execute-api.ap-southeast-1.amazonaws.com/production',
+    //   },
+    //   {
+    //     provide: ACCESS_TOKEN_PROVIDER,
+    //     deps: [CiAuthStateService],
+    //     useFactory: accessTokenFactory,
+    //   }
+    // ),
+    // CiAuthModule.forRoot({
+    //   API_URL:
+    //     'https://t39b2wqe1h.execute-api.ap-southeast-1.amazonaws.com/prod',
+    // }),
+    CiLoginComponentModule,
     CiAuthModule.forRoot({
       PermissionNames: [],
       API_URL:
@@ -67,7 +74,7 @@ let getToken2;
   bootstrap: [AppComponent],
 })
 export class AppModule {
-  constructor(public stateService: CiAuthStateService) {
-    getToken2 = stateService.token$;
-  }
+  // constructor(public stateService: CiAuthStateService) {
+  //   getToken2 = stateService.token$;
+  // }
 }

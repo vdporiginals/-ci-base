@@ -1,0 +1,20 @@
+<div *ngIf="uiOption==='custom'">
+    <div [class]="classCustom">
+        <div class="title">{{title}}</div>
+        <form [formGroup]="loginForm" class="form">
+            <label class="user-name">
+			  Tài khoản
+			  <input type="text" formControlName="Username">
+			</label>
+            <label class="password">
+			  Mật khẩu
+			  <input type="password" formControlName="Password">
+			</label>
+            <ng-content select="label"></ng-content>
+            <div class="action">
+                <button class="btn-login" (click)="login(loginForm.value)">Đăng nhập</button>
+                <button class="btn-signup">Đăng ký</button>
+            </div>
+        </form>
+    </div>
+</div>

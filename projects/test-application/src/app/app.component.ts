@@ -1,29 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { CiAuthStateService } from '@consult-indochina/auth';
 import {
-  CiSocketService,
-  BaseConnectorComponent,
-} from '@consult-indochina/websocket';
+  ActionTableEnum,
+  DataTable,
+  KeyDataTable,
+  ListLabel,
+} from 'projects/consult-indochina/common/src/lib/ui/ci-table/ci-table.model';
 // import { BaseConnectorComponent } from 'dist/consult-indochina/websocket/public-api';
-import {
-  BehaviorSubject,
-  combineLatest,
-  merge,
-  Observable,
-  of,
-  Subject,
-} from 'rxjs';
-import {
-  map,
-  mergeMap,
-  scan,
-  shareReplay,
-  startWith,
-  take,
-  tap,
-} from 'rxjs/operators';
+import { BehaviorSubject, merge, Observable, Subject } from 'rxjs';
+import { map, scan, shareReplay } from 'rxjs/operators';
 import { LoginService } from './services/login.service';
 // import { LocalStorageService } from '@consult-indochina/auth';
 import { MessageService } from './services/message.service';
@@ -33,7 +20,7 @@ import { MessageService } from './services/message.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent extends BaseConnectorComponent implements OnInit {
+export class AppComponent implements OnInit {
   title = 'test-application';
   textSearch: FormControl = new FormControl();
   // questions$!: Observable<CiBaseFormsModel<any>[]>;
@@ -45,6 +32,7 @@ export class AppComponent extends BaseConnectorComponent implements OnInit {
   his!: Observable<any>;
 
   deleteSubject = new Subject();
+
   async getHistory() {
     // if (this.unread) {
     //   this.notiStateService.setMessageCount(
@@ -70,26 +58,101 @@ export class AppComponent extends BaseConnectorComponent implements OnInit {
     return true;
   }
 
+  listLable: ListLabel[] = [
+    {
+      id: '',
+      label: 'Stt',
+      type: ActionTableEnum.index,
+    },
+    {
+      id: 'fname',
+      label: 'Họ',
+      type: ActionTableEnum.text,
+    },
+    {
+      id: 'lname',
+      label: 'Tên',
+      type: ActionTableEnum.text,
+    },
+    {
+      id: 'phone',
+      label: 'Số điện thoại',
+      type: ActionTableEnum.number,
+    },
+    {
+      id: 'email',
+      label: 'Email',
+      type: ActionTableEnum.text,
+    },
+    {
+      id: 'address',
+      label: 'Địa chỉ',
+      type: ActionTableEnum.text,
+    },
+    {
+      id: '',
+      label: '',
+      type: ActionTableEnum.icon,
+      image: {
+        edit: '../assets/svg/icon-edit.svg',
+        delete: '../assets/svg/icon-delete.svg',
+      },
+    },
+    // , {
+    //   id: "",
+    //   label: "",
+    //   type: "action-button",
+    //   text: [
+    //     {
+    //       edit: "Sửa"
+    //     },
+    //     {
+    //       delete: "Xoá"
+    //     }
+    //   ]
+    // }
+  ];
+  dataTable: DataTable[] = [
+    {
+      fname: 'fname',
+      lname: 'Hari',
+      phone: '0968744932',
+      email: 'nambui377@gmail.com',
+      address: 'phú diễn',
+    },
+    {
+      fname: ' Bùi',
+      lname: 'Nam',
+      phone: '0968744932',
+      email: 'nambui377@gmail.com',
+      address: 'phú diễn',
+    },
+    {
+      fname: ' Bùi',
+      lname: 'Nam',
+      phone: '0968744932',
+      email: 'nambui377@gmail.com',
+      address: 'phú diễn',
+    },
+  ];
+
   constructor(
     private fb: FormBuilder,
     private loginService: LoginService,
     private router: Router,
     private messageService: MessageService,
-    private ciAuthState: CiAuthStateService,
-    socketService: CiSocketService
+    private ciAuthState: CiAuthStateService // socketService: CiSocketService
   ) {
-    super(socketService);
+    // super(socketService);
     this.loginForm = this.fb.group({
       grant_type: ['password'],
       username: ['', Validators.required],
       password: ['', Validators.required],
     });
-    if (localStorage.getItem('access_token')) {
-      this.ciAuthState.set({
-        AccessToken: JSON.parse(localStorage.getItem('access_token') as any)
-          .access_token,
-      });
-    }
+    // this.ciAuthState.set({
+    //   AccessToken: JSON.parse(localStorage.getItem('access_token') as any)
+    //     .access_token,
+    // });
   }
   currentUserId = 2053;
   // constructor(
@@ -99,20 +162,18 @@ export class AppComponent extends BaseConnectorComponent implements OnInit {
   // ) {}
 
   ngOnInit() {
-    let receive: string  = '2053';
     // this.getHistory();
-    this.connectSocket$().subscribe((res) => {
-      console.log(res);
-    });
-    if (localStorage.getItem('access_token')) {
-      if (
-        JSON.parse(localStorage.getItem('access_token') as any).UserProfileId ==
-        '2323'
-      ) {
-        receive = '2053';
-      } else {
-        receive = '2323';
-      }
+    // this.connectSocket$().subscribe((res) => {
+    //   console.log(res);
+    // });
+    let receive: string;
+    if (
+      JSON.parse(localStorage.getItem('access_token') as any).UserProfileId ==
+      '2323'
+    ) {
+      receive = '2053';
+    } else {
+      receive = '2323';
     }
 
     // this.deleteSubject.asObservable().pipe(
@@ -195,7 +256,12 @@ export class AppComponent extends BaseConnectorComponent implements OnInit {
     //   // this.featureFlagService.loadFeatures();
     // });
   }
-
+  handleCallbackEventEdit = (ev: any) => {
+    console.log(ev);
+  };
+  handleCallbackEventDelete = (ev: any) => {
+    console.log(ev);
+  };
   private setupRouteTitleListener() {
     // this.router.events
     //   .pipe(filter((ev) => ev instanceof ResolveEnd))
@@ -262,19 +328,19 @@ export class AppComponent extends BaseConnectorComponent implements OnInit {
     //   });
   }
   login2() {
-    this.loginService.login(this.loginForm.value).subscribe(
-      (res) => {
-        // this.storage.userToken.next(res);
-        // this.noti.showSuccess("Đăng nhập thành công!");JSON.parse(
-        localStorage.setItem('access_token', JSON.stringify(res));
-        // this.loading.closeLoading();
-        this.router.navigate(['']);
-      },
-      (err) => {
-        // this.loading.closeLoading();
-        // this.noti.showError(`Đăng nhập thất bại! ${err.message}`);
-      }
-    );
+    // this.loginService.login(this.loginForm.value).subscribe(
+    //   (res) => {
+    //     // this.storage.userToken.next(res);
+    //     // this.noti.showSuccess("Đăng nhập thành công!");JSON.parse(
+    //     localStorage.setItem('access_token', JSON.stringify(res));
+    //     // this.loading.closeLoading();
+    //     this.router.navigate(['']);
+    //   },
+    //   (err) => {
+    //     // this.loading.closeLoading();
+    //     // this.noti.showError(`Đăng nhập thất bại! ${err.message}`);
+    //   }
+    // );
   }
   searchItemsClient(ev: any) {
     console.log(ev);

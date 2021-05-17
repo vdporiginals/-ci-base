@@ -1,11 +1,15 @@
 import { Observable } from 'rxjs';
 
+export interface AccessTokenProvider {
+  deps: any[];
+  accessToken$: () => Observable<any>;
+}
+
 export interface WebSocketConfig {
   // API_URL: string;
   WS_ENDPOINT: string;
   RECONNECT_INTERVAL: number;
-  ACCESS_TOKEN: string;
-  ACCESS_TOKEN$?: Observable<string>;
+  ACCESS_TOKEN?: string;
 }
 
 export interface MessageInterface {
@@ -33,3 +37,5 @@ export enum TypeMessageEnum {
   videoMessage = 3,
   videoCallMessage = 4,
 }
+
+export type TimespanProvider = Observable<string>;
