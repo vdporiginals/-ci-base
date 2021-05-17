@@ -1,6 +1,6 @@
 <ng-container *ngIf="his">
   <ci-message-list [messageList$]="his | async">
-    <ng-template #item let-item="item">
+    <ng-template #item let-item="item" let-checked="checked">
       <ci-message-text
         [item]="item"
         [currentUserId]="currentUserId"
@@ -8,8 +8,14 @@
           sendedClass: 'test_sended-fb',
           receiveClass: 'test_receive-fb'
         }"
+        (messageTextButton)="fbChatCallBack.emit($event)"
       ></ci-message-text>
-      <button (click)="callback.emit(item)" *ngIf="item.SenderUserProfileId==currentUserId" class="chat-fb-button"></button>
+      <!-- {{ checked }} -->
+      <!-- <button
+        (click)="callback.emit(item)"
+        *ngIf="item.SenderUserProfileId == currentUserId"
+        class="chat-fb-button"
+      ></button> -->
     </ng-template>
   </ci-message-list>
 </ng-container>

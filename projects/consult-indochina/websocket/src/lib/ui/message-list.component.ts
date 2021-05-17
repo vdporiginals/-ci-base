@@ -18,10 +18,13 @@ import { CiMessageTextModule } from './message-text.component';
     <div
       *ngFor="let item of messageList$; let i = index; trackBy: trackFunc"
       class="ci_mes_list"
-    > 
-    <div *ngIf="item | checkDatePipe: messageList$[i - 1]" class="ci-chat_styte_date">
-      <span>{{item.CreatedOn | date: 'dd-MM-YYYY'}}</span>
-    </div>
+    >
+      <div
+        *ngIf="item | checkDatePipe: messageList$[i - 1]"
+        class="ci-fb-chat-date"
+      >
+        <span>{{ item.CreatedOn | date: 'dd-MM-YYYY' }}</span>
+      </div>
       <ng-container
         *ngTemplateOutlet="messageText; context: { item: item, checked: i }"
       ></ng-container>
@@ -33,15 +36,26 @@ import { CiMessageTextModule } from './message-text.component';
         display: grid;
         grid-template-column: auto;
         height: 100%;
+        position: relative;
       }
-      .ci-chat_styte_date{
-        
-      }
-      .ci-chat_styte_date::after{
-        content: '';
-        width: 100%;
+      .ci-fb-chat-date {
+        position: relative;
+        background-color: rgba(0, 0, 0, 0.2);
         height: 1px;
-        background: black;
+        width: 100%;
+        margin: 10px 0;
+      }
+      .ci-fb-chat-date span {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 999;
+        background: #ffffff;
+        padding: 7px 15px;
+        font-weight: 600;
+        border-radius: 15px;
+        border: 1px solid rgba(0, 0, 0, 0.2);
       }
     `,
   ],

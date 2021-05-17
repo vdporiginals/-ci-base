@@ -13,7 +13,7 @@ import { CiMessageTextModule } from '../message-text.component';
 export class FbChatDesignComponent implements OnInit {
   @Input() currentUserId!: number;
   @Input() his!: Observable<MessageInterface[]>;
-  @Output() callback = new EventEmitter();
+  @Output() fbChatCallBack = new EventEmitter();
   constructor() { }
 
   ngOnInit(): void {

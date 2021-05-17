@@ -7,6 +7,8 @@ import {
   ChangeDetectionStrategy,
   Component,
   NgModule,
+  Output,
+  EventEmitter,
 } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ActionMessage, MessageInterface } from '../config/websocket.interface';
@@ -28,6 +30,23 @@ export interface MessageType {
     >
       <div class="ci_message_box">
         <p [class]="">{{ item.Content }}</p>
+        <p [class]="" *ngIf="item.Type == 1">{{ item.Content }}</p>
+        <img [src]="item.Content" alt="" *ngIf="item.Type == 2" />
+        <video [src]="item.Content" *ngIf="item.Type == 3"></video>
+        <div class="show-more">
+          <div class="popover" *ngIf="checkShowMore">
+            <button (click)="messageTextButton.emit({item: item, type: 'delete'})">Delete</button>
+            <button>Copy</button>
+          </div>
+          <img
+            src="assets/show-more.svg"
+            alt=""
+            class="show-more-btn"
+            *ngIf="item.SenderUserProfileId == currentUserId"
+            [style.display]=" checkShowMore? 'block':''"
+            (click)="checkShowMore=!checkShowMore"
+          />
+        </div>
       </div>
     </div>
   `,
@@ -43,11 +62,12 @@ export class MessageTextComponent implements OnDestroy, OnInit {
   searchTextString!: string;
   @Input() messageWrapCss!: MessageType;
   @Input() currentUserId: any;
+  @Output() messageTextButton = new EventEmitter();
   curUser!: Observable<any>;
   actionEnum = ActionMessage;
+  checkShowMore: boolean = false;
   constructor(private datePipe: DatePipe) {}
-  ngOnInit() {
-  }
+  ngOnInit() {}
   ngOnDestroy() {}
 }
 

@@ -1,22 +1,66 @@
 .ci_message_wrap {
     display: block;
     // height: auto;
-    .ci_create_time {
+    &:hover .show-more-btn{
+        display: block;
+    }
+    .show-more{
+        position: absolute;
+        left: -20px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+    }
+    .show-more-btn {
+        display: none;
+        width: 15px;
+    }
+    .popover {
+        display: flex;
+        position: absolute;
+        left: 50%;
+        top: -40px;
+        transform: translateX(-50%);
+        padding: 5px;
+        border: 1px solid;
+        border-radius: 5px;
+        background-color: #ffffff;
+        button{
+            cursor: pointer;
+            border: none;
+            background: #ffffff;
+        }
     }
 }
-.haveDate {
-}
+
 .test_sended-fb {
     float: right;
     max-width: 50%;
+    margin-right: 10px;
+    padding-left: 30px;
     .ci_message_box {
         float: right;
+        position: relative;
         p {
-            background-color: aqua;
+            background-color: #0084ff;
             padding: 10px 20px;
             border-radius: 20px;
-            word-break: break-all;
-
+            word-break: break-word;
+            color: #ffffff;
+        }
+    }
+}
+.test_receive-fb {
+    float: left;
+    max-width: 50%;
+    margin-left: 10px;
+    .ci_message_box {
+        p {
+            background-color: #e4e6eb;
+            padding: 10px 20px;
+            border-radius: 20px;
+            word-break: break-word;
+            color: #000000;
         }
     }
 }
