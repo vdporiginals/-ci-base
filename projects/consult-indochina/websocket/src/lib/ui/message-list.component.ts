@@ -5,12 +5,10 @@ import {
   ContentChild,
   Input,
   NgModule,
-  OnInit,
   TemplateRef,
 } from '@angular/core';
-import { Observable } from 'rxjs';
 import { MessageInterface } from '../config/websocket.interface';
-import { CheckDatePipe, CheckDatePipeModule } from '../utils/check-date.pipe';
+import { CheckDatePipeModule } from '../utils/check-date.pipe';
 import { CiMessageTextModule } from './message-text.component';
 @Component({
   selector: 'ci-message-list',
@@ -62,18 +60,10 @@ import { CiMessageTextModule } from './message-text.component';
   // encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CiMessageListComponent implements OnInit {
+export class CiMessageListComponent {
   @Input() messageList$!: MessageInterface[];
   @ContentChild('item', { static: false }) messageText!: TemplateRef<any>;
 
-  ngOnInit() {
-    console.log(this.messageList$);
-    // if (this.messageList$) {
-    //   this.messageList$.subscribe((res) => {
-    //     console.log(res);
-    //   });
-    // }
-  }
   trackFunc(index: number, item: any) {
     return item;
   }

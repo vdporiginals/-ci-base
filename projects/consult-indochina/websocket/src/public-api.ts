@@ -11,3 +11,4 @@ export * from './lib/ui/message-text.component';
 export * from './lib/ui/message-list.component';
 export * from './lib/ui/fb-chat-design/fb-chat-design.component';
 export * from './lib/base/base-chat-components';
+export * from './lib/utils/check-date.pipe';

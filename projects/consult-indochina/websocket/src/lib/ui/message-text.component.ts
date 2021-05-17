@@ -1,14 +1,11 @@
 import { CommonModule, DatePipe } from '@angular/common';
-import { stringify } from '@angular/compiler/src/util';
 import {
-  OnDestroy,
-  OnInit,
-  Input,
   ChangeDetectionStrategy,
   Component,
+  EventEmitter,
+  Input,
   NgModule,
   Output,
-  EventEmitter,
 } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ActionMessage, MessageInterface } from '../config/websocket.interface';
@@ -35,7 +32,11 @@ export interface MessageType {
         <video [src]="item.Content" *ngIf="item.Type == 3"></video>
         <div class="show-more">
           <div class="popover" *ngIf="checkShowMore">
-            <button (click)="messageTextButton.emit({item: item, type: 'delete'})">Delete</button>
+            <button
+              (click)="messageTextButton.emit({ item: item, type: 'delete' })"
+            >
+              Delete
+            </button>
             <button>Copy</button>
           </div>
           <img
@@ -43,8 +44,8 @@ export interface MessageType {
             alt=""
             class="show-more-btn"
             *ngIf="item.SenderUserProfileId == currentUserId"
-            [style.display]=" checkShowMore? 'block':''"
-            (click)="checkShowMore=!checkShowMore"
+            [style.display]="checkShowMore ? 'block' : ''"
+            (click)="checkShowMore = !checkShowMore"
           />
         </div>
       </div>
@@ -54,7 +55,7 @@ export interface MessageType {
   // encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MessageTextComponent implements OnDestroy, OnInit {
+export class MessageTextComponent {
   @Input()
   index!: number;
   @Input() item!: MessageInterface;
@@ -66,9 +67,6 @@ export class MessageTextComponent implements OnDestroy, OnInit {
   curUser!: Observable<any>;
   actionEnum = ActionMessage;
   checkShowMore: boolean = false;
-  constructor(private datePipe: DatePipe) {}
-  ngOnInit() {}
-  ngOnDestroy() {}
 }
 
 @NgModule({
