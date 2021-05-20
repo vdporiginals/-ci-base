@@ -5,7 +5,6 @@ import { CiAuthStateService } from '@consult-indochina/auth';
 import {
   ActionTableEnum,
   DataTable,
-  KeyDataTable,
   ListLabel,
 } from 'projects/consult-indochina/common/src/lib/ui/ci-table/ci-table.model';
 // import { BaseConnectorComponent } from 'dist/consult-indochina/websocket/public-api';

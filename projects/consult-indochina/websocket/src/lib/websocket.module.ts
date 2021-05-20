@@ -6,19 +6,18 @@ import {
 } from './config/websocket.interface';
 
 @NgModule({
-  declarations: [
-  ],
+  declarations: [],
   imports: [],
   exports: [],
 })
 export class CiWebsocketModule {
   static forRoot(
     conf: WebSocketConfig,
-    conf2: Provider
+    val: Provider
   ): ModuleWithProviders<CiWebsocketModule> {
     return {
       ngModule: CiWebsocketModule,
-      providers: [getWSConfigProvider(conf, conf2)],
+      providers: [getWSConfigProvider(conf, val)],
     };
   }
 }

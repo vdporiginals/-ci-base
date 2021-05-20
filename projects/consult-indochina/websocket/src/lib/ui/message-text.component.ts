@@ -26,7 +26,6 @@ export interface MessageType {
       "
     >
       <div class="ci_message_box">
-        <p [class]="">{{ item.Content }}</p>
         <p [class]="" *ngIf="item.Type == 1">{{ item.Content }}</p>
         <img [src]="item.Content" alt="" *ngIf="item.Type == 2" />
         <video [src]="item.Content" *ngIf="item.Type == 3"></video>
