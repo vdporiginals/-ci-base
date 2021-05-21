@@ -12,10 +12,10 @@ interface HttpOptions {
 }
 
 export interface BaseResponse<T> {
-  Ok: boolean | undefined;
-  Message?: string | undefined;
-  Payload: T;
-  Count?: number | undefined;
+  ok: boolean | undefined;
+  message?: string | undefined;
+  payload: T;
+  count?: number | undefined;
 }
 
 export abstract class BaseApiService<T> {

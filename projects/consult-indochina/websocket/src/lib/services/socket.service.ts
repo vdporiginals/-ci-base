@@ -4,6 +4,7 @@ import { Inject, Injectable } from '@angular/core';
 import { BehaviorSubject, EMPTY, Observable, timer } from 'rxjs';
 import {
   catchError,
+  delay,
   delayWhen,
   retryWhen,
   switchAll,
@@ -23,10 +24,10 @@ import { CiWebsocketModule } from '../websocket.module';
   providedIn: CiWebsocketModule,
 })
 export class CiSocketService {
-  private RECONNECT_INTERVAL!: number;
-  private WS_ENDPOINT!: string;
+  private RECONNECT_INTERVAL: number = 15000;
+  private WS_ENDPOINT: string;
   private socket$: WebSocketSubject<any> | undefined;
-  private accessToken!: string;
+  private accessToken: string = '';
   private messagesSubject$: BehaviorSubject<any[]> = new BehaviorSubject<any[]>(
     []
   );
@@ -43,14 +44,17 @@ export class CiSocketService {
     @Inject(ACCESS_TOKEN_PROVIDER)
     private accessTokenProvider: Observable<string>
   ) {
-    this.RECONNECT_INTERVAL = this.wsConfig.RECONNECT_INTERVAL;
+    if (this.wsConfig.RECONNECT_INTERVAL)
+      this.RECONNECT_INTERVAL = this.wsConfig.RECONNECT_INTERVAL;
 
     if (this.accessTokenProvider) {
       this.accessTokenProvider.subscribe((res) => {
         this.accessToken = res;
       });
     } else {
-      this.accessToken = this.wsConfig.ACCESS_TOKEN || '';
+      this.accessToken =
+        JSON.parse(localStorage.getItem('access_token') || '').access_token ||
+        '';
     }
 
     this.WS_ENDPOINT = this.wsConfig.WS_ENDPOINT;
@@ -81,6 +85,7 @@ export class CiSocketService {
    */
   private reconnect(observable: Observable<any>): Observable<any> {
     return observable.pipe(
+      delay(1000),
       retryWhen((errors) =>
         errors.pipe(
           tap((val) => console.log('[Socket Service] Try to reconnect', val)),
@@ -111,6 +116,12 @@ export class CiSocketService {
    * Return a custom WebSocket subject which reconnects after failure
    */
   private getNewWebSocket() {
+    if (!this.accessToken) {
+      this.accessToken =
+        JSON.parse(localStorage.getItem('access_token') || '').access_token ||
+        null;
+    }
+
     return webSocket({
       url: `${this.WS_ENDPOINT}?Authorization=${this.accessToken}`,
       deserializer: (msg) => {
@@ -123,7 +134,6 @@ export class CiSocketService {
           return msg.data;
         }
       },
-      serializer: (msg) => JSON.stringify(msg),
       // url: `wss://hbd51up8a8.execute-api.us-east-2.amazonaws.com/production?Authorization=5uJXjVH3BrOMxZGp_F4XrUj3Xg-8xhkYA8JA95HrdAO3Miy15IrWvFBA2Ui9x5HR2GuimTF4JuOE3-Lt93VqSdVgMog-hMBX9-PjD3vjg8oS7eTj10eEXY36lTX6dZkEAUUivyvfjxuydXIcRCuOaSqvQTZprrussdHkIVLnMQCnOZ5o5PkvmwOCT4GL6oXZF4mgIZNoV3XQxhHz4KfROOuSJmVSz9CXMlYnNoDSZFOvrRO1VwapSndAMSwD1l2bUB0pk3EpNLTCU380xdHmpUrf3nHvTYlVYdZbyAtNPEtknNWSkkXkL36HJ0P9pjLs77GXUGOpenhNSgAGpWU3HRGfOS7oIqzgBVvDc98T-dm_P7TeIzkxiPQd3i8btaFxXa3rXXaKikPo8Wuin9usi28qFl2EEe6fNNzA1qDEBFgd3f-Us32qJw59lqQRrTfSkT6QskNBDdzzUIUBaJGgP2dEIlXxvCKIu00rsNKDEdeAn0ZiWPTRFBzm-8zIC8AsFIrFmvBB8b5VHBU9ya1RpQrZCTc6jMfVHfqY6KVVoHjVeUF4GcxZF1cS6R_tiyK0FwBUS8jPPFPE4xmwyKyvvjCtpdO6QT-DLPDwSmAQPKEjBViDQVy-Dmz-fuwnuLHT`,
       openObserver: {
         next: () => {
@@ -133,7 +143,12 @@ export class CiSocketService {
       closeObserver: {
         next: () => {
           console.log('[SocketService]: connection closed');
-          this.socket$ = undefined;
+
+          if (this.socket$) {
+            this.socket$?.unsubscribe();
+          }
+
+          // this.socket$ = undefined;
           if (this.closeByDestroy !== true) {
             this.connect({ reconnect: true });
           } else {

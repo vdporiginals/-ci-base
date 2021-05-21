@@ -1,6 +1,6 @@
-import { InjectionToken, Provider, ValueProvider } from '@angular/core';
+import { InjectionToken, Provider } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AccessTokenProvider, WebSocketConfig } from './websocket.interface';
+import { WebSocketConfig } from './websocket.interface';
 
 export const WEBSOCKET_CONFIG = new InjectionToken<WebSocketConfig>(
   'ci-websocket.config'
