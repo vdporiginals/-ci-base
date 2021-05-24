@@ -29,6 +29,5 @@ export abstract class BaseCiTable<TDataTable, TListTable> {
         type: type,
       });
     }
-    console.log(type);
   };
 }

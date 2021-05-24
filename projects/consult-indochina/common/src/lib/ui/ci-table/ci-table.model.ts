@@ -24,17 +24,6 @@ export type ListLabel = {
   };
 };
 
-export type obj<T = unknown> = Record<string, T>;
-
-type MyObjectType = {
-  id: obj; // An object with unknown props
-};
-
-export interface IDictionary {
-  id: Record<string, object>;
-  [id: string]: any;
-}
-
 export enum ActionTableEnum {
   button = 'action-button',
   icon = 'action-icon',

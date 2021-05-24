@@ -18,6 +18,7 @@ export abstract class Auth {
     Username: new FormControl(''),
     Password: new FormControl(''),
   });
+
   registerForm = new FormGroup({
     Email: new FormControl(''),
     Username: new FormControl(''),
@@ -27,24 +28,21 @@ export abstract class Auth {
     PhoneNumber: new FormControl(''),
     DateOfBirth: new FormControl(''),
     MediaURL: new FormControl(''),
-  })
+  });
   constructor(
     public readonly authService: CiAuthService,
     public readonly securityService: CiSecurityService
-    ) {
-
-    }
-
+  ) {}
 
   login(data: LoginData): Observable<AuthState> {
     return this.authService.login(data);
   }
 
-  logout(){
-		return this.authService.logout();
-	}
+  logout() {
+    return this.authService.logout();
+  }
 
-  signup(data: RegisterUser){
-		return this.securityService.register(data);
-	}
+  signup(data: RegisterUser) {
+    return this.securityService.register(data);
+  }
 }

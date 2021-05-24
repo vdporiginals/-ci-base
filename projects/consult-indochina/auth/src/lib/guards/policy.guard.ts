@@ -16,20 +16,19 @@ import { RedirectService } from '../services/redirect.service';
 @Injectable({
   providedIn: CiAuthModule,
 })
-export class PermissionGuard implements CanActivate, CanActivateChild, CanLoad {
+export class PolicyGuard implements CanActivate, CanActivateChild, CanLoad {
   constructor(
     private readonly redirectService: RedirectService,
     private readonly policyStateService: CiBasePolicyStateService
   ) {}
 
   canActivate(next: ActivatedRouteSnapshot): Observable<boolean> {
-    return this.hasPermission(next.data.permission);
+    return this.hasPermission(next.data.policy);
   }
 
   canActivateChild(next: ActivatedRouteSnapshot): Observable<boolean> {
-    const permissionData =
-      next.data.permission || next.parent?.data?.permission;
-    return this.hasPermission(permissionData);
+    const policyData = next.data.policy || next.parent?.data?.policy;
+    return this.hasPermission(policyData);
   }
 
   canLoad(route: Route, segments: UrlSegment[]): Observable<boolean> {
@@ -42,8 +41,8 @@ export class PermissionGuard implements CanActivate, CanActivateChild, CanLoad {
     segments: UrlSegment[] = []
   ): Observable<boolean> {
     if (permissionData) {
-      const [permission, privilege] = permissionData;
-      return this.policyStateService.hasPermission$(permission, privilege).pipe(
+      const [policy, privilege] = permissionData;
+      return this.policyStateService.hasPermission$(policy, privilege).pipe(
         tap((hasPermission) => {
           if (!hasPermission) {
             // HACK: This is a hack since using Router cannot navigate to an
