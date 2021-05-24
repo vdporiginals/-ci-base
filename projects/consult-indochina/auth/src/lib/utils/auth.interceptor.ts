@@ -82,8 +82,6 @@ export class CiAuthInterceptor implements HttpInterceptor {
 
         const cloned = CiAuthInterceptor.addToken(request, token);
         return defer(() => {
-          console.log(new Date(expiry).getTime() - curDate);
-
           if (expiry && new Date(expiry).getTime() - curDate <= 0) {
             return this.refreshToClonedRequest(request, next) as Observable<
               HttpEvent<unknown>

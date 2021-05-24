@@ -120,6 +120,9 @@ export class CiSocketService {
       this.accessToken =
         JSON.parse(localStorage.getItem('access_token') || '').access_token ||
         null;
+      if (!this.accessToken) {
+        console.log('none token provided');
+      }
     }
 
     return webSocket({
