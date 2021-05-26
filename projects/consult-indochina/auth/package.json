@@ -18,7 +18,6 @@
     "@angular/router": "~11.2.11"
   },
   "dependencies": {
-    "tslib": "^2.0.0",
-    "@rx-angular/state": "^1.4.3"
+    "tslib": "^2.0.0"
   }
 }

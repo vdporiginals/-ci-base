@@ -1,12 +1,19 @@
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import {
+  HttpClient,
+  HttpClientModule,
+  HTTP_INTERCEPTORS,
+} from '@angular/common/http';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { accessTokenFactory, CiAuthModule, CiAuthStateService } from '@consult-indochina/auth';
-import { CiLoginComponentModule } from 'projects/consult-indochina/auth/src/public-api';
-import { CiTableModule } from 'projects/consult-indochina/common/src/public-api';
-import { ACCESS_TOKEN_PROVIDER, CiWebsocketModule, FbChatDesignModule } from 'projects/consult-indochina/websocket/src/public-api';
+import {
+  CiAuthInterceptor,
+  CiAuthModule,
+  CiAuthStateService,
+} from '@consult-indochina/auth';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DynamicFormsComponent } from './dynamic-forms/dynamic-forms.component';
@@ -17,6 +24,10 @@ let getToken2;
 // new CiAuthStateService().select('AccessToken').subscribe((res) => {
 //   console.log(res);
 // });
+function initializeApp(ciAuthStateService: CiAuthStateService): any {
+  return () => ciAuthStateService.reset();
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,48 +39,55 @@ let getToken2;
   imports: [
     CommonModule,
     FormsModule,
-    CiTableModule,
-    FbChatDesignModule,
+    // CiTableModule,
+    // FbChatDesignModule,
     // CiPaginationComponentModule,
     // CiListComponentModule,
     // CiSearchInputComponentModule,
     BrowserModule,
     ReactiveFormsModule,
-    FormsModule,
+    // FormsModule,
     // CiMessageTextModule,
     // CiMessageListModule,
     HttpClientModule,
     AppRoutingModule,
 
-    CiWebsocketModule.forRoot(
-      {
-        RECONNECT_INTERVAL: 5000,
-        WS_ENDPOINT:
-          'wss://7o5p7mfv40.execute-api.ap-southeast-1.amazonaws.com/production',
-      },
-      {
-        provide: ACCESS_TOKEN_PROVIDER,
-        deps: [CiAuthStateService],
-        useFactory: accessTokenFactory,
-      }
-    ),
+    // CiWebsocketModule.forRoot(
+    //   {
+    //     RECONNECT_INTERVAL: 5000,
+    //     WS_ENDPOINT:
+    //       'wss://7o5p7mfv40.execute-api.ap-southeast-1.amazonaws.com/production',
+    //   },
+    //   {
+    //     provide: ACCESS_TOKEN_PROVIDER,
+    //     deps: [CiAuthStateService],
+    //     useFactory: accessTokenFactory,
+    //   }
+    // ),
     // CiAuthModule.forRoot({
     //   API_URL:
     //     'https://t39b2wqe1h.execute-api.ap-southeast-1.amazonaws.com/prod',
     // }),
-    CiLoginComponentModule,
-    CiAuthModule.forRoot({
-      PermissionNames: [],
-      API_URL:
-        'https://t39b2wqe1h.execute-api.ap-southeast-1.amazonaws.com/prod',
-    }),
+    // CiLoginComponentModule,
+    // CiAuthModule.forRoot({
+    //   PermissionNames: [],
+    //   uiOption: '',
+    //   API_URL:
+    //     'https://t39b2wqe1h.execute-api.ap-southeast-1.amazonaws.com/prod',
+    // }),
   ],
   providers: [
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: CiAuthInterceptor,
-    //   multi: true,
-    // },
+      {
+        provide: APP_INITIALIZER,
+        useFactory: initializeApp,
+        deps: [CiAuthStateService],
+        multi: true,
+      },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: CiAuthInterceptor,
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent],
 })

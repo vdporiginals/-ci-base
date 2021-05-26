@@ -7,10 +7,9 @@ import {
   pipe,
   Subscription,
   throwError,
-  timer,
+  timer
 } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
-import { CiAuthModule } from '../../ci-auth.module';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { RedirectService } from '../../services/redirect.service';
 import { AuthState, LoginData } from '../models/auth-response.interface';
@@ -19,7 +18,7 @@ import { CiAccountService } from './account.service';
 import { CiSecurityService } from './security.service';
 
 @Injectable({
-  providedIn: CiAuthModule,
+  providedIn: 'root',
 })
 export class CiAuthService {
   private jwtSubscription: Subscription | undefined;

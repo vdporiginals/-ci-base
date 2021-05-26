@@ -33,10 +33,10 @@ export class PermissionService {
       this.policyUserService
         .retrievePermissionsForUser()
         .pipe(logErrorAndReturn(() => of([])))
-        .subscribe((permissions) => {
+        .subscribe((policies) => {
           this.policyStateService.set({
-            permissions,
-            permissionsReady: true,
+            policies,
+            policiesReady: true,
           });
         });
     } else {
