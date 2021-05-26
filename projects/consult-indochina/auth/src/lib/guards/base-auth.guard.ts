@@ -5,9 +5,9 @@ import {
   CanLoad,
   Router,
 } from '@angular/router';
-import { CiAuthStateService } from '@consult-indochina/auth';
 import { Observable } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
+import { CiAuthStateService } from '../data-access/store/auth-state.service';
 
 @Injectable({
   providedIn: 'root',

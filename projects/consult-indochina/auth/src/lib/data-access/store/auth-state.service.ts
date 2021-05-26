@@ -16,8 +16,6 @@ export class CiAuthStateService extends RxState<AuthState> {
   //   sideNavAuthInfo$ = this.currentUser$;
 
   get isAuthorized(): boolean {
-    console.log('abc',this.get().AccessToken);
-
     return !!this.get().AccessToken;
   }
 
