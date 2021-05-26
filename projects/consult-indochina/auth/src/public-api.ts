@@ -18,6 +18,7 @@ export * from './lib/data-access/models/user.model';
 export * from './lib/data-access/store/auth-state.service';
 export * from './lib/data-access/store/policy-state.service';
 export * from './lib/guards/base-auth.guard';
+export * from './lib/guards/policy.guard';
 export * from './lib/utils/auth.interceptor';
 export * from './lib/utils/get-deepest';
 export * from './lib/utils/log-and-return';
