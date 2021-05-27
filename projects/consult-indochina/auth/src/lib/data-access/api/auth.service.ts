@@ -124,7 +124,7 @@ export class CiAuthService {
   }
 
   private setupRefreshTimer(expiresIn: number) {
-    const diffInMilli = expiresIn - 60;
+    const diffInMilli = expiresIn - 80;
     // Reset the timer if there's already one running
     this.jwtSubscription?.unsubscribe();
 
