@@ -3,7 +3,10 @@ export interface UserInterface {
   Username: string;
   FirstName: string;
   LastName: string;
-  AccountId: number;
+  AddessDetail?: string;
+  Nation?: string;
+  Province?: string;
+  District?: string;
   UserProfileId: number;
   PhoneNumber: string;
   DateOfBirth: string;

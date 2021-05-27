@@ -7,7 +7,7 @@ import {
   pipe,
   Subscription,
   throwError,
-  timer
+  timer,
 } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { LocalStorageService } from '../../services/local-storage.service';
@@ -26,7 +26,6 @@ export class CiAuthService {
     pipe(
       tap<AuthState>(({ RefreshToken, ExpiresIn }) => {
         // console.log(RefreshToken, ExpiresIn);
-        console.log(RefreshToken, ExpiresIn);
 
         if (RefreshToken) {
           this.localStorageService.set('rtok', RefreshToken);
@@ -46,7 +45,10 @@ export class CiAuthService {
         } = tokenRequest;
 
         let date = new Date().getTime() + ExpiresIn * 1000;
-
+        this.localStorageService.set(
+          'rtok_expire',
+          refreshTokenExpiresIn.toString()
+        );
         this.ciAuthStateService.set({
           AccessToken,
           RefreshToken: RefreshToken!,

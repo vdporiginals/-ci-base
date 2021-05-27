@@ -32,7 +32,7 @@ export class CiAuthInterceptor implements HttpInterceptor {
     const clone = req.clone({
       setHeaders: {
         'Content-Type': 'application/json',
-        Authorization: `${token}`,
+        Authorization: `Bearer ${token}`,
       },
       // headers: req.headers.set('Authorization', `${token}`),
     });

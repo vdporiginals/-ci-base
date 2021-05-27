@@ -1,4 +1,4 @@
-import { HttpBackend, HttpClient } from '@angular/common/http';
+import { HttpBackend, HttpClient, HttpHeaders } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -9,12 +9,11 @@ import { AuthState, LoginData } from '../models/auth-response.interface';
 import { RegisterUser } from '../models/register.model';
 
 @Injectable({
- 
   providedIn: CiAuthModule,
 })
 export class CiSecurityService {
   API_URL: string;
-  private http: HttpClient;
+  http: HttpClient;
   constructor(
     @Inject(AUTH_CONFIG) private authConfig: AuthConfig,
     public httpBack: HttpBackend
@@ -29,15 +28,23 @@ export class CiSecurityService {
     // console.log(data);
 
     return this.http
-      .post<AuthState>(this.API_URL + '/cognito/login', data)
+      .post<AuthState>(this.API_URL + '/cognito/login', data, {
+        headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      })
       .pipe(map((res: any) => res.payload as AuthState));
   }
 
   refresh(token: string) {
     return this.http
-      .post<AuthState>(`${this.API_URL}/cognito/refresh-token`, {
-        RefreshToken: token,
-      })
+      .post<AuthState>(
+        `${this.API_URL}/cognito/refresh-token`,
+        {
+          RefreshToken: token,
+        },
+        {
+          headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+        }
+      )
       .pipe(map((res: any) => res.payload));
   }
 
@@ -46,7 +53,9 @@ export class CiSecurityService {
   }
 
   confirmSignUp(body: { Username: string; ConfirmationCode: string | number }) {
-    return this.http.post(`${this.API_URL}/cognito/confirm-signup`, body);
+    return this.http.post(`${this.API_URL}/cognito/confirm-signup`, body, {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    });
   }
 
   resendConfirmCode(username: string) {
@@ -56,9 +65,15 @@ export class CiSecurityService {
   }
 
   forgotPassword(username: string) {
-    return this.http.post(`${this.API_URL}/cognito/forgot-password`, {
-      Username: username,
-    });
+    return this.http.post(
+      `${this.API_URL}/cognito/forgot-password`,
+      {
+        Username: username,
+      },
+      {
+        headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      }
+    );
   }
 
   confirmForgotPassword(body: {
@@ -66,6 +81,8 @@ export class CiSecurityService {
     ProposedPassword: string;
     ConfirmationCode: string | number;
   }) {
-    return this.http.put(`${this.API_URL}/cognito/forgot-password`, body);
+    return this.http.put(`${this.API_URL}/cognito/forgot-password`, body, {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    });
   }
 }
