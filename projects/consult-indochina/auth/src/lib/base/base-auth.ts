@@ -34,15 +34,21 @@ export abstract class Auth {
     public readonly securityService: CiSecurityService
   ) {}
 
-  login(data: LoginData): Observable<AuthState> {
-    return this.authService.login(data);
+  login(data: LoginData): void {
+    this.authService.login(data).subscribe((res) => {
+      console.log(res);
+    });
   }
 
   logout() {
-    return this.authService.logout();
+    this.authService.logout().subscribe((res) => {
+      console.log(res);
+    });
   }
 
   signup(data: RegisterUser) {
-    return this.securityService.register(data);
+    this.securityService.register(data).subscribe((res) => {
+      console.log(res);
+    });
   }
 }

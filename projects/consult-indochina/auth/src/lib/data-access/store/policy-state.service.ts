@@ -1,36 +1,34 @@
 import { Injectable } from '@angular/core';
-import { RxState } from '@rx-angular/state';
-import { PermissionNames } from '../../directives/base-permission.directive';
 import { Observable, of } from 'rxjs';
 import { map, take } from 'rxjs/operators';
-import { CiAuthModule } from '../../ci-auth.module';
+import { RxState } from '../../base/rx-state';
+import { PermissionNames } from '../../directives/base-permission.directive';
 
 export interface PermissionState {
-  permissions: PolicyModel[];
-  permissionsReady: boolean;
+  policies: PolicyModel[];
+  policiesReady: boolean;
 }
 export interface PolicyModel {
-  permissionId: string;
-  activity: any;
+  policyId: string;
+  activity: Privilege;
   locationId: number;
 }
 export enum Privilege {
-  Read = 1,
-  Create = 2,
-  Update = 4,
-  Delete = 8,
-  All = 15,
+  Read = 'GET',
+  Create = 'POST',
+  Update = 'PUT',
+  Delete = 'DELETE',
 }
 
 @Injectable({
-  providedIn: CiAuthModule,
+  providedIn: 'root',
 })
 export class CiBasePolicyStateService extends RxState<PermissionState> {
-  currentPermissions$ = this.select('permissions');
-  permissionReady$ = this.select('permissionsReady');
+  currentPermissions$ = this.select('policies');
+  permissionReady$ = this.select('policiesReady');
 
   reset(): void {
-    this.set({ permissions: [], permissionsReady: false });
+    this.set({ policies: [], policiesReady: false });
   }
 
   /**
@@ -59,8 +57,8 @@ export class CiBasePolicyStateService extends RxState<PermissionState> {
       map((permissions) =>
         permissions.some(
           (permission) =>
-            permission.permissionId === permissionToCheck && // accounts.manage === accounts.manage
-            (permission.activity & privilege) === privilege // (15 & 2) === 2
+            permission.policyId === permissionToCheck && // accounts.manage === accounts.manage
+            permission.activity === privilege // (15 & 2) === 2
         )
       ),
       take(1)

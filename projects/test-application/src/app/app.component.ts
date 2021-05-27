@@ -137,10 +137,10 @@ export class AppComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private loginService: LoginService,
+    // private loginService: LoginService,
     private router: Router,
     private messageService: MessageService,
-    private ciAuthState: CiAuthStateService // socketService: CiSocketService
+    private ciAuthStateService: CiAuthStateService // socketService: CiSocketService
   ) {
     // super(socketService);
     this.loginForm = this.fb.group({
@@ -166,14 +166,14 @@ export class AppComponent implements OnInit {
     //   console.log(res);
     // });
     let receive: string;
-    if (
-      JSON.parse(localStorage.getItem('access_token') as any).UserProfileId ==
-      '2323'
-    ) {
-      receive = '2053';
-    } else {
-      receive = '2323';
-    }
+    // if (
+    //   JSON.parse(localStorage.getItem('access_token') as any).UserProfileId ==
+    //   '2323'
+    // ) {
+    //   receive = '2053';
+    // } else {
+    //   receive = '2323';
+    // }
 
     // this.deleteSubject.asObservable().pipe(
     //   mergeMap((d1) =>
@@ -185,21 +185,21 @@ export class AppComponent implements OnInit {
     //     )
     //   )
     // );
-    this.his = merge(
-      this.messageService.getListMessage(receive).pipe(
-        map((res: any) => {
-          console.log(res);
+    // this.his = merge(
+    //   this.messageService.getListMessage(receive).pipe(
+    //     map((res: any) => {
+    //       console.log(res);
 
-          return res.body.Payload.reverse();
-        })
-      ),
-      this.deleteSubject
-    ).pipe(
-      scan((products: any[], product: any) => {
-        return this.delRandomScan(products, product);
-      }),
-      shareReplay(1)
-    );
+    //       return res.body.Payload.reverse();
+    //     })
+    //   ),
+    //   this.deleteSubject
+    // ).pipe(
+    //   scan((products: any[], product: any) => {
+    //     return this.delRandomScan(products, product);
+    //   }),
+    //   shareReplay(1)
+    // );
 
     // this.his = combineLatest([, this.deleteSubject]).pipe(
     //   tap(([items, deleteItem]) => {
@@ -246,14 +246,19 @@ export class AppComponent implements OnInit {
     // this.ciAccountService.getUserInfo();
     // this.questions$ = this.setUpForms();
     this.setupRouteTitleListener();
-    // this.ciAuthStateService.currentUser$.subscribe((res) => {
-    //   console.log(res);
-    // });
+    this.ciAuthStateService.currentUser$.subscribe((res) => {
+      console.log(res);
+    });
+    this.ciAuthStateService.set({ AccessToken: 'asdasd', ExpireDate: 'asf' });
+    this.ciAuthStateService.select('AccessToken').subscribe(res=>{
+      console.log(res);
+      
+    })
     // this.authService.retrieveTokenOnPageLoad(); // setup authState
-    // this.ciAuthStateService.isAuthorized$.subscribe(() => {
-    //   // this.policyService.loadPermissions(); // setup permissionState
-    //   // this.featureFlagService.loadFeatures();
-    // });
+    this.ciAuthStateService.isAuthorized$.subscribe(() => {
+      // this.policyService.loadPermissions(); // setup permissionState
+      // this.featureFlagService.loadFeatures();
+    });
   }
   handleCallbackEventEdit = (ev: any) => {
     console.log(ev);

@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
-import { RxState } from '@rx-angular/state';
 import { map } from 'rxjs/operators';
-import { CiAuthModule } from '../../ci-auth.module';
+import { RxState } from '../../base/rx-state';
 import { AuthState } from '../models/auth-response.interface';
 
 @Injectable({
-  providedIn: CiAuthModule,
+  providedIn: 'root',
 })
 export class CiAuthStateService extends RxState<AuthState> {
   token$ = this.select('AccessToken');
