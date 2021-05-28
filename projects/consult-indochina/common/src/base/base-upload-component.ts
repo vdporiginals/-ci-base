@@ -1,5 +1,5 @@
 import { Directive } from '@angular/core';
-import { from, merge, Observable, of } from 'rxjs';
+import { combineLatest, from, merge, Observable, of } from 'rxjs';
 import { concatMap, switchMap, tap } from 'rxjs/operators';
 import { S3FileService } from '../lib/services/s3-file.service';
 
@@ -8,7 +8,7 @@ export abstract class BaseUploadComponent {
   imageLinkUpload!: string;
   fileType!: string[];
   fileName!: string;
-
+  fileLinkList: string[] = [];
   constructor(public s3Service: S3FileService) {}
   selectImage(file: File[]): Observable<any> {
     this.fileType = file[0].name.split('.');
@@ -31,9 +31,8 @@ export abstract class BaseUploadComponent {
   }
 
   multipleUpload(file: File[]): Observable<any> {
-    let fileLinkList: string[] = [];
     return from(file).pipe(
-      switchMap((f) => {
+      concatMap((f) => {
         let fileName = f.name.substr(0, file[0].name.indexOf('.'));
         let typeFile = f.name.split('.');
         return this.s3Service
@@ -45,13 +44,12 @@ export abstract class BaseUploadComponent {
           .pipe(
             concatMap((res: any) => {
               // fileLink = ;
-              fileLinkList.push(
+              this.fileLinkList.push(
                 res.payload.substr(0, res.payload.indexOf('?'))
               );
-              return merge(
-                of(fileLinkList),
-                this.s3Service.uploadImage(res.payload, f, f.type)
-              );
+              console.log(this.fileLinkList);
+
+              return this.s3Service.uploadImage(res.payload, f, f.type);
             })
           );
       })
