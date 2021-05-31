@@ -3,6 +3,10 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CiAuthStateService } from '@consult-indochina/auth';
 import {
+  BaseConnectorComponent,
+  CiSocketService,
+} from '@consult-indochina/websocket';
+import {
   ActionTableEnum,
   DataTable,
   ListLabel,
@@ -19,7 +23,7 @@ import { MessageService } from './services/message.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent extends BaseConnectorComponent implements OnInit {
   title = 'test-application';
   textSearch: FormControl = new FormControl();
   // questions$!: Observable<CiBaseFormsModel<any>[]>;
@@ -137,12 +141,13 @@ export class AppComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    socketService: CiSocketService,
     // private loginService: LoginService,
     private router: Router,
     private messageService: MessageService,
     private ciAuthStateService: CiAuthStateService // socketService: CiSocketService
   ) {
-    // super(socketService);
+    super(socketService);
     this.loginForm = this.fb.group({
       grant_type: ['password'],
       username: ['', Validators.required],
@@ -161,6 +166,9 @@ export class AppComponent implements OnInit {
   // ) {}
 
   ngOnInit() {
+    this.connectSocket$().subscribe((res) => {
+      console.log(res);
+    });
     // this.getHistory();
     // this.connectSocket$().subscribe((res) => {
     //   console.log(res);
@@ -250,10 +258,9 @@ export class AppComponent implements OnInit {
       console.log(res);
     });
     this.ciAuthStateService.set({ AccessToken: 'asdasd', ExpireDate: 'asf' });
-    this.ciAuthStateService.select('AccessToken').subscribe(res=>{
+    this.ciAuthStateService.select('AccessToken').subscribe((res) => {
       console.log(res);
-      
-    })
+    });
     // this.authService.retrieveTokenOnPageLoad(); // setup authState
     this.ciAuthStateService.isAuthorized$.subscribe(() => {
       // this.policyService.loadPermissions(); // setup permissionState

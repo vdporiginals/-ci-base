@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/member-ordering */
 import { Inject, Injectable } from '@angular/core';
-import { BehaviorSubject, EMPTY, Observable, timer } from 'rxjs';
+import { BehaviorSubject, EMPTY, Observable, Subject, timer } from 'rxjs';
 import {
   catchError,
   delay,
@@ -26,11 +26,9 @@ import { CiWebsocketModule } from '../websocket.module';
 export class CiSocketService {
   private RECONNECT_INTERVAL: number = 15000;
   private WS_ENDPOINT: string;
-  private socket$: WebSocketSubject<any> | undefined;
+  private socket$!: WebSocketSubject<any>;
   private accessToken: string = '';
-  private messagesSubject$: BehaviorSubject<any[]> = new BehaviorSubject<any[]>(
-    []
-  );
+  private messagesSubject$: Subject<any> = new Subject();
   public messages$ = this.messagesSubject$.pipe(
     // switchMap((data: any) => from(data)),
     switchAll(),
@@ -64,19 +62,16 @@ export class CiSocketService {
    * @param cfg if true the observable will be retried.
    */
   public connect(cfg: { reconnect: boolean } = { reconnect: false }): void {
-    if (!this.socket$ || this.socket$.closed) {
-      this.socket$ = this.getNewWebSocket();
-      const messages: any = this.socket$.pipe(
-        cfg.reconnect ? this.reconnect : (o: any) => o,
-        tap({
-          error: (error) => console.log(error),
-        }),
-        catchError((_) => EMPTY)
-      );
-
-      //toDO only next an observable if a new subscription was made double-check this
-      this.messagesSubject$.next(messages);
+    if (this.socket$) {
+      this.socket$.complete();
     }
+
+    this.socket$ = new WebSocketSubject(
+      this.getNewWebSocket().pipe(
+        cfg.reconnect ? this.reconnect.bind(this) : (o) => o,
+        tap((message) => this.messagesSubject$.next(message))
+      )
+    );
   }
 
   /**
@@ -85,11 +80,10 @@ export class CiSocketService {
    */
   private reconnect(observable: Observable<any>): Observable<any> {
     return observable.pipe(
-      delay(1000),
       retryWhen((errors) =>
         errors.pipe(
           tap((val) => console.log('[Socket Service] Try to reconnect', val)),
-          delayWhen((_) => timer(this.RECONNECT_INTERVAL))
+          delay(this.RECONNECT_INTERVAL || 5000)
         )
       )
     );
@@ -100,7 +94,6 @@ export class CiSocketService {
     if (this.socket$) {
       this.socket$.complete();
     }
-    this.socket$ = undefined;
     this.messagesSubject$.next([]);
   }
 
@@ -120,7 +113,7 @@ export class CiSocketService {
       this.accessToken =
         JSON.parse(localStorage.getItem('access_token') || '').access_token ||
         null;
-      if (!this.accessToken) {
+      if (!this.accessToken || this.accessToken == '') {
         console.log('none token provided');
       }
     }
