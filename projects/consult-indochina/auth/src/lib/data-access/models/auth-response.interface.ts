@@ -8,7 +8,7 @@ export interface AuthState {
   NewDeviceMetadata: string;
   RefreshToken: string;
   refreshTokenExpiresIn: number;
-  user: UserInterface | null;
+  user: UserInterface;
   TokenType: string;
 }
 

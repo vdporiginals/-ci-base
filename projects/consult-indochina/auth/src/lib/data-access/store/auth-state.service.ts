@@ -14,7 +14,10 @@ export class CiAuthStateService extends RxState<AuthState> {
   currentUser$ = this.select('user');
   isAuthorized$ = this.token$.pipe(map(Boolean));
   //   sideNavAuthInfo$ = this.currentUser$;
-
+  currentName$ = this.select('user').pipe(
+    map((a) => `${a.LastName} ${a.FirstName}`)
+  );
+  currentAvatar$ = this.select('user').pipe(map((a) => a.MediaURL));
   get isAuthorized(): boolean {
     return !!this.get().AccessToken;
   }
@@ -25,7 +28,7 @@ export class CiAuthStateService extends RxState<AuthState> {
       refreshTokenExpiresIn: undefined,
       AccessToken: '',
       ExpiresIn: undefined,
-      user: null,
+      user: undefined,
       ExpireDate: undefined,
       //   checkAccountHideTransaction: false,
     });
