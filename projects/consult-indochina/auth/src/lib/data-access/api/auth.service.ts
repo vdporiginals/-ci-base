@@ -40,21 +40,21 @@ export class CiAuthService {
           AccessToken,
           RefreshToken,
           ExpiresIn,
-          refreshTokenExpiresIn,
+          RefreshTokenExpiresIn,
           // user,
         } = tokenRequest;
 
         let date = new Date().getTime() + ExpiresIn * 1000;
         this.localStorageService.set(
           'rtok_expire',
-          refreshTokenExpiresIn.toString()
+          RefreshTokenExpiresIn.toString()
         );
         this.ciAuthStateService.set({
           AccessToken,
           RefreshToken: RefreshToken!,
           ExpiresIn,
           ExpireDate: new Date(date).toISOString(),
-          refreshTokenExpiresIn,
+          RefreshTokenExpiresIn,
           // user,
         });
 

@@ -21,11 +21,10 @@ export class CiAuthStateService extends RxState<AuthState> {
   get isAuthorized(): boolean {
     return !!this.get().AccessToken;
   }
-  abc() {}
   reset(): void {
     this.set({
       RefreshToken: '',
-      refreshTokenExpiresIn: undefined,
+      RefreshTokenExpiresIn: undefined,
       AccessToken: '',
       ExpiresIn: undefined,
       user: undefined,
