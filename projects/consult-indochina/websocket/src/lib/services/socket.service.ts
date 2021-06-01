@@ -1,15 +1,8 @@
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/member-ordering */
 import { Inject, Injectable } from '@angular/core';
-import { BehaviorSubject, EMPTY, Observable, Subject, timer } from 'rxjs';
-import {
-  catchError,
-  delay,
-  delayWhen,
-  retryWhen,
-  switchAll,
-  tap,
-} from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+import { catchError, delay, retryWhen, switchAll, tap } from 'rxjs/operators';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
 import {
   ACCESS_TOKEN_PROVIDER,
